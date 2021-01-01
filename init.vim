@@ -1,66 +1,66 @@
-" Genral Setting
-"---------------------
 filetype plugin indent on
 syntax on
-set showmatch
-set undodir=~/.local/share/nvim/site/undodir
-set undofile
-set undolevels=500
-set nobackup
-set noswapfile
-set hidden                                  " Needed to keep multiple buffers open
-set nu rnu                                  " relative line numbering
-set nohls                                   " highlight search
-set listchars=tab:>>,nbsp:~                 " set list to see tabs and non-breakable spaces
-set lbr                                     " line break
-set scrolloff=4                             " show lines above and below cursor (when possible)
-set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set lazyredraw                              " skip redrawing screen in some cases
-set hidden                                  " allow auto-hiding of edited buffers
-set confirm
-set ignorecase smartcase
-set wildmode=longest,list
-set mouse+=a                                " enable mouse mode (scrolling, selection, etc)
-set noerrorbells
-set updatetime=50
-set completeopt=menuone,noinsert,noselect shortmess+=c
-set pumheight=7
 
-set expandtab
-set smartindent autoindent
+set number relativenumber   " relative line numbering
+set nohlsearch              " highlight search
+set hidden                  " Needed to keep multiple buffers open
+set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
+set expandtab
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.local/share/nvim/site/undodir
+set undofile
+set incsearch
+set termguicolors
+set scrolloff=4             " show lines above and below cursor (when possible)
+set noshowmode
+set completeopt=menuone,noinsert,noselect 
+set signcolumn=yes
+
+set cmdheight=2
+set updatetime=50
+set shortmess+=cI
+set colorcolumn=80
+
+set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
+set linebreak               " line break
+set timeout timeoutlen=1000 ttimeoutlen=100 
+set lazyredraw              " skip redrawing screen in some cases
+set confirm
+set wildmode=longest,list
+set mouse+=a                " enable mouse mode (scrolling, selection, etc)
+
+set smartindent autoindent
 
 set t_Co=256
-set guifont=Hack\ Nerd\ Font:h13
 set conceallevel=2
-set concealcursor-=n
+set concealcursor=
+set pumheight=8
 
-function! s:patch_gruvbox_colors()
+augroup PatchHightlightAndColorScheme
+    hi Conceal ctermbg=None
     hi Normal ctermbg=None
     hi LineNr ctermfg=DarkGrey
-endfunction
+    colorscheme gruvbox
+augroup END
 
-autocmd! ColorScheme gruvbox call s:patch_gruvbox_colors()
-colorscheme gruvbox
-
-" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
-"--------------------
-" Splits and Tabbed Files
-"--------------------
+augroup HighlightYank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
+augroup END
+
 set splitbelow splitright
 set fillchars+=vert:\ 
-
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
 
 noremap <silent> <C-Left> :vertical resize -3<CR>
 noremap <silent> <C-Right> :vertical resize +3<CR>
@@ -72,90 +72,79 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_localrmdir='rm -r'
 
-"--------------------
-" Misc configurations
-"--------------------
 set mmp=5000
 set spelllang=en_us
 
-" Magic cursor switching
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
-
-"--------------------
-" Mappings
-"--------------------
 let mapleader = ' '
 
-"imap ii <ESC>
+imap jj <ESC>
+
 nnoremap j gj
 nnoremap k gk
 nnoremap < <<
 nnoremap > >>
 
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
+
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
 
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-noremap <LEADER>rc :e ~/.config/nvim/init.vim<CR>
-noremap <LEADER>vc :vsp ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>rc :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>vrc :vsp ~/.config/nvim/init.vim<CR>
+nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 
-" unbind keys
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 map <C-a> <Nop>
 map <C-x> <Nop>
 nmap Q <Nop>
 
-"------------------
-" Vim-Plug
-"------------------
 call plug#begin('~/.config/nvim/plugged')
-    
+
 "{{ The Basics }}
-    Plug 'yggdroot/indentline'
+    Plug 'mhinz/vim-startify'
     Plug 'tpope/vim-fugitive'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'itchyny/lightline.vim'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"{{ LSP Support }}
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-lua/completion-nvim'
+
+"{{ Debugger Plugins }}
+    " Plug 'puremourning/vimspector'
+    Plug 'szw/vim-maximizer'
 
 "{{ File Management }}
     Plug 'preservim/nerdtree'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+    Plug 'stsewd/fzf-checkout.vim'
 
 "{{ Code Navigation }}
     Plug 'preservim/tagbar'
     Plug 'haya14busa/incsearch.vim'
 
-"{{ LSP Support }}
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/completion-nvim'
-    Plug 'nvim-lua/diagnostic-nvim'
- 
 "{{ Formatting }}
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
-    Plug 'junegunn/vim-easy-align'
     Plug 'sjl/gundo.vim'
+    Plug 'junegunn/vim-easy-align'
 
 "{{ Syntax Highlighting }}
-    Plug 'luochen1990/rainbow'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'keith/swift.vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
-"{{ Snippets }}
-    Plug 'sirver/ultisnips'
-    "Plug 'honza/vim-snippets'
-
 "{{ Productivity }}
-    Plug 'junegunn/goyo.vim'
-    Plug 'vimwiki/vimwiki'
-
-"{{ Color Scheme }}
-    Plug 'itchyny/lightline.vim'
-    Plug 'junegunn/limelight.vim'
-    Plug 'ryanoasis/vim-devicons'
+    Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+    Plug 'vuciv/vim-bujo'
 
 "{{ Latex Related }}
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
@@ -166,18 +155,168 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
+"{{ Fire Nvim }}
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
+
+"{{ Telescope }}
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/telescope.nvim'
+
+    Plug 'sirver/ultisnips'
     Plug 'theprimeagen/vim-be-good'
+    Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
-"------------------
-" Basics
-"------------------
-" indentline
-"let g:indentLine_concealcursor = ''
-let g:indentLine_fileTypeExclude = ['markdown','vimwiki']
+" [[ Startify ]]
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_session_autoload = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']                        },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']                     },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']                    },
+          \ { 'type': 'commands',  'header': ['   Commands']       },
+          \ ]
+let g:startify_fortune_use_unicode = 1
+let g:startify_bookmarks = [
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'z': '~/.zshrc' },
+            \ ]
 
-" lightline
+let entry_format = "'   ['. index .']'. repeat(' ', (3 - strlen(index)))"
+if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    let entry_format .= ". WebDevIconsGetFileTypeSymbol(entry_path) .' '.  entry_path"
+else
+    let entry_format .= '. entry_path'
+endif
+
+
+" [[ NERDTree ]]
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>o :NERDTreeToggle %<CR> 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeShowLineNumbers=1
+let NERDTreeMinimalUI=1
+let g:NERDTreeWinSize=38 
+
+" [[ FZF ]]
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_branch_actions = {
+      \ 'rebase': {
+      \   'prompt': 'Rebase> ',
+      \   'execute': 'echo system("{git} rebase {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-r',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \ 'track': {
+      \   'prompt': 'Track> ',
+      \   'execute': 'echo system("{git} checkout --track {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-t',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \}
+
+lua require('telescope').setup({defaults = {file_sorter = require('telescope.sorters').get_fzy_sorter}})
+
+nnoremap <Leader>gc :GBranches<CR>
+nnoremap <Leader>ga :Git fetch --all<CR>
+nnoremap <Leader>grum :Git rebase upstream/master<CR>
+nnoremap <Leader>grom :Git rebase origin/master<CR>
+nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
+nnoremap <Leader>pb :lua require('telescope.builtin').buffers()<CR>
+nnoremap <Leader>vh :lua require('telescope.builtin').help_tags()<CR>
+nnoremap <Leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
+nnoremap <Leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
+nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
+nnoremap <Leader>rp :resize 100<CR>
+vnoremap J :m '>+1<CR>gv=gK
+vnoremap K :m '<-2<CR>gv=gvr
+
+" [[ Bujo ]]
+nmap <Leader>tu <Plug>BujoChecknormal
+nmap <Leader>th <Plug>BujoAddnormal
+let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
+
+" [[ Tagbar ]]
+nmap <Leader>t :TagbarToggle<CR>
+
+" [[ IncSearch ]]
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" [[ Tree Shitter ]]
+lua << EOF
+    require'nvim-treesitter.configs'.setup {
+        ensure_installed = "maintained",
+        highlight = {
+            enable = true,
+            disable = {"markdown", "css"},
+        },
+    }
+EOF
+
+" [[ UltiSnips ]]
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+let g:UltiSnipsEditSplit="vertical"
+
+
+" [[ LSP ]]
+lua << EOF
+    require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
+    require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
+    require'lspconfig'.sourcekit.setup{ on_attach=require'completion'.on_attach,
+                \ filetypes={"swift"}
+                \ }
+EOF
+
+let g:vimsyn_embed = "l"
+let g:completion_confirm_key = ""
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_matching_smart_case = 1
+let g:completion_trigger_on_delete = 1
+
+nnoremap <Leader>vd :lua vim.lsp.buf.definition()<CR>
+nnoremap <Leader>vi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <Leader>vsh :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <Leader>vrr :lua vim.lsp.buf.references()<CR>
+nnoremap <Leader>vrn :lua vim.lsp.buf.rename()<CR>
+nnoremap <Leader>vh :lua vim.lsp.buf.hover()<CR>
+nnoremap <Leader>vca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <Leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+command! Format execute 'lua vim.lsp.buf.formatting()'
+nnoremap <Leader>F :Format<CR>
+ 
+" [[ Easy Align ]]
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" [[ Gundo ]]
+nnoremap <Leader>u :GundoToggle<CR>
+if has('python3')
+    let g:gundo_prefer_python3=1
+endif
+
+" [[ Lightline ]]
 let g:lightline={
     \ 'component_function': {
     \   'filetype': 'MyFiletype',
@@ -194,191 +333,54 @@ function! MyFileformat()
 return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-"------------------
-" File Management
-"------------------
-" NERDTree
-nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>o :NERDTreeToggle %<CR> 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeShowLineNumbers=1
-let NERDTreeMinimalUI=1
-let g:NERDTreeWinSize=38 
-
-" fzf
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <Leader>f :Rg<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
-
-"------------------
-" Code Navigation
-"------------------
-" Tagbar
-nmap <Leader>t :TagbarToggle<CR>
-
-" incsearch.vim
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-"------------------
-" LSP Support
-"------------------
-let g:diagnostic_virtual_text_prefix = ''
-let g:diagnostic_enable_virtual_text = 1
-let g:vimsyn_embed= 'l'
-let g:completion_confirm_key = "\<C-y>"
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_matching_smart_case = 1
-let g:completion_trigger_on_delete = 1
-
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-:lua << EOF
-  local nvim_lsp = require('lspconfig')
-  local on_attach = function(_, bufnr)
-    require('completion').on_attach()
-    local opts = { noremap=true, silent=true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xd', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
-  end
-  local servers = {'clangd', 'pyls', 'sourcekit'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-    }
-  end
-EOF
-
-"lua require'lspconfig'.sourcekit.setup{on_attach=require'completion'.on_attach, settings={filetypes={"swift"}}}
-command! Format execute 'lua vim.lsp.buf.formatting()'
-nnoremap <Leader>F :Format<CR>
- 
-"------------------
-" Formatting
-"------------------
-" vim-commentary
-
-" vim-easy-align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
-" gundo
-nnoremap <Leader>u :GundoToggle<CR>
-if has('python3')
-    let g:gundo_prefer_python3=1
-endif
-
-"---------------------
-" Syntax Highlighting
-"---------------------
-" Treesitter
-:lua << EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",
-    highlight = {
-      enable = true,
-      disable = { },
-    },
-  }
-    require "nvim-treesitter.parsers".get_parser_configs().markdown = nil
-EOF
-
-" vim-rainbow
-let g:rainbow_active=1
-let g:rainbow_conf = {
-	\	'separately': {
-	\		'nerdtree': 0,
-	\	}
-	\}
-
-"---------------------
-" Snippets
-"---------------------
-" ultisnips
-"let g:UltiSnipsSnippetDirectories = ["/Users/helen/.config/nvim/vim-snips"]
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-let g:UltiSnipsEditSplit="vertical"
-
-"---------------------
-" Productivity
-"---------------------
-" Goyo & Limelight
-map <LEADER>gy :Goyo<CR>
-
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_eop = '\ze\n^\s'
-let g:limelight_priority = -1
-
-function! s:goyo_enter()
-    if executable('tmux') && strlen($TMUX)
-        silent !tmux set status off
-        silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-    endif
-    set noshowmode
-    set noshowcmd
-    set scrolloff=999
-    Limelight
-endfunction
-
-function! s:goyo_leave()
-    if executable('tmux') && strlen($TMUX)
-        silent !tmux set status on
-        silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    endif
-    set showmode
-    set showcmd
-    set scrolloff=5
-    Limelight!
-    colorscheme gruvbox
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-" vimwiki
-autocmd FileType vimwiki UltiSnipsAddFiletypes vimwiki
+" [[ Vimwiki ]]
 let g:vimwiki_global_ext = 0
-let g:vimwiki_table_mappings = 0
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown',
-                      \ }]
+let g:vimwiki_key_mappings = { 'table_mappings': 0, }
+let g:vimwiki_list = [{
+	\ 'path': '~/vimwiki',
+	\ 'template_path': '~/vimwiki/templates/',
+	\ 'template_default': 'default',
+	\ 'syntax': 'markdown',
+	\ 'ext': '.md',
+	\ 'path_html': '~/vimwiki/site_html/',
+	\ 'custom_wiki2html': 'vimwiki_markdown',
+	\ 'template_ext': '.tpl'}]
 
-"--------------------
-" Latex Related
-"---------------------
+" [[ Latex Live-Preview ]]
 let g:livepreview_previewer='open -a Skim'
 let g:livepreview_engine='xelatex'
 let g:tex_flavor='latex'
 "let g:tex_conceal='abdmg'
 let g:tex_conceal=""
 let g:tex_conceal_frac=1
-hi Conceal ctermbg=none
 autocmd Filetype tex setl updatetime=400
 
-"---------------------
-" Markdown Related
-"---------------------
+" [[ Markdown ]]
 nnoremap <Leader>mm :MarkdownPreview<CR>
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_math=1
-"let g:vim_markdown_conceal=2
 let g:markdown_fenced_languages=['swift', 'vim']
 
 let g:mkdp_auto_close=0
-let g:mkdp_filetypes = ['markdown', 'vimwiki']
+let g:mkdp_filetypes = ['markdown']
+    
+" [[ Firenvim ]]
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'always',
+        \ },
+    \ }
+\ }
+let fc = g:firenvim_config['localSettings']
+let fc['https://youtube.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://instagram.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://twitter.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https://.*gmail.com.*'] = { 'takeover': 'never', 'priority': 1 }
+let fc['https?://.*twitch.tv.*'] = { 'takeover': 'never', 'priority': 1 }
