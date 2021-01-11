@@ -25,7 +25,16 @@ set colorcolumn=80
 
 set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
 set linebreak               " line break
-set timeout timeoutlen=1000 ttimeoutlen=100 
+set timeout timeoutlen=1000 ttimeoutlen=100
 set lazyredraw              " skip redrawing screen in some cases
 set confirm
 set wildmode=longest,list
+
+set conceallevel=2
+set concealcursor=
+set pumheight=8
+
+set splitbelow splitright
+
+set mmp=5000
+set spelllang=en_us

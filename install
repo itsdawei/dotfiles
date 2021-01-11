@@ -5,6 +5,6 @@ mkdir -p ~/.config/nvim/lua
 
 # auto symlink
 for f in `find . -regex ".*\.vim$\|.*\.lua$"`; do
-	rm -rf !/.config/nvim/$f
-	ln -s !/dotfiles/$f ~/.config/nvim/$f
+	rm -rf ~/.config/nvim/$f
+	ln -s ~/dotfiles/$f ~/.config/nvim/$f
 done
