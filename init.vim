@@ -1,76 +1,20 @@
 filetype plugin indent on
 syntax on
 
-set number relativenumber   " relative line numbering
-set nohlsearch              " highlight search
-set hidden                  " Needed to keep multiple buffers open
-set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
-set nowrap
-set smartcase
-set noswapfile
-set nobackup
-set undodir=~/.local/share/nvim/site/undodir
-set undofile
-set incsearch
-set termguicolors
-set scrolloff=4             " show lines above and below cursor (when possible)
-set noshowmode
-set completeopt=menuone,noinsert,noselect 
-set signcolumn=yes
-
-set cmdheight=2
-set updatetime=50
-set shortmess+=cI
-set colorcolumn=80
-
-set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
-set linebreak               " line break
-set timeout timeoutlen=1000 ttimeoutlen=100 
-set lazyredraw              " skip redrawing screen in some cases
-set confirm
-set wildmode=longest,list
-set mouse+=a                " enable mouse mode (scrolling, selection, etc)
-
-set smartindent autoindent
+set exrc
 
 set t_Co=256
 set conceallevel=2
 set concealcursor=
 set pumheight=8
 
-augroup PatchHightlightAndColorScheme
-    hi Conceal ctermbg=None
-    hi Normal ctermbg=None
-    hi LineNr ctermfg=DarkGrey
-    colorscheme gruvbox
-augroup END
-
-augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-augroup END
-
-augroup HighlightYank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
-augroup END
-
 set splitbelow splitright
-set fillchars+=vert:\ 
+" set fillchars+=vert:\ 
 
 noremap <silent> <C-Left> :vertical resize -3<CR>
 noremap <silent> <C-Right> :vertical resize +3<CR>
 noremap <silent> <C-Up> :resize -3<CR>
 noremap <silent> <C-Down> :resize +3<CR>
-
-let g:netrw_browse_split = 2
-let g:netrw_banner = 0
-let g:netrw_winsize = 25
-let g:netrw_localrmdir='rm -r'
 
 set mmp=5000
 set spelllang=en_us
@@ -109,7 +53,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'mhinz/vim-startify'
     Plug 'tpope/vim-fugitive'
     Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'itchyny/lightline.vim'
+    " Plug 'itchyny/lightline.vim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -167,6 +111,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'theprimeagen/vim-be-good'
     Plug 'tpope/vim-dispatch'
 
+    Plug 'gruvbox-community/gruvbox'
+
 call plug#end()
 
 " [[ Startify ]]
@@ -204,42 +150,11 @@ let NERDTreeMinimalUI=1
 let g:NERDTreeWinSize=38 
 
 " [[ FZF ]]
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-let g:fzf_branch_actions = {
-      \ 'rebase': {
-      \   'prompt': 'Rebase> ',
-      \   'execute': 'echo system("{git} rebase {branch}")',
-      \   'multiple': v:false,
-      \   'keymap': 'ctrl-r',
-      \   'required': ['branch'],
-      \   'confirm': v:false,
-      \ },
-      \ 'track': {
-      \   'prompt': 'Track> ',
-      \   'execute': 'echo system("{git} checkout --track {branch}")',
-      \   'multiple': v:false,
-      \   'keymap': 'ctrl-t',
-      \   'required': ['branch'],
-      \   'confirm': v:false,
-      \ },
-      \}
 
-lua require('telescope').setup({defaults = {file_sorter = require('telescope.sorters').get_fzy_sorter}})
 
-nnoremap <Leader>gc :GBranches<CR>
-nnoremap <Leader>ga :Git fetch --all<CR>
-nnoremap <Leader>grum :Git rebase upstream/master<CR>
-nnoremap <Leader>grom :Git rebase origin/master<CR>
 nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
-nnoremap <Leader>pb :lua require('telescope.builtin').buffers()<CR>
-nnoremap <Leader>vh :lua require('telescope.builtin').help_tags()<CR>
 nnoremap <Leader>bs /<C-R>=escape(expand("<cWORD>"), "/")<CR><CR>
 nnoremap <Leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
-nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
-nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
 nnoremap <Leader>rp :resize 100<CR>
 vnoremap J :m '>+1<CR>gv=gK
 vnoremap K :m '<-2<CR>gv=gvr
@@ -276,31 +191,10 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 " [[ LSP ]]
-lua << EOF
-    require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
-    require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
-    require'lspconfig'.sourcekit.setup{ on_attach=require'completion'.on_attach,
-                \ filetypes={"swift"}
-                \ }
-EOF
-
 let g:vimsyn_embed = "l"
 let g:completion_confirm_key = ""
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_matching_smart_case = 1
 let g:completion_trigger_on_delete = 1
-
-nnoremap <Leader>vd :lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>vi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <Leader>vsh :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <Leader>vrr :lua vim.lsp.buf.references()<CR>
-nnoremap <Leader>vrn :lua vim.lsp.buf.rename()<CR>
-nnoremap <Leader>vh :lua vim.lsp.buf.hover()<CR>
-nnoremap <Leader>vca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <Leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 command! Format execute 'lua vim.lsp.buf.formatting()'
@@ -363,24 +257,3 @@ let g:markdown_fenced_languages=['swift', 'vim']
 
 let g:mkdp_auto_close=0
 let g:mkdp_filetypes = ['markdown']
-    
-" [[ Firenvim ]]
-let g:firenvim_config = {
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'always',
-        \ },
-    \ }
-\ }
-let fc = g:firenvim_config['localSettings']
-let fc['https://youtube.com.*'] = { 'takeover': 'never', 'priority': 1 }
-let fc['https?://instagram.com.*'] = { 'takeover': 'never', 'priority': 1 }
-let fc['https?://twitter.com.*'] = { 'takeover': 'never', 'priority': 1 }
-let fc['https://.*gmail.com.*'] = { 'takeover': 'never', 'priority': 1 }
-let fc['https?://.*twitch.tv.*'] = { 'takeover': 'never', 'priority': 1 }
