@@ -1,7 +1,6 @@
 ### Using this repo as a [bare repository](https://www.atlassian.com/git/tutorials/dotfiles)
 Run setup script
 ```bash
-echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
 git clone --bare https://bitbucket.org/durdn/cfg.git $HOME/.cfg
 function config {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
