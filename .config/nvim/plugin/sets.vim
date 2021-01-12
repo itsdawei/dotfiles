@@ -38,3 +38,5 @@ set splitbelow splitright
 
 set mmp=5000
 set spelllang=en_us
+
+set mouse=a
