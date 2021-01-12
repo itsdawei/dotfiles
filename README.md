@@ -19,6 +19,7 @@ config config status.showUntrackedFiles no
 
 ### neovim
 > For Arch Linux
+
 install neovim 
 ```
 yay -S neovim-nightly-bin
