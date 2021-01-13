@@ -54,7 +54,7 @@ call plug#begin('~/.vim/plugged')
 
 "{{ Markdown }}
     Plug 'godlygeek/tabular'
-    Plug 'plasticboy/vim-markdown'
+    " Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 "{{ Fire Nvim }}
@@ -99,10 +99,10 @@ let loaded_matchparen = 1
 let mapleader = ' '
 
 nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <C-l> :wincmd l<CR>
+nnoremap <Leader>h :wincmd h<CR>
+nnoremap <Leader>j :wincmd j<CR>
+nnoremap <Leader>k :wincmd k<CR>
+nnoremap <Leader>l :wincmd l<CR>
 nnoremap <Leader>u :UndotreeShow<CR>
 nnoremap <Leader>pv :Sex!<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
