@@ -1,4 +1,4 @@
-set completeopt=menuone,noinsert,noselect 
+set completeopt=menuone,noinsert,noselect
 
 nnoremap <Leader>vd :lua vim.lsp.buf.definition()<CR>
 nnoremap <Leader>vi :lua vim.lsp.buf.implementation()<CR>
@@ -21,6 +21,7 @@ lua << EOF
     require'lspconfig'.sourcekit.setup{ on_attach=require'completion'.on_attach,
                 \ filetypes={"swift"}
                 \ }
+    require'lspconfig'.jsonls.setup{ on_attach=require'completion'.on_attach}
 EOF
 
 autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
