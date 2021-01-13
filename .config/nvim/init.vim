@@ -112,7 +112,11 @@ nnoremap <Leader>rp :resize 100<CR>
 vnoremap J :m '>+1<CR>gv=gK
 vnoremap K :m '<-2<CR>gv=gvr
 
+com! WQ wq
+com! Wq wq
+com! Wqa wqa
 com! W w
+com! Q q
 
 fun! TrimWhiteSpace()
     let l:save = winsaveview()
