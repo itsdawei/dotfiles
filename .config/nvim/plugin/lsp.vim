@@ -9,12 +9,6 @@ nnoremap <Leader>vh :lua vim.lsp.buf.hover()<CR>
 nnoremap <Leader>vca :lua vim.lsp.buf.code_action()<CR>
 nnoremap <Leader>vsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
 
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:vimsyn_embed = "l"
-let g:completion_confirm_key = ""
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_trigger_on_delete = 1
-
 lua << EOF
     require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
     require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
@@ -23,6 +17,12 @@ lua << EOF
                 \ }
     require'lspconfig'.jsonls.setup{ on_attach=require'completion'.on_attach}
 EOF
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:vimsyn_embed = "l"
+let g:completion_confirm_key = ""
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_trigger_on_delete = 1
 
 autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 command! Format execute 'lua vim.lsp.buf.formatting()'

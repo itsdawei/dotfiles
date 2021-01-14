@@ -5,18 +5,23 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-source ~/powerlevel10k/config/p10k-robbyrussell.zsh
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias ls='ls -G'
-PS1='[\u@\h \W]\$ '
+# Oh-my-zsh
+export ZSH="/Users/helen/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
+export EDITOR=nvim
+export VISUAL=nvim
+export TERM=xterm-256color
+
+# bare repository for dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-alias la='ls -A'
+alias ls='ls -AG'
 alias l='ls -CF'
 alias ll='ls -alF'
 alias mv='mv -i'
@@ -27,8 +32,10 @@ alias ..='cd ..'
 
 alias vim='nvim'
 
-export EDITOR=nvim
-export TERM=xterm-256color
-export VISUAL=nvim
+alias cowy='fortune | cowsay | lolcat'
 
-export PATH=/user/local/avr/bin:$PATH
+# Paths
+# GNU Make PATH
+export PATH=/usr/local/opt/make/libexec/gnubin:$PATH
+# Arduino avr-gcc
+export PATH=/usr/local/bin:/usr/local/avr/bin:$PATH

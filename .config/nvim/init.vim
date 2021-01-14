@@ -1,3 +1,9 @@
+" Install vim-plug if not already installed
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
 set exrc
 
 call plug#begin('~/.vim/plugged')
@@ -65,6 +71,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'theprimeagen/vim-be-good'
     Plug 'tpope/vim-dispatch'
+    " Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
