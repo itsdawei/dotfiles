@@ -15,19 +15,9 @@ yabai -m rule --add app="^Path Finder$" manage=off
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="Archive Utility$" sticky=on layer=above manage=off
-# yabai -m rule --add app="Fantastical" manage=off
-# yabai -m rule --add app="^TeamViewer$" sticky=off layer=above manage=off
-# yabai -m rule --add app="^Keka$" sticky=on layer=above manage=off
-# yabai -m rule --add app="^Spotify$" manage=off
-# yabai -m rule --add app="^Flux$" manage=off
-# yabai -m rule --add app="^Time Out$" manage=off
-# yabai -m rule --add app="^perl_client_app$" manage=off
-# yabai -m rule --add app="^console$" manage=off
-# yabai -m rule --add app="^Harvest$" manage=off
-# yabai -m rule --add app="^CiscoSparkHelper$" manage=off
-# yabai -m rule --add app="^Logi Options$" manage=off
-# yabai -m rule --add app="^Cisco Webex Start$" manage=off
-# yabai -m rule --add app="^Private Internet Access$" manage=off
+yabai -m rule --add app=Spotify manage=off --space 6
+yabai -m rule --add app=Discord manage=off --space 6
+yabai -m rule --add app=Übersicht manage=off
 
 # bar settings
 # SPACEBAR_HEIGHT=$(spacebar -m config height)
@@ -38,7 +28,7 @@ yabai -m config mouse_follows_focus        off
 yabai -m config focus_follows_mouse        off
 
 yabai -m config window_placement           second_child
-yabai -m config window_topmost             off
+yabai -m config window_topmost             on
 yabai -m config window_opacity             off
 yabai -m config window_shadow              on
 
@@ -58,12 +48,29 @@ yabai -m config mouse_action2 resize
 
 # general space settings
 yabai -m config layout                bsp
-yabai -m config top_padding           50
+yabai -m config top_padding           32
 yabai -m config bottom_padding        5
 yabai -m config left_padding          5
 yabai -m config right_padding         5
 yabai -m config window_gap            5
 
-# killall spacebar &>/dev/null
+killall spacebar &>/dev/null
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
+
+# if using multple displays, add an additional rule for "display_changed" event
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
+
+# add these rules to auto-update the "windows" widget
+yabai -m signal --add event=window_focused \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=window_destroyed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=window_created \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
 
 echo "yabai configuration loaded.."

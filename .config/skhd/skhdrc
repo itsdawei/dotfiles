@@ -15,13 +15,29 @@ cmd + shift - c : $(yabai -m window $(yabai -m query --windows --window | jq -re
 # lshift - x : terminal-notifier -message "$(yabai -m query --windows --window | jq -re ".id")"
 
 # open terminal
-cmd - return : /Applications/Alacritty.app/Contents/MacOS/Alacritty
+cmd - return : open -na 'Alacritty.app'
+alt - return : open -na 'Brave Browser.app'
 
-# focus window
-cmd + shift - h : yabai -m window --focus west
-cmd + shift - j : yabai -m window --focus south
-cmd + shift - k : yabai -m window --focus north
-cmd + shift - l : yabai -m window --focus east
+# vim keybinds (focus tmux and yabai with alt key)
+cmd - h [
+    *           : yabai -m window --focus west
+    "Alacritty" : if [ $(tmux display-message -p '#{pane_at_left}') -ne 1 ]; then tmux select-pane -L; else yabai -m window --focus west || true; fi
+]
+
+cmd - j [
+    *           : yabai -m window --focus south
+    "Alacritty" : if [ $(tmux display-message -p '#{pane_at_bottom}') -ne 1 ]; then tmux select-pane -D; else yabai -m window --focus south || true; fi
+]
+
+cmd - k [
+    *           : yabai -m window --focus north
+    "Alacritty" : if [ $(tmux display-message -p '#{pane_at_top}') -ne 1 ]; then tmux select-pane -U; else yabai -m window --focus north || true; fi
+]
+
+cmd - l [
+    *           : yabai -m window --focus east
+    "Alacritty" : if [ $(tmux display-message -p '#{pane_at_right}') -ne 1 ]; then tmux select-pane -R; else yabai -m window --focus east || true; fi
+]
 
 # swap window
 # shift + alt - h : yabai -m window --swap west
@@ -35,50 +51,52 @@ shift + alt - j : yabai -m window --wrap south
 shift + alt - k : yabai -m window --wrap north
 shift + alt - l : yabai -m window --wrap east
 
-# send window to monitor and follow focus
-hyper - u : /Users/helen/CustomScripts/SwitchSpaces/moveWindowLeftAndFollowFocus.sh
-hyper - p : /Users/helen/CustomScripts/SwitchSpaces/moveWindowRightAndFollowFocus.sh
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+shift + cmd - n : yabai -m space --create && \
+                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+                   yabai -m window --space "${index}" && \
+                   yabai -m space --focus "${index}"
 
-# focus display
-ctrl + cmd - 1 : yabai -m window --display 1 yabai -m display --focus 1
-ctrl + cmd - 2 : yabai -m window --display 2 yabai -m display --focus 2
+# create desktop and follow focus - uses jq for parsing json (brew install jq)
+cmd + alt - n : yabai -m space --create && \
+                 index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+                 yabai -m space --focus "${index}"
+
+# destroy desktop
+cmd + alt - w : yabai -m space --destroy
+
+# balance size of windows
+shift + alt - 0 : yabai -m space --balance
 
 # focus space
-cmd + shift - 1: yabai -m space --focus 1
-cmd + shift - 2: yabai -m space --focus 2
-cmd + shift - 3: yabai -m space --focus 3
-cmd + shift - 4: yabai -m space --focus 4
-cmd + shift - 5: yabai -m space --focus 5
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+
+# send window to space and follow focus
+shift + cmd - 1 : yabai -m window --space  1; yabai -m space --focus 1
+shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
+shift + cmd - 3 : yabai -m window --space  3; yabai -m space --focus 3
+shift + cmd - 4 : yabai -m window --space  4; yabai -m space --focus 4
+shift + cmd - 5 : yabai -m window --space  5; yabai -m space --focus 5
+
+# focus monitor
+ctrl + alt - 1  : yabai -m display --focus 1
+ctrl + alt - 2  : yabai -m display --focus 2
+
+# send window to monitor and follow focus
+ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
+ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
+ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 # fast focus desktop
-cmd + alt - x : yabai -m space --focus recent && landscape
-cmd + alt - z : yabai -m space --focus prev   && landscape
-cmd + alt - c : yabai -m space --focus next   && landscape
 cmd + alt - 1 : yabai -m space --focus 1      && landscape
 cmd + alt - 2 : yabai -m space --focus 2      && landscape
 cmd + alt - 3 : yabai -m space --focus 3      && landscape
 cmd + alt - 4 : yabai -m space --focus 4      && landscape
 cmd + alt - 5 : yabai -m space --focus 5      && landscape
-cmd + alt - 6 : yabai -m space --focus 6      && landscape
-cmd + alt - 7 : yabai -m space --focus 7      && landscape
-cmd + alt - 8 : yabai -m space --focus 8      && landscape
-cmd + alt - 9 : yabai -m space --focus 9      && landscape
-cmd + alt - 0 : yabai -m space --focus 10     && landscape
-
-# send window to desktop and follow focus
-shift + cmd - x : yabai -m window --space recent; yabai -m space --focus recent
-shift + cmd - z : yabai -m window --space prev; yabai -m space --focus prev
-shift + cmd - c : yabai -m window --space next; yabai -m space --focus next
-shift + cmd - 1 : yabai -m window --space  1; yabai -m space --focus 1
-shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
-# shift + cmd - 3 : yabai -m window --space  3; yabai -m space --focus 3
-# shift + cmd - 4 : yabai -m window --space  4; yabai -m space --focus 4
-shift + cmd - 5 : yabai -m window --space  5; yabai -m space --focus 5
-shift + cmd - 6 : yabai -m window --space  6; yabai -m space --focus 6
-shift + cmd - 7 : yabai -m window --space  7; yabai -m space --focus 7
-shift + cmd - 8 : yabai -m window --space  8; yabai -m space --focus 8
-shift + cmd - 9 : yabai -m window --space  9; yabai -m space --focus 9
-shift + cmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 # send window to monitor and follow focus
 ctrl + cmd - x  : yabai -m window --display recent; yabai -m display --focus recent
@@ -88,79 +106,84 @@ ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
 ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
 
 # move window
-shift + ctrl - a : yabai -m window --move rel:-20:0
-shift + ctrl - s : yabai -m window --move rel:0:20
-shift + ctrl - w : yabai -m window --move rel:0:-20
-shift + ctrl - d : yabai -m window --move rel:20:0
+shift + ctrl - a : yabai -m window --move rel:-1:0
+shift + ctrl - s : yabai -m window --move rel:0:1
+shift + ctrl - w : yabai -m window --move rel:0:-1
+shift + ctrl - d : yabai -m window --move rel:1:0
+
+# send window from left to right (for picture in picture)
+shift + ctrl - l : yabai -m window --move rel:1328:0
 
 # increase window size
-shift + alt - a : yabai -m window --resize left:-20:0
-shift + alt - s : yabai -m window --resize bottom:0:20
-shift + alt - w : yabai -m window --resize top:0:-20
-shift + alt - d : yabai -m window --resize right:20:0
+shift + alt - a : yabai -m window --resize left:-30:0
+shift + alt - s : yabai -m window --resize bottom:0:30
+shift + alt - w : yabai -m window --resize top:0:-30
+shift + alt - d : yabai -m window --resize right:30:0
 
 # decrease window size
-shift + cmd - a : yabai -m window --resize left:20:0
-shift + cmd - s : yabai -m window --resize bottom:0:-20
-shift + cmd - w : yabai -m window --resize top:0:20
-shift + cmd - d : yabai -m window --resize right:-20:0
+shift + cmd - a : yabai -m window --resize left:30:0
+shift + cmd - s : yabai -m window --resize bottom:0:-30
+shift + cmd - w : yabai -m window --resize top:0:30
+shift + cmd - d : yabai -m window --resize right:-30:0
+
+# set insertion point in focused container
+shift + cmd - h : yabai -m window --insert west
+shift + cmd - j : yabai -m window --insert south
+shift + cmd - k : yabai -m window --insert north
+shift + cmd - l : yabai -m window --insert east
 
 # rotate tree 90
 hyper - r : yabai -m space --rotate 90
 
+# cycle float and tiled windows on space (back and forwards)
+alt + shift - tab : yabai -m window --focus "$(yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | reverse | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(yabai -m query --windows --window | jq -re ".id")) - 1)")"
+alt - tab : yabai -m window --focus "$(yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(yabai -m query --windows --window | jq -re ".id")) - 1)")"
 # mirror tree y-axis
-hyper - y : yabai -m space --mirror y-axis
+alt - y : yabai -m space --mirror y-axis
 
-# mirror tree x-axis
-hyper - x : yabai -m space --mirror x-axis
+# toggle desktop offset
+alt - a : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# toggle window parent zoom
+alt - d : yabai -m window --toggle zoom-parent; \
 
 # toggle window fullscreen zoom
-hyper - f : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen; \
+
+# toggle window native fullscreen
+shift + alt - f : yabai -m window --toggle native-fullscreen
+
 # toggle window border
 shift + alt - b : yabai -m window --toggle border
-## toggle window split type
-hyper - e : yabai -m window --toggle split
+shift + alt - o : ~/bin/toggle_trans
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-hyper - t : yabai -m window --toggle float;\
-yabai -m window --grid 4:4:1:1:2:2 ## toggle sticky alt - s : yabai -m window --toggle sticky ## toggle sticky, float and resize to picture-in-picture size alt - p : yabai -m window --toggle sticky;\ yabai -m window --grid 5:5:4:0:1:1 ## change layout of desktop ctrl + alt - a : yabai -m space --layout bsp ctrl + alt - d : yabai -m space --layout float
+alt - t : yabai -m window --toggle float; \
+          yabai -m window --grid 4:4:1:1:2:2; \
+          # ~/bin/opacity
 
-# change layout of desktop
-ctrl + alt - z : yabai -m space --layout bsp
-ctrl + alt - x : yabai -m space --layout float
+shift + alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 20:20:1:1:18:18; \
+          # ~/bin/opacity
 
-## increase window size
-#shift + alt - a : yabai -m window --resize left:-20:0
-#shift + alt - s : yabai -m window --resize bottom:0:20
-#shift + alt - w : yabai -m window --resize top:0:-20
-#shift + alt - d : yabai -m window --resize right:20:0
 
-## decrease window size
-#shift + cmd - a : yabai -m window --resize left:20:0
-#shift + cmd - s : yabai -m window --resize bottom:0:-20
-#shift + cmd - w : yabai -m window --resize top:0:20
-#shift + cmd - d : yabai -m window --resize right:-20:0
+# toggle sticky, float and resize to picture-in-picture size
+ alt - p : yabai -m window --toggle sticky; \
+           yabai -m window --grid 4:1:2:4:4:0; \
+          # ~/bin/opacity
 
-# cycles backwards through windows
-hyper - i : yabai -m query --spaces | jq -re ".[] | select(.visible == 1).index" | xargs -I{} yabai -m query --windows --space {} | jq -sre "add | sort_by(.display, .frame.x, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id" | xargs -I{} yabai -m window --focus {}
+# toggle back from picture in picture mode
+ shift + alt - p : yabai -m window --toggle float; \
+          # ~/bin/opacity
 
-################################################################
-############################# UNUSED ###########################
-################################################################
+shift + alt - z : yabai -m space --layout bsp
+shift + alt - x : yabai -m space --layout float
+shift + alt - c : yabai -m space --layout stackn
 
-## toggle window border
-#shift + alt - b : yabai -m window --toggle border
-
-## create desktop, move window and follow focus
-#shift + cmd - n : yabai -m space --create && \
-#index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-#yabai -m window --space "${index}" && \
-#yabai -m space --focus "${index}"
-
-## create desktop and follow focus
-#shift + alt - n : yabai -m space --create && \
-#index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-#yabai -m space --focus "${index}"
-
-## destroy desktop
-#cmd + alt - w : yabai -m space --destroy
+# prevents skhd from monitoring events for listed processes.
+.blacklist [
+    "terminal"
+]

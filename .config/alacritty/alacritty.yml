@@ -12,6 +12,7 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
 
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -102,6 +103,8 @@ scrolling:
 # Font configuration
 font:
   # Normal (roman) font face
+  size: 13.0
+
   normal:
     # Font family
     #
@@ -118,7 +121,8 @@ font:
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: SauceCodePro Nerd Font
-    family: Hack Nerd Font
+    # family: Hack Nerd Font
+    family: FiraCode Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -138,7 +142,8 @@ font:
     # family: Monofur Nerd Font
     # family: TerminessTTF Nerd Font
     # family: SauceCodePro Nerd Font
-    family: Hack Nerd Font
+    # family: Hack Nerd Font
+    family: FiraCode Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -159,6 +164,7 @@ font:
     # family: TerminessTTF Nerd Font
     # family: SauceCodePro Nerd Font
     family: Hack Nerd Font
+    # family: jetbrains-mono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Italic
