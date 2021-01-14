@@ -11,7 +11,7 @@ source ~/powerlevel10k/config/p10k-robbyrussell.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias ls='ls --color=auto'
+alias ls='ls -G'
 PS1='[\u@\h \W]\$ '
 
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -30,3 +30,5 @@ alias vim='nvim'
 export EDITOR=nvim
 export TERM=xterm-256color
 export VISUAL=nvim
+
+export PATH=/user/local/avr/bin:$PATH

@@ -40,16 +40,16 @@ cmd - l [
 ]
 
 # swap window
-# shift + alt - h : yabai -m window --swap west
-# shift + alt - j : yabai -m window --swap south
-# shift + alt - k : yabai -m window --swap north
-# shift + alt - l : yabai -m window --swap east
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
 
 # move window
-shift + alt - h : yabai -m window --wrap west
-shift + alt - j : yabai -m window --wrap south
-shift + alt - k : yabai -m window --wrap north
-shift + alt - l : yabai -m window --wrap east
+# shift + alt - h : yabai -m window --wrap west
+# shift + alt - j : yabai -m window --wrap south
+# shift + alt - k : yabai -m window --wrap north
+# shift + alt - l : yabai -m window --wrap east
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
 shift + cmd - n : yabai -m space --create && \
