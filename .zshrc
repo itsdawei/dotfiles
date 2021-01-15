@@ -11,10 +11,15 @@ fi
 # Oh-my-zsh
 export ZSH="/Users/helen/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git)
+plugins=(
+    git
+    docker
+    zsh-syntax-highlighting
+)
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=nvim
+export GIT_EDITOR=nvim
 export VISUAL=nvim
 export TERM=xterm-256color
 
@@ -39,3 +44,7 @@ alias cowy='fortune | cowsay | lolcat'
 export PATH=/usr/local/opt/make/libexec/gnubin:$PATH
 # Arduino avr-gcc
 export PATH=/usr/local/bin:/usr/local/avr/bin:$PATH
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$PATH:/Users/helen/ch-darwin-amd64"

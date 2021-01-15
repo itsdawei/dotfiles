@@ -24,3 +24,4 @@ export EDITOR=nvim
 export TERM=xterm-256color
 export VISUAL=nvim
 
+export PATH="$PATH:/Users/helen/ch-darwin-amd64"
