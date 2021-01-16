@@ -39,6 +39,12 @@ alias vim='nvim'
 
 alias cowy='fortune | cowsay | lolcat'
 
+# ch configue for csci104
+c4 () {
+    argument=${1}
+    ch $argument csci104
+}
+
 # Paths
 # GNU Make PATH
 export PATH=/usr/local/opt/make/libexec/gnubin:$PATH

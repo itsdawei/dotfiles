@@ -38,6 +38,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/tagbar'
     Plug 'vim-utils/vim-man'
     Plug 'mhinz/vim-startify'
+    Plug 'junegunn/limelight.vim'
+    Plug 'junegunn/goyo.vim'
 
 "{{ Formatting }}
     Plug 'jiangmiao/auto-pairs'
@@ -51,8 +53,9 @@ call plug#begin('~/.vim/plugged')
 
 "{{ Colorful }}
     Plug 'gruvbox-community/gruvbox'
-    Plug 'itchyny/lightline.vim'
     Plug 'ryanoasis/vim-devicons'
+    Plug 'itchyny/lightline.vim'
+    " Plug 'vim-airline/vim-airline'
 
 "{{ Latex Related }}
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
