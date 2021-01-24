@@ -106,7 +106,7 @@ alias tofish="chsh -s /usr/local/bin/fish && echo 'Now log out.'"
 
 
 # bare git repo alias for dotfiles
-alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source

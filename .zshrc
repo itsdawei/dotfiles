@@ -24,7 +24,7 @@ export VISUAL=nvim
 export TERM=xterm-256color
 
 # bare repository for dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 alias ls='ls -AG'
 alias l='ls -CF'
