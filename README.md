@@ -1,9 +1,9 @@
 ## Using this repo as a [bare repository](https://www.atlassian.com/git/tutorials/dotfiles)
 Run setup script
 ```bash
-git clone --bare https://github.com/DragonL40/dotfiles $HOME/.cfg
+git clone --bare https://github.com/DragonL40/dotfiles $HOME/dotfiles
 function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+   /usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME $@
 }
 mkdir -p .config-backup
 config checkout
