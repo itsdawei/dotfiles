@@ -109,10 +109,14 @@ let loaded_matchparen = 1
 let mapleader = ' '
 
 nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>h :wincmd h<CR>
-nnoremap <Leader>j :wincmd j<CR>
-nnoremap <Leader>k :wincmd k<CR>
-nnoremap <Leader>l :wincmd l<CR>
+" nnoremap <Leader>h :wincmd h<CR>
+" nnoremap <Leader>j :wincmd j<CR>
+" nnoremap <Leader>k :wincmd k<CR>
+" nnoremap <Leader>l :wincmd l<CR>
+nnoremap <c-h> :wincmd h<CR>
+nnoremap <c-j> :wincmd j<CR>
+nnoremap <c-k> :wincmd k<CR>
+nnoremap <c-l> :wincmd l<CR>
 nnoremap <Leader>u :UndotreeShow<CR>
 nnoremap <Leader>pv :Sex!<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
@@ -129,6 +133,10 @@ com! W w
 com! Q q
 
 fun! TrimWhiteSpace()
+    if &ft =~ 'markdown'
+        return
+    endif
+
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)

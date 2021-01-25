@@ -6,3 +6,5 @@ let g:tex_flavor='latex'
 let g:tex_conceal=""
 let g:tex_conceal_frac=1
 autocmd Filetype tex setl updatetime=400
+
+nnoremap <leader>ll :LLPStartPreview<CR>

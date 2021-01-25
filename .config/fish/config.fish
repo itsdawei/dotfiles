@@ -104,6 +104,13 @@ alias tobash="chsh -s /bin/bash && echo 'Now log out.'"
 alias tozsh="chsh -s /bin/zsh && echo 'Now log out.'"
 alias tofish="chsh -s /usr/local/bin/fish && echo 'Now log out.'"
 
+# cow say
+alias cowy='fortune | cowsay | lolcat'
+
+# ch configue for csci104
+function c4 --argument cmd
+    ch $cmd csci104
+end
 
 # bare git repo alias for dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
