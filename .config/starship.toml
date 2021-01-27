@@ -1,0 +1,25 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Make prompt a single line instead of two lines
+[line_break]
+disabled = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                         # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"  # The "success_symbol" is set to "➜" with color "bold green"
+
+[docker_context]
+format = "via [🐋 $context](blue bold)"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[time]
+disabled = false
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡️"
+discharging_symbol = "💀"
