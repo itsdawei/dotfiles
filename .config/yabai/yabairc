@@ -16,8 +16,6 @@ yabai -m config --space 6 layout float
 yabai -m config --space 7 layout float
 
 # global settings
-# yabai -m config mouse_follows_focus        off
-# yabai -m config focus_follows_mouse        off
 yabai -m config mouse_follows_focus        on
 yabai -m config focus_follows_mouse        autofocus
 
@@ -25,13 +23,13 @@ yabai -m config window_placement           second_child
 yabai -m config window_topmost             off
 yabai -m config window_shadow              on
 
-yabai -m config window_border              off
+yabai -m config window_border              on
 yabai -m config window_border_width        2
 yabai -m config active_window_border_color 0xFFdfb899
 yabai -m config normal_window_border_color 0xFF505050
 yabai -m config insert_feedback_color      0xFFD75F5F
 
-yabai -m config window_opacity             on
+yabai -m config window_opacity             off
 yabai -m config window_opacity_duration    0.0
 yabai -m config active_window_opacity      1.0
 yabai -m config normal_window_opacity      0.9

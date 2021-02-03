@@ -7,6 +7,8 @@
 
 " ------------------------------------------------------------------------------
 
+set dotfiles
+
 " Command used to edit files in various contexts.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
@@ -166,8 +168,6 @@ command! reload :write | restart full
 
 " Pdf
 filetype {*.pdf},<application/pdf>
-       \ {Open in Preview}
-       \ open -a Preview.app,
        \ {Open in Skim}
        \ open -a Skim.app,
 fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
