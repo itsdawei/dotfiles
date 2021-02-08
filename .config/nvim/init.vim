@@ -58,9 +58,8 @@ call plug#begin('~/.vim/plugged')
     "Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
 "{{ Markdown }}
-    Plug 'godlygeek/tabular'
-    " Plug 'plasticboy/vim-markdown'
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+    Plug 'godlygeek/tabular'
 
 "{{ Fire Nvim }}
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }

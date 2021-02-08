@@ -4,68 +4,52 @@
 SPACEBAR_HEIGHT=$(spacebar -m config height)
 yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 
-# label spaces
-yabai -m space 1 --label Communication
-yabai -m space 2 --label Notes
-yabai -m space 3 --label Work
-yabai -m space 4 --label Extra1
-yabai -m space 5 --label Extra2
-
 # float 2nd monitor
 yabai -m config --space 6 layout float
 yabai -m config --space 7 layout float
 
 # global settings
 yabai -m config mouse_follows_focus        on
-yabai -m config focus_follows_mouse        autofocus
-
+yabai -m config focus_follows_mouse        autoraise
 yabai -m config window_placement           second_child
-yabai -m config window_topmost             off
-yabai -m config window_shadow              on
-
+yabai -m config window_topmost             on
+yabai -m config window_shadow              off
+yabai -m config window_opacity             on
+yabai -m config window_opacity_duration    0.0
+yabai -m config active_window_opacity      1.0
+yabai -m config normal_window_opacity      0.85
 yabai -m config window_border              on
-yabai -m config window_border_width        2
+yabai -m config window_border_width        6
 yabai -m config active_window_border_color 0xFFdfb899
 yabai -m config normal_window_border_color 0xFF505050
 yabai -m config insert_feedback_color      0xFFD75F5F
-
-yabai -m config window_opacity             off
-yabai -m config window_opacity_duration    0.0
-yabai -m config active_window_opacity      1.0
-yabai -m config normal_window_opacity      0.9
-
 yabai -m config split_ratio                0.50
-yabai -m config auto_balance               off
+yabai -m config auto_balance               on
 yabai -m config mouse_modifier             fn
 yabai -m config mouse_action1              move
 yabai -m config mouse_action2              resize
 
 # general space settings
 yabai -m config layout                     bsp
-yabai -m config top_padding                5
-yabai -m config bottom_padding             5
-yabai -m config left_padding               5
-yabai -m config right_padding              5
-yabai -m config window_gap                 5
+yabai -m config top_padding                20
+yabai -m config bottom_padding             20
+yabai -m config left_padding               20
+yabai -m config right_padding              20
+yabai -m config window_gap                 10
 
-# killall spacebar &>/dev/null
+# mission-control desktop labels
+yabai -m space 1 --label code
+yabai -m space 2 --label mail
+yabai -m space 3 --label web
+yabai -m space 4 --label notes
+yabai -m space 5 --label re
+yabai -m space 6 --label media
+yabai -m space 7 --label social
+yabai -m space 8 --label games
 
-# yabai -m signal --add event=space_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
-
-# # if using multple displays, add an additional rule for "display_changed" event
-# yabai -m signal --add event=display_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-jsx\"'"
-
-# # add these rules to auto-update the "windows" widget
-# yabai -m signal --add event=window_focused \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
-# yabai -m signal --add event=window_destroyed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
-# yabai -m signal --add event=window_created \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
-# yabai -m signal --add event=space_changed \
-#     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-windows-jsx\"'"
+# specific space settings
+yabai -m config --space mail  layout        stack
+yabai -m config --space games layout        float
 
 # float system preferences. Most of these just disable Yabai form resizing them.
 yabai -m rule --add app="^App Store$" sticky=on layer=above manage=off
@@ -84,5 +68,8 @@ yabai -m rule --add app=Discord manage=off --space 6
 yabai -m rule --add app=Übersicht manage=off
 
 yabai -m rule --add app="^Digital Colou?r Meter$" sticky=on
+
+# signals
+yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
 
 echo "yabai configuration loaded.."
