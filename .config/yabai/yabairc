@@ -14,7 +14,7 @@ yabai -m config focus_follows_mouse        autoraise
 yabai -m config window_placement           second_child
 yabai -m config window_topmost             on
 yabai -m config window_shadow              off
-yabai -m config window_opacity             on
+yabai -m config window_opacity             off
 yabai -m config window_opacity_duration    0.0
 yabai -m config active_window_opacity      1.0
 yabai -m config normal_window_opacity      0.85
@@ -38,18 +38,16 @@ yabai -m config right_padding              20
 yabai -m config window_gap                 10
 
 # mission-control desktop labels
-yabai -m space 1 --label code
-yabai -m space 2 --label mail
-yabai -m space 3 --label web
-yabai -m space 4 --label notes
-yabai -m space 5 --label re
-yabai -m space 6 --label media
-yabai -m space 7 --label social
-yabai -m space 8 --label games
+yabai -m space 1 --label web
+yabai -m space 2 --label daily
+yabai -m space 3 --label notes
+yabai -m space 4 --label code1
+yabai -m space 5 --label code2
+yabai -m space 6 --label yt
+yabai -m space 7 --label zoom
 
 # specific space settings
-yabai -m config --space mail  layout        stack
-yabai -m config --space games layout        float
+yabai -m config --space daily layout       stack
 
 # float system preferences. Most of these just disable Yabai form resizing them.
 yabai -m rule --add app="^App Store$" sticky=on layer=above manage=off
@@ -67,9 +65,6 @@ yabai -m rule --add app=Spotify manage=off --space 6
 yabai -m rule --add app=Discord manage=off --space 6
 yabai -m rule --add app=Übersicht manage=off
 
-yabai -m rule --add app="^Digital Colou?r Meter$" sticky=on
-
 # signals
-yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
 
 echo "yabai configuration loaded.."
