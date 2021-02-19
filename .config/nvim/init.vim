@@ -24,10 +24,12 @@ call plug#begin('~/.vim/plugged')
 "{{ Telescope }}
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/telescope.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 "{{ FZF and Git }}
     Plug 'tpope/vim-fugitive'
+    Plug 'junegunn/gv.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'stsewd/fzf-checkout.vim'
@@ -47,6 +49,7 @@ call plug#begin('~/.vim/plugged')
 
 "{{ Additional Syntax Highlighting }}
     Plug 'keith/swift.vim'
+    Plug 'octol/vim-cpp-enhanced-highlight'
 
 "{{ Colorful }}
     Plug 'ryanoasis/vim-devicons'
@@ -55,11 +58,10 @@ call plug#begin('~/.vim/plugged')
 
 "{{ Latex Related }}
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
-    "Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
 "{{ Markdown }}
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-    Plug 'godlygeek/tabular'
+    " Plug 'godlygeek/tabular'
 
 "{{ Fire Nvim }}
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
@@ -67,13 +69,11 @@ call plug#begin('~/.vim/plugged')
 "{{ Cheat Sheet }}
     Plug 'dbeniamine/cheat.sh-vim'
 
-    Plug 'theprimeagen/vim-be-good'
+    Plug 'sbdchd/neoformat'
     Plug 'tpope/vim-dispatch'
     " Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
-
-imap jj <ESC>
 
 nnoremap j gj
 nnoremap k gk
@@ -93,10 +93,7 @@ nmap Q <Nop>
 lua << EOF
     require'nvim-treesitter.configs'.setup {
         ensure_installed = "maintained",
-        highlight = {
-            enable = true,
-            disable = {"markdown", "css"},
-        },
+        highlight = { enable = true }
     }
 EOF
 
@@ -112,7 +109,7 @@ nnoremap <c-h> :wincmd h<CR>
 nnoremap <c-j> :wincmd j<CR>
 nnoremap <c-k> :wincmd k<CR>
 nnoremap <c-l> :wincmd l<CR>
-nnoremap <Leader>u :UndotreeShow<CR>
+nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>pv :Sex!<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
@@ -126,6 +123,15 @@ com! Wq wq
 com! Wqa wqa
 com! W w
 com! Q q
+
+vnoremap <leader>p "_dP
+
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
 
 fun! TrimWhiteSpace()
     if &ft =~ 'markdown'

@@ -17,8 +17,9 @@ set termguicolors
 set scrolloff=8             " show lines above and below cursor (when possible)
 set noshowmode
 set signcolumn=yes
+set isfname+=@-@
 
-set cmdheight=2
+set cmdheight=1
 set updatetime=50
 set shortmess+=cI
 set colorcolumn=80
@@ -30,13 +31,9 @@ set lazyredraw              " skip redrawing screen in some cases
 set confirm
 set wildmode=longest,list
 
-set conceallevel=2
-set concealcursor=
+" set conceallevel=2
+" set concealcursor=
 set pumheight=8
 
-set splitbelow splitright
-
-set mmp=5000
-set spelllang=en_us
 
 set mouse=a
