@@ -1,5 +1,5 @@
 " [[ Latex Live-Preview ]]
-let g:livepreview_previewer='open -a Skim'
+let g:livepreview_previewer='zathura'
 let g:livepreview_engine='xelatex'
 let g:tex_flavor='latex'
 "let g:tex_conceal='abdmg'

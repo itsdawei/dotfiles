@@ -1,5 +1,6 @@
 fun! ColorMyPencils()
-    colorscheme gruvbox
+    colorscheme oceanic_material
+    " colorscheme gruvbox
     set background=dark
 
     let g:gruvbox_contrast_dark = 'hard'
@@ -16,3 +17,17 @@ call ColorMyPencils()
 " Vim with me
 nnoremap <leader>vwm :call ColorMyPencils()<CR>
 
+let g:lightline={
+    \ 'component_function': {
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
+    \ },
+    \ }
+
+function! MyFiletype()
+return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction

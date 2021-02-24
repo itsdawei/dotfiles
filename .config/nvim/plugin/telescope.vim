@@ -13,7 +13,7 @@ lua << EOF
         mappings = {
           i = {
             ["<C-x>"] = false,
-            ["<C-s>"] = actions.goto_file_selection_split,
+            ["<C-s>"] = actions.select_default,
             ["<C-q>"] = actions.send_to_qflist,
           },
         }

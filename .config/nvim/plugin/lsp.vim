@@ -15,11 +15,14 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua << EOF
     local on_attach = require'completion'.on_attach
 
+    require'lspconfig'.tsserver.setup{ on_attach=on_attach }
     require'lspconfig'.clangd.setup {
         on_attach = on_attach,
         root_dir = function() return vim.loop.cwd() end
     }
     require'lspconfig'.pyls.setup{ on_attach=on_attach }
+    require'lspconfig'.cssls.setup{ on_attach=on_attach }
+    require'lspconfig'.html.setup{ on_attach=on_attach }
 EOF
 
 let g:vimsyn_embed = "l"

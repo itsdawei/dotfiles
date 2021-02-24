@@ -7,6 +7,11 @@ endif
 set exrc
 
 call plug#begin('~/.vim/plugged')
+" {{ Editor UI }}
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'glepnir/oceanic-material'
+    Plug 'gruvbox-community/gruvbox'
+    Plug 'itchyny/lightline.vim'
 
 "{{ LSP Support }}
     Plug 'neovim/nvim-lspconfig'
@@ -28,7 +33,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 "{{ FZF and Git }}
-    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git', 'Gfetch', 'Gpush', 'Glog', 'Gdiffsplit']}
     Plug 'junegunn/gv.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
@@ -41,6 +46,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-utils/vim-man'
     Plug 'mhinz/vim-startify'
 
+"{{ Writing }}
+    Plug 'junegunn/goyo.vim'
+    " Plug 'junegunn/limelight.vim'
+
 "{{ Formatting }}
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
@@ -48,30 +57,25 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-easy-align'
 
 "{{ Additional Syntax Highlighting }}
-    Plug 'keith/swift.vim'
-    Plug 'octol/vim-cpp-enhanced-highlight'
 
-"{{ Colorful }}
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'itchyny/lightline.vim'
-    Plug 'gruvbox-community/gruvbox'
+"{{ FileType }}
+    Plug 'Shougo/context_filetype.vim'
 
-"{{ Latex Related }}
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
 
-"{{ Markdown }}
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-    " Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+    Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
+    Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
 
-"{{ Fire Nvim }}
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(69) } }
+    Plug 'keith/swift.vim'
+    Plug 'octol/vim-cpp-enhanced-highlight'
 
 "{{ Cheat Sheet }}
     Plug 'dbeniamine/cheat.sh-vim'
 
+"{{ Prettier }}
     Plug 'sbdchd/neoformat'
     Plug 'tpope/vim-dispatch'
-    " Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
@@ -90,25 +94,10 @@ map <C-a> <Nop>
 map <C-x> <Nop>
 nmap Q <Nop>
 
-lua << EOF
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = "maintained",
-        highlight = { enable = true }
-    }
-EOF
-
 let loaded_matchparen = 1
 let mapleader = ' '
 
 nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-" nnoremap <Leader>h :wincmd h<CR>
-" nnoremap <Leader>j :wincmd j<CR>
-" nnoremap <Leader>k :wincmd k<CR>
-" nnoremap <Leader>l :wincmd l<CR>
-nnoremap <c-h> :wincmd h<CR>
-nnoremap <c-j> :wincmd j<CR>
-nnoremap <c-k> :wincmd k<CR>
-nnoremap <c-l> :wincmd l<CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
 nnoremap <Leader>pv :Sex!<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>

@@ -1,21 +1,28 @@
-" [[ Markdown Live Preview ]]
-nnoremap <Leader>mm :MarkdownPreview<CR>
-let g:vim_markdown_folding_disabled=1
-let g:vim_markdown_math=1
-let g:markdown_fenced_languages=['swift', 'vim']
+let g:vim_markdown_folding_level = 1
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_edit_url_in = 'vsplit'
+let g:vim_markdown_fenced_languages = [
+  \ 'c++=cpp',
+  \ 'viml=vim',
+  \ 'bash=sh',
+  \ 'ini=dosini',
+  \ 'js=javascript',
+  \ 'json=javascript',
+  \ 'jsx=javascriptreact',
+  \ 'tsx=typescriptreact',
+  \ 'docker=Dockerfile',
+  \ 'makefile=make',
+  \ 'py=python'
+  \ ]
 
-let g:mkdp_auto_close=0
-let g:mkdp_filetypes = ['markdown']
-let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1,
-    \ 'sequence_diagrams': {},
-    \ 'flowchart_diagrams': {},
-    \ 'content_editable': v:false,
-    \ 'disable_filename': 0
-    \ }
+let g:gfm_syntax_enable_always = 0
+let g:gfm_syntax_highlight_emoji = 0
+let g:gfm_syntax_enable_filetypes = ['markdown']
+
+let g:mkdp_auto_start = 0

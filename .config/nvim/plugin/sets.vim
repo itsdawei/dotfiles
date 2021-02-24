@@ -19,6 +19,8 @@ set noshowmode
 set signcolumn=yes
 set isfname+=@-@
 
+set splitbelow splitright
+
 set cmdheight=1
 set updatetime=50
 set shortmess+=cI
