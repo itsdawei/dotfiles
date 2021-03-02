@@ -56,8 +56,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-commentary'
     Plug 'junegunn/vim-easy-align'
 
-"{{ Additional Syntax Highlighting }}
-
 "{{ FileType }}
     Plug 'Shougo/context_filetype.vim'
 
