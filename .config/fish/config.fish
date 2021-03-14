@@ -84,6 +84,7 @@ alias .5='cd ../../../../..'
 
 # vim and emacs
 alias vim='nvim'
+alias nn='nvim'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing

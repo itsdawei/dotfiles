@@ -35,9 +35,6 @@ call plug#begin('~/.vim/plugged')
 "{{ FZF and Git }}
     Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git', 'Gfetch', 'Gpush', 'Glog', 'Gdiffsplit']}
     Plug 'junegunn/gv.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-    Plug 'stsewd/fzf-checkout.vim'
 
 "{{ Utilities }}
     Plug 'sirver/ultisnips'
@@ -68,12 +65,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'keith/swift.vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
-"{{ Cheat Sheet }}
-    Plug 'dbeniamine/cheat.sh-vim'
-
 "{{ Prettier }}
     Plug 'sbdchd/neoformat'
     Plug 'tpope/vim-dispatch'
+
+    Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -97,7 +93,7 @@ let mapleader = ' '
 
 nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <Leader>u :UndotreeToggle<CR>
-nnoremap <Leader>pv :Sex!<CR>
+nnoremap <Leader>pv :Ex<CR>
 nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>+ :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
@@ -120,16 +116,6 @@ nnoremap <leader>Y gg"+yG
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
-fun! TrimWhiteSpace()
-    if &ft =~ 'markdown'
-        return
-    endif
-
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
-
 augroup CursorLineOnlyInActiveWindow
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
@@ -143,6 +129,6 @@ augroup END
 
 augroup THE_PRIMEAGEN
     autocmd!
-    autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd BufWritePre * %s/\s\+$//e
     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 augroup END
