@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 "{{ FZF and Git }}
-    Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git', 'Gfetch', 'Gpush', 'Glog', 'Gdiffsplit']}
+    Plug 'tpope/vim-fugitive'
     Plug 'junegunn/gv.vim'
 
 "{{ Utilities }}
@@ -43,10 +43,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-utils/vim-man'
     Plug 'mhinz/vim-startify'
 
-"{{ Writing }}
-    Plug 'junegunn/goyo.vim'
-    " Plug 'junegunn/limelight.vim'
-
 "{{ Formatting }}
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
@@ -54,52 +50,43 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-easy-align'
 
 "{{ FileType }}
-    Plug 'Shougo/context_filetype.vim'
-
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
 
-    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-    Plug 'rhysd/vim-gfm-syntax', {'for': 'markdown'}
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
 
-    Plug 'keith/swift.vim'
     Plug 'octol/vim-cpp-enhanced-highlight'
 
 "{{ Prettier }}
     Plug 'sbdchd/neoformat'
-    Plug 'tpope/vim-dispatch'
 
+    Plug 'tpope/vim-dispatch'
     Plug 'vimwiki/vimwiki'
 
 call plug#end()
+
+lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 nnoremap j gj
 nnoremap k gk
 nnoremap < <<
 nnoremap > >>
 
-vnoremap <leader>p "_dP
-
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>Y gg"+yG
-
-map <C-a> <Nop>
-map <C-x> <Nop>
-nmap Q <Nop>
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
 
 let loaded_matchparen = 1
-let mapleader = ' '
+let mapleader = " "
 
-nnoremap <Leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>u :UndotreeToggle<CR>
-nnoremap <Leader>pv :Ex<CR>
-nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>- :vertical resize -5<CR>
-nnoremap <Leader>rp :resize 100<CR>
-vnoremap J :m '>+1<CR>gv=gK
-vnoremap K :m '<-2<CR>gv=gvr
+nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv :Ex<CR>
+nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
+nnoremap <leader>+ :vertical resize +5<CR>
+nnoremap <leader>- :vertical resize -5<CR>
+nnoremap <leader>rp :resize 100<CR>
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 com! WQ wq
 com! Wq wq

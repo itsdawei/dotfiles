@@ -12,7 +12,8 @@ let g:startify_lists = [
 let g:startify_fortune_use_unicode = 1
 let g:startify_bookmarks = [
             \ { 'i': '~/.config/nvim/init.vim' },
-            \ { 'z': '~/.zshrc' },
+            \ { 'p': '~/.config/nvim/plugin' },
+            \ { 'c': '~/.config' },
             \ ]
 
 let entry_format = "'   ['. index .']'. repeat(' ', (3 - strlen(index)))"

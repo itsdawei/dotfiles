@@ -14,15 +14,20 @@ nnoremap <leader>vll :lua vim.lsp.diagnostic.set_loclist()<CR>
 
 lua << EOF
     local on_attach = require'completion'.on_attach
+    local lsp = require'lspconfig'
 
-    require'lspconfig'.tsserver.setup{ on_attach=on_attach }
-    require'lspconfig'.clangd.setup {
+    lsp.sourcekit.setup{
+        on_attach=on_attach,
+        filetypes = {"swift"}
+    }
+    lsp.tsserver.setup{ on_attach=on_attach }
+    lsp.clangd.setup {
         on_attach = on_attach,
         root_dir = function() return vim.loop.cwd() end
     }
-    require'lspconfig'.pyls.setup{ on_attach=on_attach }
-    require'lspconfig'.cssls.setup{ on_attach=on_attach }
-    require'lspconfig'.html.setup{ on_attach=on_attach }
+    lsp.pyls.setup{ on_attach=on_attach }
+    lsp.cssls.setup{ on_attach=on_attach }
+    lsp.html.setup{ on_attach=on_attach }
 EOF
 
 let g:vimsyn_embed = "l"

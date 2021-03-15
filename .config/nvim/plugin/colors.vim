@@ -1,6 +1,6 @@
 fun! ColorMyPencils()
-    " colorscheme oceanic_material
-    colorscheme gruvbox
+    colorscheme oceanic_material
+    " colorscheme gruvbox
     set background=dark
 
     let g:gruvbox_contrast_dark = 'hard'
