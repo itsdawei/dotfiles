@@ -1,7 +1,1 @@
-local ts_config = require("nvim-treesitter.configs")
-
-ts_config.setup {
-    highlight = {
-        enable = true,
-    }
-}
+require("nvim-treesitter.configs").setup { highlight = { enable = true } }

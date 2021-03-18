@@ -18,7 +18,10 @@ require('plugins.statusline')
 require('plugins.fugitive')
 require('plugins.git-messenger')
 
+require('plugins.markdown')
+require('plugins.latex')
+
 require('plugins.floaterm')
-require('plugins.goyo')
 require('plugins.quick-scope')
+require('plugins.goyo')
 require('plugins.neoformat')
