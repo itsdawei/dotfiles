@@ -15,7 +15,8 @@ call plug#begin('~/.vim/plugged')
 
 "{{ LSP Support }}
     Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/completion-nvim'
+    " Plug 'nvim-lua/completion-nvim'
+    Plug 'hrsh7th/nvim-compe'
     Plug 'tjdevries/nlua.nvim'
     Plug 'tjdevries/lsp_extensions.nvim'
 
@@ -49,11 +50,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-commentary'
     Plug 'junegunn/vim-easy-align'
 
-"{{ FileType }}
+"{{ FileTypes }}
+    " Plug 'lervag/vimtex', {'for': 'tex'}
     Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'}
-
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
-
     Plug 'octol/vim-cpp-enhanced-highlight'
 
 "{{ Prettier }}
@@ -63,6 +63,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vimwiki/vimwiki'
 
 call plug#end()
+
 
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
