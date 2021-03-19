@@ -5,7 +5,7 @@ set fish_greeting                      # Supresses fish's intro message
 set TERM "xterm-256color"              # Sets the terminal type
 set EDITOR "nvim"                      # $EDITOR use nvim in terminal
 set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
-set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/helen/ch-darwin-amd64 usr/local/sbin
+set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/helen/ch-darwin-amd64 /usr/local/sbin
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
