@@ -12,7 +12,7 @@ require('plugins')
 require('packer-setup')
 
 
-local indent = 2
+-- local indent = 2
 
 -- vim.cmd "colorscheme gruvbox"
 -- vim.cmd "colorscheme oceanic_material"
