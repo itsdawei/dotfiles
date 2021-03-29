@@ -1,4 +1,3 @@
--- check if packer is installed (~/local/share/nvim/site/pack)
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
 return require("packer").startup(
@@ -6,27 +5,25 @@ return require("packer").startup(
         -- packer
         use {"wbthomason/packer.nvim", opt = true}
 
-        -- use {"kyazdani42/nvim-tree.lua"}
-        -- use {"kyazdani42/nvim-web-devicons"}
-        -- use {"akinsho/nvim-bufferline.lua"}
-
         -- Editor UI
         use {"preservim/nerdtree"}
-				use {"Xuyuanp/nerdtree-git-plugin"}
+        use {"Xuyuanp/nerdtree-git-plugin"}
         use {"ryanoasis/vim-devicons"}
         use {"glepnir/galaxyline.nvim"}
         use {"norcalli/nvim-colorizer.lua"}
-        use {"Yggdroot/indentLine"}
+        use {"lukas-reineke/indent-blankline.nvim", branch = 'lua'}
+
 
         -- Colorscheme
         use {"glepnir/oceanic-material"}
-        use {"gruvbox-community/gruvbox"}
+        use {"sainnhe/gruvbox-material"}
         use {"arcticicestudio/nord-vim"}
         use {"joshdick/onedark.vim"}
 
         -- LSP Support
         use {"neovim/nvim-lspconfig"}
-        use {"hrsh7th/nvim-compe"}
+        use {"nvim-lua/completion-nvim"}
+        -- use {"hrsh7th/nvim-compe"}
         use {"onsails/lspkind-nvim"}
 
         -- Tree Shitter
@@ -53,11 +50,10 @@ return require("packer").startup(
         use {"sirver/ultisnips"}
         use {"mbbill/undotree"}
         use {"preservim/tagbar"}
-        use {"tweekmonster/startuptime.vim"}
-				-- use {"mhinz/vim-startify"}
-        -- use {"unblevable/quick-scope"}
-				use {"junegunn/goyo.vim"}
-				use {"junegunn/limelight.vim"}
+        -- use {"mhinz/vim-startify"}
+        use {"unblevable/quick-scope"}
+        use {"junegunn/goyo.vim"}
+        use {"junegunn/limelight.vim"}
 
         -- Cheat Sheet
         use {"RishabhRD/popfix"}
@@ -70,7 +66,7 @@ return require("packer").startup(
         use {"junegunn/vim-easy-align"}
 
         -- Filetypes
-        use {"xuhdev/vim-latex-live-preview", ft = "tex"}
+        use {"lervag/vimtex", ft = "tex"}
         use {"iamcco/markdown-preview.nvim", ft = "markdown"}
         use {"octol/vim-cpp-enhanced-highlight"}
 

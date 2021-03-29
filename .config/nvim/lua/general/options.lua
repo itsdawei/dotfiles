@@ -5,9 +5,9 @@ Option.g({
 	hidden = true,
 	errorbells = false,
 
-	tabstop = 2,
-	softtabstop = 2,
-	shiftwidth = 2,
+	tabstop = 4,
+	softtabstop = 4,
+	shiftwidth = 4,
 
 	backup = false,
 	undodir = tostring(os.getenv("HOME")) .. "/.vim/undodir",
@@ -30,6 +30,9 @@ Option.g({
 	mouse = 'a',
 
 	completeopt = 'menuone,noinsert,noselect',
+
+        termguicolors = true,
+        background = dark,
 })
 
 
@@ -46,4 +49,7 @@ Option.b({
 	expandtab = true,
 	smartindent = true,
 	swapfile = false,
+	tabstop = 4,
+	softtabstop = 4,
+	shiftwidth = 4,
 })

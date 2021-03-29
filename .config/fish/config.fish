@@ -32,44 +32,44 @@ end
 # ex: copy DIRNAME LOCATIONS
 # result: copies the directory and all of its contents.
 function copy
-    set count (count $argv | tr -d \n)
-    if test "$count" = 2; and test -d "$argv[1]"
-	set from (echo $argv[1] | trim-right /)
-	set to (echo $argv[2])
-        command cp -r $from $to
-    else
-        command cp $argv
-    end
+	set count (count $argv | tr -d \n)
+	if test "$count" = 2; and test -d "$argv[1]"
+		set from (echo $argv[1] | trim-right /)
+		set to (echo $argv[2])
+				command cp -r $from $to
+	else
+		command cp $argv
+	end
 end
 
 # Function for printing a column (splits input on whitespace)
 # ex: echo 1 2 3 | coln 3
 # output: 3
 function coln
-    while read -l input
-        echo $input | awk '{print $'$argv[1]'}'
-    end
+	while read -l input
+		echo $input | awk '{print $'$argv[1]'}'
+	end
 end
 
 # Function for printing a row
 # ex: seq 3 | rown 3
 # output: 3
 function rown --argument index
-    sed -n "$index p"
+	sed -n "$index p"
 end
 
 # Function for ignoring the first 'n' lines
 # ex: seq 10 | skip 5
 # results: prints everything but the first 5 lines
 function skip --argument n
-    tail +(math 1 + $n)
+	tail +(math 1 + $n)
 end
 
 # Function for taking the first 'n' lines
 # ex: seq 10 | take 5
 # results: prints only the first 5 lines
 function take --argument number
-    head -$number
+	head -$number
 end
 ### END OF FUNCTIONS ###
 
@@ -107,7 +107,7 @@ alias tobash="chsh -s /bin/bash && echo 'Now log out.'"
 alias tozsh="chsh -s /bin/zsh && echo 'Now log out.'"
 alias tofish="chsh -s /usr/local/bin/fish && echo 'Now log out.'"
 
-# cow say
+# cow says
 alias cowy='fortune | cowsay | lolcat'
 
 # ch configue for csci104

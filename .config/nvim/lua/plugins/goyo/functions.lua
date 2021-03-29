@@ -1,3 +1,7 @@
+Variable.g({
+	limelight_conceal_ctermfg = 'gray',
+})
+
 vim.api.nvim_exec(
 [[
 fun! GoyoEnter()

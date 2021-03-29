@@ -68,7 +68,7 @@ local M = {}
 M.search_dotfiles = function()
     require("telescope.builtin").find_files({
         prompt_title = "< VimRC >",
-        cwd = tostring(os.getenv("HOME")) .. "/Code/development/dotfiles/",
+        cwd = vim.fn.expand("$HOME") .. "/.config/nvim/lua",
     })
 end
 
