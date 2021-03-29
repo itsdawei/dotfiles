@@ -1,7 +1,12 @@
+vim.api.nvim_exec(
+[[
+	hi FloatermBorder guibg=black guifg=orange
+]], true)
+
 Variable.g({
 	floaterm_keymap_new = "<F7>",
 	floaterm_keymap_prev = "<F8>",
 	floaterm_keymap_next = "<F9>",
 	floaterm_keymap_toggle = "<F12>",
-        floaterm_shell = "fish"
+    floaterm_shell = "fish"
 })

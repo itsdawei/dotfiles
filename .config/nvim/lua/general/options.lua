@@ -1,9 +1,9 @@
 -- Globals
 Option.g({
 	number = true,
-	hlsearch = false,
 	hidden = true,
 	errorbells = false,
+	hlsearch = false,
 
 	tabstop = 4,
 	softtabstop = 4,
@@ -17,8 +17,8 @@ Option.g({
 	termguicolors = true,
 	showmode = false,
 
-	smartcase = true,
 	ignorecase = true,
+	smartcase = true,
 
 	splitright = true,
 	splitbelow = true,
@@ -30,9 +30,6 @@ Option.g({
 	mouse = 'a',
 
 	completeopt = 'menuone,noinsert,noselect',
-
-        termguicolors = true,
-        background = dark,
 })
 
 

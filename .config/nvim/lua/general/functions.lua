@@ -2,7 +2,7 @@
 vim.api.nvim_exec(
 [[
 function! OpenTerminal()
-  split term://bash
+  split term://fish
   resize 10
 endfunction
 ]], true)

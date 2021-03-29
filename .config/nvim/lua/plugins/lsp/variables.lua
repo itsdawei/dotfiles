@@ -1,0 +1,17 @@
+-- -- UltiSnips
+-- Variable.g({
+-- 	UltiSnipsExpandTrigger='<tab>',
+-- 	UltiSnipsJumpForwardTrigger='<tab>',
+-- 	UltiSnipsJumpBackwardTrigger='<s-tab>',
+-- 	UltiSnipsEditSplit="vertical",
+-- 	completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'},
+-- 	vimsyn_embed = 'l',
+-- 	completion_confirm_key = '',
+-- 	completion_enable_snippet = 'UltiSnips',
+-- 	completion_trigger_on_delete = 1,
+-- 	completion_chain_complete_list = {
+--     {complete_items = {'snippet', 'lsp'}},
+--     {mode = '<c-p>'},
+--     {mode = '<c-n>'},
+-- 	},
+-- })
