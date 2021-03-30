@@ -1,77 +1,80 @@
-local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
+vim.cmd [[packadd packer.nvim]]
 
-return require("packer").startup(
-    function()
-        -- packer
-        use {"wbthomason/packer.nvim", opt = true}
+return require("packer").startup(function()
+    -- packer
+    use {"wbthomason/packer.nvim", opt = true}
 
-        -- Editor UI
-        use {"preservim/nerdtree"}
-        use {"Xuyuanp/nerdtree-git-plugin"}
-        use {"ryanoasis/vim-devicons"}
-        use {"glepnir/galaxyline.nvim"}
-        use {"norcalli/nvim-colorizer.lua"}
-        use {"lukas-reineke/indent-blankline.nvim", branch = 'lua'}
+    -- LSP
+    use {"neovim/nvim-lspconfig"}
+    use {"hrsh7th/nvim-compe"}
+    use {"onsails/lspkind-nvim"}
+    use {"kabouzeid/nvim-lspinstall"}
+    -- use {"nvim-lua/completion-nvim"}
 
-        -- LSP Support
-        use {"neovim/nvim-lspconfig"}
-        use {"nvim-lua/completion-nvim"}
-        -- use {"hrsh7th/nvim-compe"}
-        use {"onsails/lspkind-nvim"}
+    -- Debugging
+    use {"tpope/vim-dispatch"}
+    use {"puremourning/vimspector"}
+    use {"szw/vim-maximizer"}
 
-        -- Tree Shitter
-        use {"nvim-treesitter/nvim-treesitter"}
+    -- Explorer
+    use {"preservim/nerdtree"}
+    use {"Xuyuanp/nerdtree-git-plugin"}
 
-        -- Debugger Plugins
-        use {"tpope/vim-dispatch"}
-        use {"puremourning/vimspector"}
-        use {"szw/vim-maximizer"}
+    -- Editor UI
+    -- use {"kyazdani42/nvim-tree.lua"}
+    use {"ryanoasis/vim-devicons"}
+    use {"glepnir/galaxyline.nvim"}
+    use {"norcalli/nvim-colorizer.lua"}
 
-        -- Telescope
-        use {"nvim-lua/plenary.nvim"}
-        use {"nvim-lua/popup.nvim"}
-        use {"nvim-telescope/telescope.nvim"}
-        use {"nvim-telescope/telescope-symbols.nvim"}
-        use {"nvim-telescope/telescope-fzy-native.nvim"}
+    -- Tree Shitter
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {"lukas-reineke/indent-blankline.nvim", branch = 'lua'}
 
-        -- Git
-        use {"tpope/vim-fugitive"}
-        use {"rhysd/git-messenger.vim"}
-        use {"gisphm/vim-gitignore"}
-        -- use {"lewis6991/gitsigns.nvim"}
-        use {"airblade/vim-gitgutter"}
+    -- Telescope
+    use {"nvim-lua/plenary.nvim"}
+    use {"nvim-lua/popup.nvim"}
+    use {"nvim-telescope/telescope.nvim"}
+    use {"nvim-telescope/telescope-symbols.nvim"}
+    use {"nvim-telescope/telescope-fzy-native.nvim"}
 
-        -- Utilities
-        use {"voldikss/vim-floaterm"}
-        use {"sirver/ultisnips"}
-        use {"mbbill/undotree"}
-        use {"preservim/tagbar"}
-        -- use {"mhinz/vim-startify"}
-        use {"unblevable/quick-scope"}
-        use {"junegunn/goyo.vim"}
-        use {"junegunn/limelight.vim"}
+    -- Git
+    use {"tpope/vim-fugitive"}
+    use {"rhysd/git-messenger.vim"}
+    -- use {"airblade/vim-gitgutter"}
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use {"gisphm/vim-gitignore"}
 
-        -- Cheat Sheet
-        use {"RishabhRD/popfix"}
-        use {"RishabhRD/nvim-cheat.sh"}
+    -- Utilities
+    use {"voldikss/vim-floaterm"}
+    use {"sirver/ultisnips"}
+    use {"mbbill/undotree"}
+    use {"preservim/tagbar"}
+    -- use {"mhinz/vim-startify"}
+    use {"unblevable/quick-scope"}
+    use {"andymass/vim-matchup"}
+    use {"junegunn/goyo.vim"}
+    use {"junegunn/limelight.vim"}
 
-        -- Formatting
-        use {"windwp/nvim-autopairs"}
-        use {"tpope/vim-surround"}
-        use {"tpope/vim-commentary"}
-        use {"junegunn/vim-easy-align"}
-        use {"sbdchd/neoformat"}
+    -- Cheat Sheet
+    use {"RishabhRD/popfix"}
+    use {"RishabhRD/nvim-cheat.sh"}
 
-        -- Filetypes
-        use {"lervag/vimtex", ft = "tex"}
-        use {"iamcco/markdown-preview.nvim", ft = "markdown"}
-        use {"octol/vim-cpp-enhanced-highlight"}
-        use {"vimwiki/vimwiki"}
+    -- Formatting
+    use {"windwp/nvim-autopairs"}
+    use {"tpope/vim-surround"}
+    use {"terrortylor/nvim-comment"}
+    use {"junegunn/vim-easy-align"}
+    use {"sbdchd/neoformat"}
 
-        -- Colorscheme
-        use {"glepnir/oceanic-material"}
-        use {"sainnhe/gruvbox-material"}
-        use {"arcticicestudio/nord-vim"}
-        use {"joshdick/onedark.vim"}
-    end
-)
+    -- Filetypes
+    use {"lervag/vimtex", ft = "tex"}
+    use {"iamcco/markdown-preview.nvim", ft = "markdown"}
+    use {"octol/vim-cpp-enhanced-highlight"}
+    use {"vimwiki/vimwiki"}
+
+    -- Colorscheme
+    use {"glepnir/oceanic-material"}
+    use {"sainnhe/gruvbox-material"}
+    use {"arcticicestudio/nord-vim"}
+    use {"joshdick/onedark.vim"}
+end)
