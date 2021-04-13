@@ -36,6 +36,7 @@ alias grep='grep --color=auto'
 alias ..='cd ..'
 
 alias vim='nvim'
+alias nn='nvim'
 
 alias cowy='fortune | cowsay | lolcat'
 
@@ -54,3 +55,4 @@ export PATH=/usr/local/bin:/usr/local/avr/bin:$PATH
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$PATH:/Users/helen/ch-darwin-amd64"
+if [ -e /Users/helen/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/helen/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

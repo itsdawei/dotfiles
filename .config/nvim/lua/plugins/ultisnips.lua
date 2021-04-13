@@ -1,6 +1,6 @@
 Variable.g({
-    UltiSnipsExpandTrigger='<tab>',
-    UltiSnipsJumpForwardTrigger='<tab>',
-    UltiSnipsJumpBackwardTrigger='<s-tab>',
-    UltiSnipsEditSplit='vertical',
+    UltiSnipsExpandTrigger = '<tab>',
+    UltiSnipsJumpForwardTrigger = '<tab>',
+    UltiSnipsJumpBackwardTrigger = '<s-tab>',
+    UltiSnipsEditSplit = 'vertical'
 })

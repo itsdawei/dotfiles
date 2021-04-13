@@ -6,10 +6,9 @@ fun! GotoWindow(id)
 endfun
 ]], true)
 
-
 local opts = { noremap = true }
 Keybind.g({
-	{ 'n', '<Leader>m', [[<Cmd>MaximizerToggle!<CR>]], opts },
+	{ 'n', '<Leader>mz', [[<Cmd>MaximizerToggle!<CR>]], opts },
 	{ 'n', '<Leader>dd', [[:call vimspector#Launch()<CR>]], opts },
 	{ 'n', '<Leader>dc', [[:call GotoWindow(g:vimspector_session_windows.code)<CR>]], opts },
 	{ 'n', '<Leader>dt', [[:call GotoWindow(g:vimspector_session_windows.tagpage)<CR>]], opts },
@@ -24,4 +23,9 @@ Keybind.g({
 	{ 'n', '<Leader>drc', [[<Plug>VimspectorRunToCursor]],},
 	{ 'n', '<Leader>dbp', [[<Plug>VimspectorToggleBreakpoint]],},
 	{ 'n', '<Leader>dcbp', [[<Plug>VimspectorToggleConditionalBreakpoint]],},
+})
+
+Variable.g({
+    maximizer_set_default_mapping = 0,
+    maximizer_restore_on_winleave = 1,
 })

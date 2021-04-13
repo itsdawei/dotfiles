@@ -31,3 +31,12 @@ fun! GoyoLeave()
   " ...
 endfun
 ]], true)
+
+Command.cmd({
+    'autocmd! User GoyoEnter nested call GoyoEnter()',
+    'autocmd! User GoyoLeave nested call GoyoLeave()',
+})
+
+Keybind.g({
+	{ 'n', '<Leader>gy', [[<Cmd>Goyo<CR>]], { noremap = true, silent = true } },
+})

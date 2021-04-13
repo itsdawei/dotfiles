@@ -1,52 +1,56 @@
 -- Globals
 Option.g({
-	number = true,
-	hidden = true,
-	errorbells = false,
-	hlsearch = false,
+    path = vim.o.path .. '**',
+    wildmode=longest,list,full,
+    wildmenu = true,
+    wildignore = vim.o.wildignore .. '**/.git/*' .. '**/node_modules/*',
 
-	tabstop = 4,
-	softtabstop = 4,
-	shiftwidth = 4,
+    number = true,
+    hidden = true,
+    errorbells = false,
+    hlsearch = false,
 
-	backup = false,
-	undodir = tostring(os.getenv("HOME")) .. "/.vim/undodir",
-	undofile = true,
+    tabstop = 4,
+    softtabstop = 4,
+    shiftwidth = 4,
 
-	incsearch = true,
-	termguicolors = true,
-	showmode = false,
+    backup = false,
+    undodir = tostring(os.getenv("HOME")) .. "/.vim/undodir",
+    undofile = true,
 
-	ignorecase = true,
-	smartcase = true,
+    incsearch = true,
+    termguicolors = true,
+    showmode = false,
 
-	splitright = true,
-	splitbelow = true,
+    ignorecase = true,
+    smartcase = true,
 
-	cmdheight = 1,
-	updatetime = 50,
-	shortmess = vim.o.shortmess .. 'c',
+    splitright = true,
+    splitbelow = true,
 
-	mouse = 'a',
+    cmdheight = 1,
+    updatetime = 50,
+    shortmess = vim.o.shortmess .. 'c',
 
-	completeopt = 'menuone,noinsert,noselect',
+    mouse = 'a',
+
+    completeopt = 'menuone,noinsert,noselect'
 })
 
-
 Option.w({
-	number = true,
-	relativenumber = true,
-	signcolumn = 'yes',
-	scrolloff = 8,
-	wrap = false,
-	colorcolumn = "80",
+    number = true,
+    relativenumber = true,
+    signcolumn = 'yes',
+    scrolloff = 8,
+    wrap = false,
+    colorcolumn = "80"
 })
 
 Option.b({
-	expandtab = true,
-	smartindent = true,
-	swapfile = false,
-	tabstop = 4,
-	softtabstop = 4,
-	shiftwidth = 4,
+    expandtab = true,
+    smartindent = true,
+    swapfile = false,
+    tabstop = 4,
+    softtabstop = 4,
+    shiftwidth = 4
 })

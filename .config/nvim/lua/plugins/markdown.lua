@@ -9,16 +9,8 @@ Variable.g({
     vim_markdown_strikethrough = 1,
     vim_markdown_edit_url_in = 'vsplit',
     vim_markdown_fenced_languages = {
-       'c++=cpp',
-       'viml=vim',
-       'bash=sh',
-       'ini=dosini',
-       'js=javascript',
-       'json=javascript',
-       'jsx=javascriptreact',
-       'tsx=typescriptreact',
-       'docker=Dockerfile',
-       'makefile=make',
-       'py=python'
-       },
+        'c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'js=javascript',
+        'json=javascript', 'jsx=javascriptreact', 'tsx=typescriptreact',
+        'docker=Dockerfile', 'makefile=make', 'py=python'
+    }
 })

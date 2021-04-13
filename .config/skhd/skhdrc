@@ -1,8 +1,9 @@
+#!/usr/bin/env sh
 # if you're having troubles finding key codes for a key just type skhd --observe in a terminal and type a key. Pretty cool! Or just check the wiki.
 
 ## HYPER == SHIFT + CMD + ALT + OPTION
 # Quickly restart the yabai launch agent
-cmd + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+cmd + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" && launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
 
 # Close active application
 cmd + shift - c : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
@@ -12,7 +13,8 @@ cmd + shift - c : $(yabai -m window $(yabai -m query --windows --window | jq -re
 # lshift - x : terminal-notifier -message "$(yabai -m query --windows --window | jq -re ".id")"
 
 # open terminal
-cmd - return : open -na 'kitty.app'
+# cmd - return : open -na 'kitty.app'
+cmd - return : open -na 'alacritty.app'
 alt - return : open -na 'Brave Browser.app'
 
 # cycle float and tiled windows on space (back and forwards)
@@ -47,15 +49,10 @@ shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
 shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-shift + cmd - n : yabai -m space --create && \
-                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                   yabai -m window --space "${index}" && \
-                   yabai -m space --focus "${index}"
+shift + cmd - n : yabai -m space --create && index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && yabai -m window --space "${index}" && yabai -m space --focus "${index}"
 
 # create desktop and follow focus - uses jq for parsing json (brew install jq)
-cmd + alt - n : yabai -m space --create && \
-                 index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                 yabai -m space --focus "${index}"
+cmd + alt - n : yabai -m space --create && index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && yabai -m space --focus "${index}"
 
 # destroy desktop
 cmd + alt - w : yabai -m space --destroy
@@ -158,14 +155,13 @@ alt - s : yabai -m window --toggle sticky
 alt - o : yabai -m indow --toggle topmost
 
 # toggle picture-in-picture
-alt - p : yabai -m window --toggle border && \
-          yabai -m window --toggle pip
+alt - p : yabai -m window --toggle border && yabai -m window --toggle pip
 
 shift + alt - z : yabai -m space --layout bsp
 shift + alt - x : yabai -m space --layout float
-shift + alt - c : yabai -m space --layout stackn
+shift + alt - c : yabai -m space --layout stack
 
 # prevents skhd from monitoring events for listed processes.
 .blacklist [
-    "terminal"
+"terminal"
 ]

@@ -5,7 +5,7 @@ set fish_greeting                      # Supresses fish's intro message
 set TERM "xterm-256color"              # Sets the terminal type
 set EDITOR "nvim"                      # $EDITOR use nvim in terminal
 set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
-set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/helen/ch-darwin-amd64 /usr/local/sbin
+set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/helen/ch-darwin-amd64 /usr/local/sbin /nix
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
@@ -120,3 +120,6 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source
+export LUA_PATH='/usr/local/Cellar/luarocks/3.6.0/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua;/usr/local/lib/lua/5.4/?.lua;/usr/local/lib/lua/5.4/?/init.lua;./?.lua;./?/init.lua;/Users/helen/.luarocks/share/lua/5.4/?.lua;/Users/helen/.luarocks/share/lua/5.4/?/init.lua'
+export LUA_CPATH='/usr/local/lib/lua/5.4/?.so;/usr/local/lib/lua/5.4/loadall.so;./?.so;/Users/helen/.luarocks/lib/lua/5.4/?.so'
+export PATH='/Users/helen/.luarocks/bin:/usr/local/opt/make/libexec/gnubin:/usr/local/bin:/usr/local/avr/bin:/Users/helen/.local/bin:/Users/helen/Applications:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/Cellar/python@3.9/3.9.0_1/bin:/usr/local/opt/llvm/bin/:/Library/Apple/usr/bin:/Library/TeX/texbin:/Applications/kitty.app/Contents/MacOS:/Users/helen/ch-darwin-amd64:/usr/local/sbin'
