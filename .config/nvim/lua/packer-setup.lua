@@ -1,25 +1,44 @@
--- INSTALL packer {{{
-local install_path = vim.fn.stdpath('data') ..
-                         '/site/pack/packer/opt/packer.nvim'
+local execute = vim.api.nvim_command
+local fn = vim.fn
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.api.nvim_command(
-        '!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+-- INSTALL packer {{{
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+
+if fn.empty(fn.glob(install_path)) > 0 then
+    execute("!git clone https://github.com/wbthomason/packer.nvim " ..
+                install_path)
+    execute "packadd packer.nvim"
 end
 -- }}}
 
-vim.cmd [[packadd packer.nvim]]
+--- Check if a file or directory exists in this path
+local function require_plugin(plugin)
+    local plugin_prefix = fn.stdpath("data") .. "/site/pack/packer/opt/"
 
-return require('packer').startup(function()
+    local plugin_path = plugin_prefix .. plugin .. "/"
+    --	print('test '..plugin_path)
+    local ok, err, code = os.rename(plugin_path, plugin_path)
+    if not ok then
+        if code == 13 then
+            -- Permission denied, but it exists
+            return true
+        end
+    end
+    --	print(ok, err, code)
+    if ok then vim.cmd("packadd " .. plugin) end
+    return ok, err, code
+end
+
+vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
+
+return require('packer').startup(function(use)
     -- packer
-    use {'wbthomason/packer.nvim', opt = true}
+    use {'wbthomason/packer.nvim'}
 
     -- LSP
     use {'neovim/nvim-lspconfig'}
-    use {'onsails/lspkind-nvim'}
     use {'kabouzeid/nvim-lspinstall'}
     use {'hrsh7th/nvim-compe'}
-    -- use {'nvim-lua/completion-nvim'}
 
     -- Debugging
     use {'puremourning/vimspector'}
@@ -28,17 +47,14 @@ return require('packer').startup(function()
         opt = true,
         cmd = {'Dispatch', 'Make', 'Focus', 'Start'}
     }
-    use {
-        'szw/vim-maximizer',
-        config = function() require 'plugins/szw-vim-maximizer' end
-    }
+    use {'szw/vim-maximizer'}
 
     -- Explorer
-    use {'preservim/nerdtree'}
-    use {'Xuyuanp/nerdtree-git-plugin'}
+    -- use {'preservim/nerdtree'}
+    -- use {'Xuyuanp/nerdtree-git-plugin'}
+    use {'kyazdani42/nvim-tree.lua'}
 
     -- Editor UI
-    -- use {'kyazdani42/nvim-tree.lua'}
     use {'glepnir/galaxyline.nvim'}
     use {'norcalli/nvim-colorizer.lua'}
     use {'ryanoasis/vim-devicons'}
@@ -49,8 +65,8 @@ return require('packer').startup(function()
     use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
 
     -- Telescope
-    use {'nvim-lua/plenary.nvim'}
     use {'nvim-lua/popup.nvim'}
+    use {'nvim-lua/plenary.nvim'}
     use {'nvim-telescope/telescope.nvim'}
     use {'nvim-telescope/telescope-symbols.nvim'}
     use {'nvim-telescope/telescope-fzy-native.nvim'}
@@ -91,14 +107,6 @@ return require('packer').startup(function()
     use {'octol/vim-cpp-enhanced-highlight'}
     use {'dag/vim-fish'}
     use {'vimwiki/vimwiki'}
-
-    -- Tmux
-    use {
-        'christoomey/vim-tmux-navigator',
-        config = function()
-            require 'plugins/christoomey-vim-tmux-navigator'
-        end
-    }
 
     -- Colorscheme
     use {'glepnir/oceanic-material'}

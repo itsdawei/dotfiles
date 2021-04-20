@@ -1,6 +1,5 @@
 require('gitsigns').setup {
     signs = {
-        -- TODO add hl to colorscheme
         add = {
             hl = 'GitSignsAdd',
             text = '▎',
