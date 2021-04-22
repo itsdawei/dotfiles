@@ -18,19 +18,17 @@ let g:which_key_max_size = 0
 
 " Hide status line
 autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+autocmd  FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 let g:which_key_map['/'] = 'comment toggle'
-let g:which_key_map[';'] = [ ':Dashboard'                                      , 'home screen' ]
-let g:which_key_map['?'] = [ ':NvimTreeFindFile'                               , 'find current file' ]
-let g:which_key_map['e'] = [ ':NvimTreeToggle'                                 , 'explorer' ]
-let g:which_key_map['f'] = [ ':Telescope find_files'                           , 'find files' ]
-let g:which_key_map['h'] = [ '<C-W>s'                                          , 'split below']
-let g:which_key_map['H'] = [ ':let @/ = ""'                                    , 'no highlight' ]
-let g:which_key_map['r'] = [ ':RnvimrToggle'                                   , 'ranger' ]
+let g:which_key_map[';'] = [ ':Dashboard'                       , 'home screen' ]
+let g:which_key_map['?'] = [ ':NvimTreeFindFile'                , 'find current file' ]
+let g:which_key_map['e'] = [ ':NvimTreeToggle'                  , 'explorer' ]
+let g:which_key_map['f'] = [ ':Telescope find_files'            , 'find files' ]
+let g:which_key_map['r'] = [ ':RnvimrToggle'                    , 'ranger' ]
+let g:which_key_map['u'] = [ ':UndotreeToggle'                            , 'undotree' ]
+let g:which_key_map['z'] = [ ':Goyo'                            , 'zen' ]
 " TODO create entire treesitter section
-let g:which_key_map['v'] = [ '<C-W>v'                                          , 'split right']
 " TODO play nice with status line
 
 " Group mappings
@@ -41,7 +39,7 @@ let g:which_key_map.b = {
       \ '>' : [':BufferMoveNext'        , 'move next'],
       \ '<' : [':BufferMovePrevious'    , 'move prev'],
       \ 'b' : [':BufferPick'            , 'pick buffer'],
-      \ 'd' : [':BufferClose'               , 'delete-buffer'],
+      \ 'd' : [':BufferClose'           , 'delete-buffer'],
       \ 'n' : ['bnext'                  , 'next-buffer'],
       \ 'p' : ['bprevious'              , 'previous-buffer'],
       \ '?' : ['Buffers'                , 'fzf-buffer'],
@@ -50,12 +48,12 @@ let g:which_key_map.b = {
 " d is for debug
 let g:which_key_map.d = {
       \ 'name' : '+debug' ,
-      \ 'b' : ['DebugToggleBreakpoint '        , 'toggle breakpoint'],
-      \ 'c' : ['DebugContinue'                 , 'continue'],
-      \ 'i' : ['DebugStepInto'                 , 'step into'],
-      \ 'o' : ['DebugStepOver'                 , 'step over'],
-      \ 'r' : ['DebugToggleRepl'               , 'toggle repl'],
-      \ 's' : ['DebugStart'                    , 'start'],
+      \ 'b' : ['DebugToggleBreakpoint ' , 'toggle breakpoint'],
+      \ 'c' : ['DebugContinue'          , 'continue'],
+      \ 'i' : ['DebugStepInto'          , 'step into'],
+      \ 'o' : ['DebugStepOver'          , 'step over'],
+      \ 'r' : ['DebugToggleRepl'        , 'toggle repl'],
+      \ 's' : ['DebugStart'             , 'start'],
       \ }
 
 " F is for fold
@@ -102,22 +100,22 @@ let g:which_key_map.S = {
 " g is for git
 let g:which_key_map.g = {
       \ 'name' : '+git' ,
-      \ 'b' : [':GitBlameToggle'                   , 'blame'],
-      \ 'B' : [':GBrowse'                          , 'browse'],
-      \ 'd' : [':Git diff'                         , 'diff'],
-      \ 'j' : [':NextHunk'                         , 'next hunk'],
-      \ 'k' : [':PrevHunk'                         , 'prev hunk'],
-      \ 'l' : [':Git log'                          , 'log'],
-      \ 'p' : [':PreviewHunk'                      , 'preview hunk'],
-      \ 'r' : [':ResetHunk'                        , 'reset hunk'],
-      \ 'R' : [':ResetBuffer'                      , 'reset buffer'],
-      \ 's' : [':StageHunk'                        , 'stage hunk'],
-      \ 'S' : [':Gstatus'                          , 'status'],
-      \ 'u' : [':UndoStageHunk'                    , 'undo stage hunk'],
+      \ 'b' : [':GitBlameToggle'                      , 'blame'],
+      \ 'B' : [':GBrowse'                             , 'browse'],
+      \ 'd' : [':Git diff'                            , 'diff'],
+      \ 'j' : [':NextHunk'                            , 'next hunk'],
+      \ 'k' : [':PrevHunk'                            , 'prev hunk'],
+      \ 'l' : [':Git log'                             , 'log'],
+      \ 'p' : [':PreviewHunk'                         , 'preview hunk'],
+      \ 'r' : [':ResetHunk'                           , 'reset hunk'],
+      \ 'R' : [':ResetBuffer'                         , 'reset buffer'],
+      \ 's' : [':StageHunk'                           , 'stage hunk'],
+      \ 'S' : [':Gstatus'                             , 'status'],
+      \ 'u' : [':UndoStageHunk'                       , 'undo stage hunk'],
       \ }
 
-" l is for language server protocol
-let g:which_key_map.l = {
+" v is for language server protocol
+let g:which_key_map.v = {
       \ 'name' : '+lsp' ,
       \ 'a' : [':Lspsaga code_action'                , 'code action'],
       \ 'A' : [':Lspsaga range_code_action'          , 'selected action'],
@@ -135,6 +133,7 @@ let g:which_key_map.l = {
       \ 'x' : [':cclose'                             , 'close quickfix'],
       \ 's' : [':Telescope lsp_document_symbols'     , 'document symbols'],
       \ 'S' : [':Telescope lsp_workspace_symbols'    , 'workspace symbols'],
+      \ 'h' : [':Telescope help_tags'                , 'help tags'],
       \ }
 
 call which_key#register('<Space>', "g:which_key_map")

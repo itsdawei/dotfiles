@@ -41,7 +41,7 @@ local function source_plugins()
     require_plugin("nvim-dap")
     require_plugin("nvim-compe")
     require_plugin("vim-vsnip")
-    require_plugin("firendly-snippets")
+    require_plugin("friendly-snippets")
     require_plugin("nvim-treesitter")
     require_plugin("nvim-ts-autotag")
     require_plugin("nvim-tree.lua")
@@ -57,20 +57,24 @@ local function source_plugins()
     require_plugin("vim-fugitive")
     require_plugin("indent-blankline.nvim")
     require_plugin("floaterm")
-    require_plugin("gruvbox")
-    require_plugin("nvim-colorizer.lua")
-    require_plugin("neoformat")
-    -- require_plugin("ultisnips")
+    require_plugin("undotree")
 
     require_plugin("goyo.vim")
     require_plugin("limelight.vim")
+
+    -- Color
+    require_plugin("oceanic-material")
+    require_plugin("gruvbox-material")
+    require_plugin("gruvbox")
+    require_plugin("nord-vim")
+    require_plugin("onedark.vim")
+    require_plugin("nvim-colorizer.lua")
 end
 
 vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
 
 return require("packer").startup(
     function(use)
-        -- Packer can manage itself as an optional plugin
         use "wbthomason/packer.nvim"
 
         -- TODO refactor all of this (for now it works, but yes I know it could be wrapped in a simpler function)
@@ -94,6 +98,7 @@ return require("packer").startup(
 
         -- Git
         use {'tpope/vim-fugitive', opt = true}
+        use {"lewis6991/gitsigns.nvim", opt = true}
         use {'rhysd/git-messenger.vim', opt = true}
         use {'gisphm/vim-gitignore', opt = true}
 
@@ -112,14 +117,19 @@ return require("packer").startup(
         -- TODO remove when open on dir is supported by nvimtree
         use "kevinhwang91/rnvimr"
 
-        use {'lukas-reineke/indent-blankline.nvim', opt=true, branch = 'lua'}
-        use {"lewis6991/gitsigns.nvim", opt = true}
+        -- Utilities
+        use {'voldikss/vim-floaterm', opt = true}
+        use {'lukas-reineke/indent-blankline.nvim', opt = true, branch = 'lua'}
         use {"liuchengxu/vim-which-key", opt = true}
         use {"ChristianChiarulli/dashboard-nvim", opt = true}
         use {"windwp/nvim-autopairs", opt = true}
         use {"terrortylor/nvim-comment", opt = true}
         use {"kevinhwang91/nvim-bqf", opt = true}
-        use {'sbdchd/neoformat', opt = true}
+		use {'mbbill/undotree', opt = true}
+
+        -- Goyo
+        use {'junegunn/goyo.vim', opt = true}
+        use {'junegunn/limelight.vim', opt = true}
 
         -- Color
         use {'norcalli/nvim-colorizer.lua', opt = true}
@@ -130,14 +140,16 @@ return require("packer").startup(
         use {'joshdick/onedark.vim', opt = true}
 
         -- Icons
+        use {'ryanoasis/vim-devicons', opt = true}
         use {"kyazdani42/nvim-web-devicons", opt = true}
 
         -- Status Line and Bufferline
         use {"glepnir/galaxyline.nvim", opt = true}
         use {"romgrk/barbar.nvim", opt = true}
 
-        use {'junegunn/goyo.vim', opt = true}
-        use {'junegunn/limelight.vim', opt = true}
+        -- Cheat Sheet
+        use {'RishabhRD/popfix', opt = true}
+        use {'RishabhRD/nvim-cheat.sh', opt = true}
 
         source_plugins()
     end

@@ -17,7 +17,7 @@ vim.o.shiftwidth = 4
 
 vim.o.backup = false
 vim.o.undodir = tostring(os.getenv("HOME")) .. '/.vim/undodir'
-vim.o.undofile = true
+vim.bo.undofile = true
 
 vim.o.incsearch = true
 vim.o.termguicolors = true
@@ -31,8 +31,6 @@ vim.o.updatetime = 300
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
 vim.o.mouse = 'a'
-
-vim.o.completeopt = 'menuone,noinsert,noselect'
 
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -48,10 +46,6 @@ vim.bo.tabstop = 4
 vim.bo.softtabstop = 4
 vim.bo.shiftwidth = 4
 
-vim.o.title = true
-TERMINAL = vim.fn.expand('$TERMINAL')
-vim.cmd('let &titleold="' .. TERMINAL .. '"')
-vim.o.titlestring = "%<%F%=%l/%L - nvim"
 vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
 vim.o.pumheight = 10 -- Makes popup menu smaller
 vim.o.fileencoding = "utf-8" -- The encoding written to file

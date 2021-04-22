@@ -19,12 +19,11 @@ require('lv-autopairs')
 require('lv-rnvimr')
 
 require('colorizer')
-require('fugitive')
 require('floaterm')
+require('fugitive')
 require('git-messenger')
 require('goyo')
 require('indentline')
-require('neoformat')
 
 -- Which Key (Hope to replace with Lua plugin someday)
 vim.cmd('source ~/.config/nvim/vimscript/lv-whichkey/init.vim')

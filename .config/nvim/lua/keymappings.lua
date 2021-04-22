@@ -38,20 +38,14 @@ vim.cmd([[
 ]])
 
 -- better indenting
+vim.api.nvim_set_keymap('n', '<', '<<', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '<', '<<', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '>', '>>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '>', '>>', {noremap = true, silent = true})
-
--- Tab switch buffer
-vim.api.nvim_set_keymap('n', '<TAB>', ':bnext<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<S-TAB>', ':bprevious<CR>', {noremap = true, silent = true})
 
 -- Move selected line / block of text in visual mode
 vim.api.nvim_set_keymap('x', 'K', ':move \'<-2<CR>gv-gv', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silent = true})
-
--- Better nav for omnicomplete
-vim.api.nvim_set_keymap('i', '<expr> <TAB>', [[(\"\\<C-n>\")']], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<expr> <S-TAB>', [[(\"\\<C-p>\")']], {noremap = true, silent = true})
 
 -- [[Telescope]]
 -- search entered word within project
