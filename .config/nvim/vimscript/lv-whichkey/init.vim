@@ -26,50 +26,12 @@ let g:which_key_map['?'] = [ ':NvimTreeFindFile'                , 'find current 
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                  , 'explorer' ]
 let g:which_key_map['f'] = [ ':Telescope find_files'            , 'find files' ]
 let g:which_key_map['r'] = [ ':RnvimrToggle'                    , 'ranger' ]
-let g:which_key_map['u'] = [ ':UndotreeToggle'                            , 'undotree' ]
+let g:which_key_map['u'] = [ ':UndotreeToggle'                  , 'undotree' ]
 let g:which_key_map['z'] = [ ':Goyo'                            , 'zen' ]
 " TODO create entire treesitter section
 " TODO play nice with status line
 
 " Group mappings
-
-" b is for buffer
-let g:which_key_map.b = {
-      \ 'name' : '+buffer' ,
-      \ '>' : [':BufferMoveNext'        , 'move next'],
-      \ '<' : [':BufferMovePrevious'    , 'move prev'],
-      \ 'b' : [':BufferPick'            , 'pick buffer'],
-      \ 'd' : [':BufferClose'           , 'delete-buffer'],
-      \ 'n' : ['bnext'                  , 'next-buffer'],
-      \ 'p' : ['bprevious'              , 'previous-buffer'],
-      \ '?' : ['Buffers'                , 'fzf-buffer'],
-      \ }
-
-" d is for debug
-let g:which_key_map.d = {
-      \ 'name' : '+debug' ,
-      \ 'b' : ['DebugToggleBreakpoint ' , 'toggle breakpoint'],
-      \ 'c' : ['DebugContinue'          , 'continue'],
-      \ 'i' : ['DebugStepInto'          , 'step into'],
-      \ 'o' : ['DebugStepOver'          , 'step over'],
-      \ 'r' : ['DebugToggleRepl'        , 'toggle repl'],
-      \ 's' : ['DebugStart'             , 'start'],
-      \ }
-
-" F is for fold
-let g:which_key_map.F = {
-    \ 'name': '+fold',
-    \ 'O' : [':set foldlevel=20'  , 'open all'],
-    \ 'C' : [':set foldlevel=0'   , 'close all'],
-    \ 'c' : [':foldclose'         , 'close'],
-    \ 'o' : [':foldopen'          , 'open'],
-    \ '1' : [':set foldlevel=1'   , 'level1'],
-    \ '2' : [':set foldlevel=2'   , 'level2'],
-    \ '3' : [':set foldlevel=3'   , 'level3'],
-    \ '4' : [':set foldlevel=4'   , 'level4'],
-    \ '5' : [':set foldlevel=5'   , 'level5'],
-    \ '6' : [':set foldlevel=6'   , 'level6']
-    \ }
 
 " s is for search powered by telescope
 let g:which_key_map.s = {
@@ -78,7 +40,6 @@ let g:which_key_map.s = {
       \ 'B' : [':Telescope git_branches'                , 'git branches'],
       \ 'd' : [':Telescope lsp_document_diagnostics'    , 'document_diagnostics'],
       \ 'D' : [':Telescope lsp_workspace_diagnostics'   , 'workspace_diagnostics'],
-      \ 'f' : [':Telescope find_files'                  , 'files'],
       \ 'h' : [':Telescope command_history'             , 'history'],
       \ 'i' : [':Telescope media_files'                 , 'media files'],
       \ 'm' : [':Telescope marks'                       , 'marks'],
@@ -100,8 +61,7 @@ let g:which_key_map.S = {
 " g is for git
 let g:which_key_map.g = {
       \ 'name' : '+git' ,
-      \ 'b' : [':GitBlameToggle'                      , 'blame'],
-      \ 'B' : [':GBrowse'                             , 'browse'],
+      \ 'c' : [':Git commit'                          , 'commit'],
       \ 'd' : [':Git diff'                            , 'diff'],
       \ 'j' : [':NextHunk'                            , 'next hunk'],
       \ 'k' : [':PrevHunk'                            , 'prev hunk'],
@@ -117,23 +77,18 @@ let g:which_key_map.g = {
 " v is for language server protocol
 let g:which_key_map.v = {
       \ 'name' : '+lsp' ,
-      \ 'a' : [':Lspsaga code_action'                , 'code action'],
-      \ 'A' : [':Lspsaga range_code_action'          , 'selected action'],
       \ 'd' : [':Telescope lsp_document_diagnostics' , 'document diagnostics'],
       \ 'D' : [':Telescope lsp_workspace_diagnostics', 'workspace diagnostics'],
       \ 'f' : [':LspFormatting'                      , 'format'],
-      \ 'I' : [':LspInfo'                            , 'lsp info'],
-      \ 'v' : [':LspVirtualTextToggle'               , 'lsp toggle virtual text'],
+      \ 'i' : [':LspImplementation'                  , 'lsp implementation'],
       \ 'l' : [':Lspsaga lsp_finder'                 , 'lsp finder'],
-      \ 'L' : [':Lspsaga show_line_diagnostics'      , 'line_diagnostics'],
-      \ 'p' : [':Lspsaga preview_definition'         , 'preview definition'],
-      \ 'q' : [':Telescope quickfix'                 , 'quickfix'],
       \ 'r' : [':Lspsaga rename'                     , 'rename'],
-      \ 'T' : [':LspTypeDefinition'                  , 'type defintion'],
-      \ 'x' : [':cclose'                             , 'close quickfix'],
+      \ 'p' : [':Lspsaga preview_definition'         , 'preview definition'],
+      \ 'n' : [':Lspsaga diagnostic_jump_next'       , 'next diagnostics'],
       \ 's' : [':Telescope lsp_document_symbols'     , 'document symbols'],
       \ 'S' : [':Telescope lsp_workspace_symbols'    , 'workspace symbols'],
       \ 'h' : [':Telescope help_tags'                , 'help tags'],
+      \ 'K' : [':Lspsaga hover_doc'                  , 'hover doc'],
       \ }
 
 call which_key#register('<Space>', "g:which_key_map")

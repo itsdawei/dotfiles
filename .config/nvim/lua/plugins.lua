@@ -32,18 +32,11 @@ local function source_plugins()
     require_plugin("nvim-lspconfig")
     require_plugin("lspsaga.nvim")
     require_plugin("nvim-lspinstall")
-    require_plugin("popup.nvim")
-    require_plugin("plenary.nvim")
-    require_plugin("telescope.nvim")
-    require_plugin("telescope-symbols.nvim")
-    require_plugin("telescope-fzy-native.nvim")
-    require_plugin("telescope-media-files.nvim")
     require_plugin("nvim-dap")
     require_plugin("nvim-compe")
     require_plugin("vim-vsnip")
     require_plugin("friendly-snippets")
     require_plugin("nvim-treesitter")
-    require_plugin("nvim-ts-autotag")
     require_plugin("nvim-tree.lua")
     require_plugin("gitsigns.nvim")
     require_plugin("vim-which-key")
@@ -83,12 +76,12 @@ return require("packer").startup(
         use {"kabouzeid/nvim-lspinstall", opt = true}
 
         -- Telescope
-        use {"nvim-lua/popup.nvim", opt = true}
-        use {"nvim-lua/plenary.nvim", opt = true}
-        use {"nvim-telescope/telescope.nvim", opt = true}
-        use {'nvim-telescope/telescope-symbols.nvim', opt = true}
-        use {'nvim-telescope/telescope-fzy-native.nvim', opt = true}
-        use {'nvim-telescope/telescope-media-files.nvim', opt = true}
+        use {"nvim-lua/popup.nvim"}
+        use {"nvim-lua/plenary.nvim"}
+        use {"nvim-telescope/telescope.nvim"}
+        use {'nvim-telescope/telescope-symbols.nvim'}
+        use {'nvim-telescope/telescope-fzy-native.nvim'}
+        use {'nvim-telescope/telescope-media-files.nvim'}
 
         -- Debugging
         use {"mfussenegger/nvim-dap", opt = true}
@@ -110,7 +103,6 @@ return require("packer").startup(
 
         -- Treesitter
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-        use {"windwp/nvim-ts-autotag", opt = true}
 
         -- Explorer
         use "kyazdani42/nvim-tree.lua"

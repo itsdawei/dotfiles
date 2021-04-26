@@ -1,7 +1,6 @@
 local actions = require('telescope.actions')
 -- Global remapping
 ------------------------------
--- '--color=never',
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('media_files')
 require('telescope').setup {
