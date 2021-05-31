@@ -20,6 +20,8 @@ vim.o.undodir = tostring(os.getenv("HOME")) .. '/.vim/undodir'
 vim.bo.undofile = true
 
 vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.showmode = false
 
@@ -27,7 +29,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.o.cmdheight = 1
-vim.o.updatetime = 300
+vim.o.updatetime = 50
 vim.o.shortmess = vim.o.shortmess .. 'c'
 
 vim.o.mouse = 'a'
@@ -39,7 +41,7 @@ vim.wo.scrolloff = 8
 vim.wo.wrap = false
 vim.wo.colorcolumn = '80'
 
-vim.bo.expandtab = true
+vim.cmd('set expandtab')
 vim.bo.smartindent = true
 vim.bo.swapfile = false
 vim.bo.tabstop = 4

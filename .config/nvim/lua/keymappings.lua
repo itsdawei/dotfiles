@@ -63,11 +63,11 @@ vim.api.nvim_set_keymap('n', '<Leader>vrc', [[<Cmd>lua require('plugins.telescop
 -- telescope help tags
 vim.api.nvim_set_keymap('n', '<Leader>vh', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true })
 
--- vim.api.nvim_set_keymap('i', '<C-TAB>', 'compe#complete()', {noremap = true, silent = true, expr = true})
+vim.api.nvim_set_keymap('v', '<Leader>p', [["_dP]], { noremap = true })
 
--- vim.cmd([[
--- map p <Plug>(miniyank-autoput)
--- map P <Plug>(miniyank-autoPut)
--- map <leader>n <Plug>(miniyank-cycle)
--- map <leader>N <Plug>(miniyank-cycleback)
--- ]])
+vim.api.nvim_set_keymap('n', '<Leader>y', [["+y]], { noremap = true })
+vim.api.nvim_set_keymap('v', '<Leader>y', [["+y]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>Y', [[gg"+yG]], { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<Leader>d', [["_d]], { noremap = true })
+vim.api.nvim_set_keymap('v', '<Leader>d', [["_d]], { noremap = true })

@@ -23,6 +23,4 @@ vim.api.nvim_exec([[
 
 vim.api.nvim_exec('autocmd ColorScheme * call ColorMyPencils()', false)
 
-vim.cmd('let g:nvcode_termcolors=256')
-
 vim.cmd('colorscheme ' .. O.colorscheme)

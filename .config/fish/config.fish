@@ -2,10 +2,10 @@
 set -e fish_user_paths
 set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 set fish_greeting                      # Supresses fish's intro message
-set TERM "xterm-256color"              # Sets the terminal type
+set TERM "screen-256color"              # Sets the terminal type
 set EDITOR "nvim"                      # $EDITOR use nvim in terminal
 set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
-set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/helen/ch-darwin-amd64 /usr/local/sbin /nix
+set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin:/usr/local/avr/bin $PATH /Users/dawei/ch-darwin-amd64 /usr/local/sbin /nix
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
@@ -108,12 +108,10 @@ alias tozsh="chsh -s /bin/zsh && echo 'Now log out.'"
 alias tofish="chsh -s /usr/local/bin/fish && echo 'Now log out.'"
 
 # cow says
-alias cowy='fortune | cowsay | lolcat'
+alias cowsays='fortune | cowsay | lolcat'
 
-# ch configue for csci104
-function c4 --argument cmd
-    ch $cmd csci104
-end
+# thefuck
+thefuck --alias | source
 
 # bare git repo alias for dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"

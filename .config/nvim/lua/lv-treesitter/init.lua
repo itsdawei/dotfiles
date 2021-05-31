@@ -1,10 +1,8 @@
 require'nvim-treesitter.configs'.setup {
     highlight = {
-        enable = O.treesitter.highlight.enabled
+        enable = true
     },
-    -- indent = {enable = true, disable = {"python", "html", "javascript"}},
-    -- TODO seems to be broken
-    indent = {enable = {"javascriptreact"}},
+    indent = {enable = true, disable = {"python", "html", "javascript"}},
     autotag = {enable = true}
 }
 

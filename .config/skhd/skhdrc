@@ -13,8 +13,8 @@ cmd + shift - c : $(yabai -m window $(yabai -m query --windows --window | jq -re
 # lshift - x : terminal-notifier -message "$(yabai -m query --windows --window | jq -re ".id")"
 
 # open terminal
-# cmd - return : open -na 'kitty.app'
-cmd - return : open -na 'alacritty.app'
+cmd - return : open -na 'kitty.app'
+# cmd - return : open -na 'alacritty.app'
 alt - return : open -na 'Brave Browser.app'
 
 # cycle float and tiled windows on space (back and forwards)
