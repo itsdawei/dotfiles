@@ -30,12 +30,10 @@ vim.cmd([[
 
 -- TODO fix this
 -- resize with arrows
-vim.cmd([[
-  nnoremap <silent> <C-Up>    :resize -2<CR>
-  nnoremap <silent> <C-Down>  :resize +2<CR>
-  nnoremap <silent> <C-Left>  :vertical resize -2<CR>
-  nnoremap <silent> <C-Right> :vertical resize +2<CR>
-]])
+vim.api.nvim_set_keymap('n', '<C-Up>', ':resize -2<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<C-Down>', ':resize +2<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<C-Left>', ':vertical resize -2<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize +2<CR>', {silent = true})
 
 -- better indenting
 vim.api.nvim_set_keymap('n', '<', '<<', {noremap = true, silent = true})
@@ -71,3 +69,5 @@ vim.api.nvim_set_keymap('n', '<Leader>Y', [[gg"+yG]], { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>d', [["_d]], { noremap = true })
 vim.api.nvim_set_keymap('v', '<Leader>d', [["_d]], { noremap = true })
+
+vim.api.nvim_set_keymap('', '<C-q>', ':call QuickFixToggle()<CR>', {noremap = true, silent = true})

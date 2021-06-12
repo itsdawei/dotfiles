@@ -27,32 +27,12 @@ local function require_plugin(plugin)
 end
 
 local function source_plugins()
-    require_plugin("nvim-lspconfig")
-    require_plugin("lspsaga.nvim")
-    require_plugin("nvim-lspinstall")
-    require_plugin("nvim-compe")
-    require_plugin("vim-vsnip")
     -- require_plugin("ultisnips")
-    require_plugin("friendly-snippets")
-    require_plugin("nvim-treesitter")
-    require_plugin("nvim-tree.lua")
-    require_plugin("gitsigns.nvim")
-    require_plugin("vim-which-key")
-    require_plugin("dashboard-nvim")
-    require_plugin("nvim-autopairs")
-    require_plugin("nvim-comment")
-    require_plugin("nvim-bqf")
-    require_plugin("nvim-web-devicons")
-    require_plugin("vim-devicons")
-    require_plugin("galaxyline.nvim")
+    require_plugin('lsp-rooter.nvim')
 
     require_plugin("vim-fugitive")
-    require_plugin("indent-blankline.nvim")
     require_plugin("floaterm")
     require_plugin("undotree")
-
-    require_plugin("goyo.vim")
-    require_plugin("limelight.vim")
 
     -- Color
     require_plugin("oceanic-material")
@@ -62,6 +42,7 @@ local function source_plugins()
     require_plugin("onedark.vim")
     require_plugin("nvim-colorizer.lua")
 
+    require('lv-symbols-outline')
 end
 
 vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
@@ -70,58 +51,163 @@ return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- TODO refactor all of this (for now it works, but yes I know it could be wrapped in a simpler function)
-    use {"neovim/nvim-lspconfig", opt = true}
-    use {"glepnir/lspsaga.nvim", opt = true}
-    use {"kabouzeid/nvim-lspinstall", opt = true}
+    use {"neovim/nvim-lspconfig"}
+    use {"glepnir/lspsaga.nvim", cmd = "Lspsaga", requires = {"neovim/nvim-lspconfig"}}
+    use {
+        "kabouzeid/nvim-lspinstall",
+        cmd = "LspInstall",
+        config = function()
+            require('lv-lspinstall')
+        end
+    }
+
+    use {'simrat39/symbols-outline.nvim'}
 
     -- Telescope
-    use {"nvim-lua/popup.nvim"}
-    use {"nvim-lua/plenary.nvim"}
-    use {"nvim-telescope/telescope.nvim"}
-    use {'nvim-telescope/telescope-symbols.nvim'}
-    use {'nvim-telescope/telescope-fzy-native.nvim'}
-    use {'nvim-telescope/telescope-media-files.nvim'}
+    use {
+        "nvim-telescope/telescope.nvim",
+        cmd = "Telescope",
+        module = {"plenary.nvim", "popup.nvim"},
+        config = function()
+            require("lv-telescope")
+        end,
+        requires = {
+            {"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}, {"nvim-telescope/telescope-fzy-native.nvim"},
+            {"nvim-telescope/telescope-project.nvim"}
+        }
+    }
+
+    use {
+        "folke/trouble.nvim",
+        cmd = {"Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh"},
+        ft = "dashboard",
+        event = {"BufEnter"},
+        requires = "kyazdani42/nvim-web-devicons"
+    }
 
     -- Debugging
-    use {'puremourning/vimspector', opt = true}
-    use {'tpope/vim-dispatch', cmd = {'Dispatch', 'Make', 'Focus', 'Start'}, opt = true}
-    use {'szw/vim-maximizer', opt = true}
-
-    -- Git
-    use {'tpope/vim-fugitive', opt = true}
-    use {"lewis6991/gitsigns.nvim", opt = true}
-    use {'rhysd/git-messenger.vim', opt = true}
-    use {'gisphm/vim-gitignore', opt = true}
+    use {"mfussenegger/nvim-dap", opt = true}
 
     -- Autocomplete
-    use {"hrsh7th/nvim-compe", opt = true}
-    use {'sirver/ultisnips', opt = true}
-    use {"hrsh7th/vim-vsnip", opt = true}
-    use {"rafamadriz/friendly-snippets", opt = true}
+    use {
+        "hrsh7th/nvim-compe",
+        event = "InsertEnter",
+        config = function()
+            require("lv-compe")
+        end
+    }
+    use {"hrsh7th/vim-vsnip", after = "nvim-compe"}
+    use {"rafamadriz/friendly-snippets", after = "nvim-compe"}
 
     -- Treesitter
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+    use {
+        "windwp/nvim-ts-autotag",
+        ft = {'html', 'javascript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue'},
+        config = function()
+            require('nvim-ts-autotag').setup()
+        end
+    }
+    use {"andymass/vim-matchup", keys = "%"}
 
     -- Explorer
-    use "kyazdani42/nvim-tree.lua"
+    use {
+        "kyazdani42/nvim-tree.lua",
+        cmd = {"NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile"},
+        event = {"BufEnter"},
+        config = function()
+            require('lv-nvimtree')
+        end,
+        requires = {"kyazdani42/nvim-web-devicons"}
+    }
+    use {"ahmedkhalf/lsp-rooter.nvim", after = "nvim-tree.lua"} -- with this nvim-tree will follow you
     -- TODO remove when open on dir is supported by nvimtree
-    use "kevinhwang91/rnvimr"
+    use {
+        "kevinhwang91/rnvimr",
+        config = function()
+            require('lv-rnvimr')
+        end
+    }
+
+    use {
+        "lewis6991/gitsigns.nvim",
+        event = "BufReadPre",
+        config = function()
+            require("lv-gitsigns")
+        end
+    }
+    use {
+        'f-person/git-blame.nvim',
+        cmd = "GitBlameToggle",
+        config = function()
+            require("lv-gitblame")
+        end
+    }
+    use {
+        "folke/which-key.nvim",
+        event = {"BufEnter", "BufReadPost"},
+        ft = {"dashboard"},
+        config = function()
+            require('lv-which-key')
+        end
+    }
+    use {
+        "ChristianChiarulli/dashboard-nvim",
+        event = "BufEnter",
+        config = function()
+            require('lv-dashboard')
+        end
+    }
+    use {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("lv-autopairs")
+        end,
+        requires = {"nvim-treesitter/nvim-treesitter"}
+    }
+    use {"kevinhwang91/nvim-bqf", event = "QuickFixCmdPre"}
+
+    use {'tpope/vim-fugitive', opt = true}
+    use {'rhysd/git-messenger.vim', opt = true}
+
+    -- Comments
+    use {
+        "terrortylor/nvim-comment",
+        cmd = "CommentToggle",
+        keys = "gcc",
+        config = function()
+            require("lv-comment")
+        end
+    }
+    use {'JoosepAlviste/nvim-ts-context-commentstring', event = "BufReadPost", requires = "nvim-treesitter"}
 
     -- Utilities
-    use {'voldikss/vim-floaterm', opt = true}
-    use {'lukas-reineke/indent-blankline.nvim', opt = true, branch = 'lua'}
-    use {"liuchengxu/vim-which-key", opt = true}
-    use {"ChristianChiarulli/dashboard-nvim", opt = true}
-    use {"windwp/nvim-autopairs", opt = true}
-    use {"terrortylor/nvim-comment", opt = true}
-    use {"kevinhwang91/nvim-bqf", opt = true}
+    use {
+        "numtostr/FTerm.nvim",
+        config = function()
+            require("FTerm").setup()
+        end
+    }
     use {'mbbill/undotree', opt = true}
 
-    -- Goyo
-    use {'junegunn/goyo.vim', opt = true}
-    use {'junegunn/limelight.vim', opt = true}
+    -- Zen Mode
+    use {
+        "Pocco81/TrueZen.nvim",
+        cmd = {"TZMinimalist", "TZFocus", "TZAtaraxis"},
+        config = function()
+            require('lv-zen')
+        end
+    }
 
     -- Color
+    use {
+        "christianchiarulli/nvcode-color-schemes.vim",
+        event = "BufEnter",
+        config = function()
+            require('colorscheme')
+        end
+    }
     use {'norcalli/nvim-colorizer.lua', opt = true}
     use {'glepnir/oceanic-material', opt = true}
     use {'sainnhe/gruvbox-material', opt = true}
@@ -129,23 +215,38 @@ return require("packer").startup(function(use)
     use {'arcticicestudio/nord-vim', opt = true}
     use {'joshdick/onedark.vim', opt = true}
 
-    -- Icons
-    use {'ryanoasis/vim-devicons', opt = true}
-    use {"kyazdani42/nvim-web-devicons", opt = true}
-
     -- Status Line and Bufferline
-    use {"glepnir/galaxyline.nvim", opt = true}
-    use {"romgrk/barbar.nvim", opt = true}
+    use {
+        "glepnir/galaxyline.nvim",
+        event = "BufEnter",
+        config = function()
+            require("lv-galaxyline")
+        end
+    }
+    use {
+        "romgrk/barbar.nvim",
+        event = "BufEnter",
+        config = function()
+            require("lv-barbar")
+        end,
+        requires = {"kyazdani42/nvim-web-devicons"}
+    }
 
     -- Cheat Sheet
     use {'RishabhRD/popfix', opt = true}
     use {'RishabhRD/nvim-cheat.sh', opt = true}
 
     -- Markdown
-    use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = ':call mkdp#util#install()'}
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = 'call mkdp#util#install()', -- use this line if the above doesn't work for you
+        ft = "markdown"
+    }
 
     -- Tmux
     use {'christoomey/vim-tmux-navigator'}
+
+    require_plugin("nvim-dap")
 
     source_plugins()
 end)

@@ -51,7 +51,6 @@ vim.bo.shiftwidth = 4
 vim.cmd('set whichwrap+=<,>,[,],h,l')
 vim.o.pumheight = 10
 vim.o.fileencoding = "utf-8"
-vim.o.t_Co = "256"
 vim.o.conceallevel = 0
 vim.wo.cursorline = true
 vim.o.timeoutlen = 100

@@ -24,14 +24,22 @@ utils.define_augroups({
         {'BufWinEnter', '*', 'setlocal formatoptions-=c formatoptions-=r formatoptions-=o'},
         {'BufRead', '*', 'setlocal formatoptions-=c formatoptions-=r formatoptions-=o'},
         {'BufNewFile', '*', 'setlocal formatoptions-=c formatoptions-=r formatoptions-=o'},
-        {'VimLeavePre', '*', 'set title set titleold='}
+        {'VimLeavePre', '*', 'set title set titleold='},
+        {'FileType', 'qf', 'set nobuflisted'},
 
         -- {'User', 'GoyoLeave', 'lua require(\'galaxyline\').disable_galaxyline()'},
         -- {'User', 'GoyoEnter', 'lua require(\'galaxyline\').galaxyline_augroup()'},
     },
     _java = {
-        {'FileType', 'java', 'luafile ~/.config/nvim/lua/lsp/java-ls.lua'},
+        {'FileType', 'java', 'luafile ~/lua/lsp/java-ls.lua'},
         {'FileType', 'java', 'nnoremap ca <Cmd>lua require(\'jdtls\').code_action()<CR>'}
+    },
+    _go = {
+        -- Go generally requires Tabs instead of spaces.
+        {'FileType', 'go', 'setlocal tabstop=4'},
+        {'FileType', 'go', 'setlocal shiftwidth=4'},
+        {'FileType', 'go', 'setlocal softtabstop=4'},
+        {'FileType', 'go', 'setlocal noexpandtab'},
     },
     _dashboard = {
         -- seems to be nobuflisted that makes my stuff disapear will do more testing
