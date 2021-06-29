@@ -1,13 +1,15 @@
 vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object"
 vim.cmd('set inccommand=split') -- Make substitution work in realtime
 
+vim.o.title = true
+
 vim.o.path = vim.o.path .. '**'
 vim.o.wildmode = 'longest,list,full'
 vim.o.wildmenu = true
 vim.o.wildignore = vim.o.wildignore .. '**/.git/*' .. '**/node_modules/*'
 
 vim.o.number = true
-vim.o.hidden = true
+vim.o.hidden = O.hidden_files
 vim.o.errorbells = false
 vim.o.hlsearch = false
 
