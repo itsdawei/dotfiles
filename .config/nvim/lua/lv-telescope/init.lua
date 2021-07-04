@@ -1,5 +1,4 @@
 local actions = require('telescope.actions')
-local trouble = require("trouble.providers.telescope")
 
 -- Global remapping
 ------------------------------
@@ -7,9 +6,10 @@ require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('media_files')
 require('telescope').setup {
     defaults = {
-        find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
-        prompt_position = "bottom",
-        -- prompt_prefix = " ",
+        find_command = {
+            'rg', '--no-heading', '--with-filename', '--line-number',
+            '--column', '--smart-case'
+        },
         prompt_prefix = " ",
         selection_caret = " ",
         entry_prefix = "  ",
@@ -17,16 +17,18 @@ require('telescope').setup {
         selection_strategy = "reset",
         sorting_strategy = "descending",
         layout_strategy = "horizontal",
-        layout_defaults = {horizontal = {mirror = false}, vertical = {mirror = false}},
-        file_sorter = require'telescope.sorters'.get_fuzzy_file,
+        layout_config = {
+            width = 0.75,
+            prompt_position = "bottom",
+            preview_cutoff = 120,
+            horizontal = {mirror = false},
+            vertical = {mirror = false}
+        },
+        file_sorter = require'telescope.sorters'.get_fzy_sorter,
         file_ignore_patterns = {},
         generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
         shorten_path = true,
         winblend = 0,
-        width = 0.75,
-        preview_cutoff = 120,
-        results_height = 1,
-        results_width = 0.8,
         border = {},
         borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
         color_devicons = true,
@@ -43,7 +45,7 @@ require('telescope').setup {
                 ["<C-c>"] = actions.close,
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                ["<c-t>"] = trouble.open_with_trouble,
+                -- ["<c-t>"] = trouble.open_with_trouble,
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                 -- To disable a keymap, put [map] = false
                 -- So, to not map "<C-n>", just put
@@ -62,19 +64,13 @@ require('telescope').setup {
             n = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-               ["<c-t>"] = trouble.open_with_trouble,
+                -- ["<c-t>"] = trouble.open_with_trouble,
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist
                 -- ["<C-i>"] = my_cool_custom_action,
             }
         }
     },
     extensions = {
-        media_files = {
-            -- filetypes whitelist
-            -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-            -- filetypes = {"png", "webp", "jpg", "jpeg"},
-            find_cmd = "rg" -- find command (defaults to `fd`)
-        },
         fzy_native = {
             override_generic_sorter = false,
             override_file_sorter = true

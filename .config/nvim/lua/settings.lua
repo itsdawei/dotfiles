@@ -1,59 +1,55 @@
-vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object"
-vim.cmd('set inccommand=split') -- Make substitution work in realtime
+---  HELPERS  ---
 
-vim.o.title = true
+local cmd = vim.cmd
+local opt = vim.opt
 
-vim.o.path = vim.o.path .. '**'
-vim.o.wildmode = 'longest,list,full'
-vim.o.wildmenu = true
-vim.o.wildignore = vim.o.wildignore .. '**/.git/*' .. '**/node_modules/*'
+---  VIM ONLY COMMANDS  ---
 
-vim.o.number = true
-vim.o.hidden = O.hidden_files
-vim.o.errorbells = false
-vim.o.hlsearch = false
+cmd('filetype plugin on')               -- filetype detection
+cmd('let &titleold="'..TERMINAL..'"')
+cmd('set inccommand=split')             -- show what you are substituting in real time
+cmd('set iskeyword+=-')                 -- treat dash as a separate word
+cmd('set whichwrap+=<,>,[,],h,l')       -- move to next line with theses keys
+if O.transparent_window then
+    cmd('au ColorScheme * hi Normal ctermbg=none guibg=none')
+end
 
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+---  SETTINGS  ---
 
-vim.o.backup = false
-vim.o.undodir = tostring(os.getenv("HOME")) .. '/.vim/undodir'
-vim.bo.undofile = true
-
-vim.o.incsearch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.termguicolors = true
-vim.o.showmode = false
-
-vim.o.splitbelow = true
-vim.o.splitright = true
-
-vim.o.cmdheight = 1
-vim.o.updatetime = 50
-vim.o.shortmess = vim.o.shortmess .. 'c'
-
-vim.o.mouse = 'a'
-
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.wo.signcolumn = "yes"
-vim.wo.scrolloff = 8
-vim.wo.wrap = false
-vim.wo.colorcolumn = '80'
-
-vim.cmd('set expandtab')
-vim.bo.smartindent = true
-vim.bo.swapfile = false
-vim.bo.tabstop = 4
-vim.bo.softtabstop = 4
-vim.bo.shiftwidth = 4
-
-vim.cmd('set whichwrap+=<,>,[,],h,l')
-vim.o.pumheight = 10
-vim.o.fileencoding = "utf-8"
-vim.o.conceallevel = 0
-vim.wo.cursorline = true
-vim.o.timeoutlen = 100
-vim.o.clipboard = "unnamedplus"
+opt.backup          = false                     -- creates a backup file
+opt.clipboard       = "unnamedplus"             -- allows neovim to access the system clipboard
+opt.cmdheight       = 2                         -- more space in the neovim command line for displaying messages
+opt.colorcolumn     = "99999"                   -- fix indentline for now
+opt.completeopt     = {'menuone', 'noselect'}
+opt.conceallevel    = 0                         -- so that `` is visible in markdown files
+opt.fileencoding    = "utf-8"                   -- the encoding written to a file
+opt.guifont         = "monospace:h17"           -- the font used in graphical neovim applications
+opt.hidden          = O.hidden_files            -- required to keep multiple buffers and open multiple buffers
+opt.hlsearch        = O.hl_search               -- highlight all matches on previous search pattern
+opt.ignorecase      = O.ignore_case             -- ignore case in search patterns
+opt.mouse           = "a"                       -- allow the mouse to be used in neovim
+opt.pumheight       = 10                        -- pop up menu height
+opt.showmode        = false                     -- we don't need to see things like -- INSERT -- anymore
+opt.showtabline     = 2                         -- always show tabs
+opt.smartcase       = O.smart_case              -- smart case
+opt.smartindent     = true                      -- make indenting smarter again
+opt.splitbelow      = true                      -- force all horizontal splits to go below current window
+opt.splitright      = true                      -- force all vertical splits to go to the right of current window
+opt.swapfile        = false                     -- creates a swapfile
+opt.termguicolors   = true                      -- set term gui colors (most terminals support this)
+opt.timeoutlen      = O.timeoutlen              -- time to wait for a mapped sequence to complete (in milliseconds)
+opt.title           = true                      -- set the title of window to the value of the titlestring
+opt.titlestring     = "%<%F%=%l/%L - nvim"      -- what the title of the window will be set to
+opt.undodir         = CACHE_PATH .. '/undo'     -- set an undo directory
+opt.undofile        = true                      -- enable persisten undo
+opt.updatetime      = 300                       -- faster completion
+opt.writebackup     = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+opt.expandtab       = true                      -- convert tabs to spaces
+opt.shiftwidth      = 4                         -- the number of spaces inserted for each indentation
+opt.shortmess:append("c")                       -- don't pass messages to |ins-completion-menu|
+opt.tabstop         = 4                         -- insert 4 spaces for a tab
+opt.cursorline      = O.cursorline              -- highlight the current line
+opt.number          = O.number                  -- set numbered lines
+opt.relativenumber  = O.relative_number         -- set relative numbered lines
+opt.signcolumn      = "yes"                     -- always show the sign column, otherwise it would shift the text each time
+opt.wrap            = O.wrap_lines              -- display lines as one long line

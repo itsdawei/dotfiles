@@ -1,7 +1,8 @@
-vim.o.completeopt = "menuone,noselect"
+local M = {}
 
+M.config = function()
 require'compe'.setup {
-    enabled = true,
+    enabled = O.auto_complete,
     autocomplete = true,
     debug = false,
     min_length = 1,
@@ -18,44 +19,23 @@ require'compe'.setup {
         path = {kind = "   (Path)"},
         buffer = {kind = "   (Buffer)"},
         calc = {kind = "   (Calc)"},
-        nvim_lsp = {kind = "   (LSP)"},
-        nvim_lua = {kind = "  "},
         vsnip = {kind = "   (Snippet)"},
-        -- ultisnips = {kind = "   (Ulti)"},
-        -- spell = {kind = "   (Spell)"},
-        spell = false,
+        nvim_lsp = {kind = "   (LSP)"},
+        -- nvim_lua = {kind = "  "},
+		nvim_lua = false,
+        spell = {kind = "   (Spell)"},
         tags = false,
+        vim_dadbod_completion = true,
+        -- snippets_nvim = {kind = "  "},
+        -- ultisnips = {kind = "  "},
+        -- treesitter = {kind = "  "},
+        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
+        -- for emoji press : (idk if that in compe tho)
     }
 }
 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- 
--- ﬘
--- 
--- 
--- 
--- m
--- 
--- 
--- 
--- 
-
 local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local check_back_space = function()
@@ -67,6 +47,7 @@ local check_back_space = function()
     end
 end
 
+-- Use (s-)tab to:
 --- move to prev/next item in completion menuone
 --- jump to prev/next snippet's placeholder
 _G.tab_complete = function()
@@ -91,9 +72,16 @@ _G.s_tab_complete = function()
   end
 end
 
-vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
-
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+vim.api.nvim_set_keymap("i", "<CR>", "compe#complete()", {noremap = true, silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {noremap = true, silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {noremap = true, silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {noremap = true, silent = true, expr = true})
+vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {noremap = true, silent = true, expr = true})
+end
+
+return M
