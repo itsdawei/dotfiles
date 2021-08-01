@@ -3,8 +3,8 @@ set -e fish_user_paths
 set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"              # Sets the terminal type
-set EDITOR "nvim"                      # $EDITOR use nvim in terminal
-set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
+set EDITOR "lvim"                      # $EDITOR use nvim in terminal
+set VISUAL "lvim"                      # $VISUAL use nvim in GUI mode
 set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin $PATH /Users/dawei/ch-darwin-amd64 /usr/local/sbin /nix
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
@@ -83,8 +83,9 @@ alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
 # vim and emacs
-alias vim='nvim'
-alias nn='nvim'
+alias nvim='lvim'
+alias vim='lvim'
+alias nn='lvim'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
