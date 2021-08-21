@@ -1,7 +1,5 @@
 # Machfiles
 
-![machfiles image](./machfiles.png)
-
 ## Installing
 
 You will need `git` and GNU `stow`
