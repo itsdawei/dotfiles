@@ -1,11 +1,11 @@
 -- general
 lvim.format_on_save = false
-lvim.colorscheme = "onedark"
+lvim.colorscheme = "gruvbox-material"
 lvim.transparent_window = false
 vim.opt.wrap = false
 lvim.debug = false
 
-lvim.shell = 'fish'
+lvim.shell = "fish"
 
 lvim.builtin.compe.autocomplete = true
 
@@ -49,11 +49,11 @@ lvim.builtin.treesitter.playground.enable = true
 -- Additional Plugins
 lvim.plugins = {
   -- Colorschemes
-  {"glepnir/oceanic-material"},
-  {"sainnhe/gruvbox-material"},
-  {"gruvbox-community/gruvbox"},
-  {"arcticicestudio/nord-vim"},
-  {"joshdick/onedark.vim"},
+  { "glepnir/oceanic-material" },
+  { "sainnhe/gruvbox-material" },
+  { "gruvbox-community/gruvbox" },
+  { "arcticicestudio/nord-vim" },
+  { "joshdick/onedark.vim" },
   { "lunarvim/colorschemes" },
   {
     "pwntester/octo.nvim",
@@ -198,7 +198,6 @@ lvim.plugins = {
     "sindrets/diffview.nvim",
     event = "BufRead",
   },
-  {"rhysd/git-messenger.vim"},
-  {"mbbill/undotree"},
+  { "rhysd/git-messenger.vim" },
+  { "mbbill/undotree" },
 }
-
