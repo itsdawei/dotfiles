@@ -1,16 +1,23 @@
 -- general
-lvim.format_on_save = false
 lvim.colorscheme = "gruvbox-material"
+lvim.format_on_save = false
 lvim.transparent_window = false
 vim.opt.wrap = false
 lvim.debug = false
 
 lvim.shell = "fish"
 
-lvim.builtin.compe.autocomplete = true
-
 -- keymappings
 lvim.leader = "space"
+
+lvim.keys.normal_mode["<esc><esc>"] = "<cmd>nohlsearch<cr>"
+lvim.keys.normal_mode["Y"] = "y$"
+lvim.keys.visual_mode["p"] = [["_dP]]
+
+-- for finding syntax ids for non TS enabled languages
+vim.cmd [[
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+]]
 
 -- LSP
 lvim.lsp.diagnostics.virtual_text = false
@@ -20,6 +27,8 @@ require("user.json_schemas").setup()
 -- Builtins
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
+lvim.builtin.dap.active = true
+lvim.builtin.bufferline.active = true
 
 -- Whichkey
 lvim.builtin.which_key.mappings.l.d = { "<cmd>TroubleToggle<cr>", "Diagnostics" }
@@ -27,7 +36,16 @@ lvim.builtin.which_key.mappings.l.R = { "<cmd>TroubleToggle lsp_references<cr>",
 lvim.builtin.which_key.mappings.l.o = { "<cmd>SymbolsOutline<cr>", "Outline" }
 lvim.builtin.which_key.mappings.T.h = { "<cmd>TSHighlightCapturesUnderCursor<cr>", "Highlight" }
 lvim.builtin.which_key.mappings.T.p = { "<cmd>TSPlaygroundToggle<cr>", "Playground" }
-lvim.builtin.which_key.mappings.u = { "<cmd>UndotreeToggle<cr>", "undotree" }
+
+lvim.builtin.which_key.mappings.g["G"] = {
+  name = "Gist",
+  a = { "<cmd>Gist -b -a<cr>", "Create Anon" },
+  d = { "<cmd>Gist -d<cr>", "Delete" },
+  f = { "<cmd>Gist -f<cr>", "Fork" },
+  g = { "<cmd>Gist -b<cr>", "Create" },
+  l = { "<cmd>Gist -l<cr>", "List" },
+  p = { "<cmd>Gist -b -p<cr>", "Create Private" },
+}
 lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "Zen" }
 lvim.builtin.which_key.mappings["r"] = {
   name = "Replace",
@@ -36,10 +54,7 @@ lvim.builtin.which_key.mappings["r"] = {
   f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
 }
 lvim.builtin.which_key.mappings.f = { "<cmd>lua require('lir.float').toggle()<cr>", "Files" }
-
-lvim.builtin.nvimtree.auto_open = 0
--- vim.g.nvim_tree_disable_netrw = 0
--- vim.g.nvim_tree_hijack_netrw = 0
+lvim.builtin.which_key.mappings.u = { "<cmd>UndotreeToggle<cr>", "undotree" }
 
 -- Treesitter
 lvim.builtin.treesitter.ensure_installed = "maintained"
@@ -54,7 +69,6 @@ lvim.plugins = {
   { "gruvbox-community/gruvbox" },
   { "arcticicestudio/nord-vim" },
   { "joshdick/onedark.vim" },
-  { "lunarvim/colorschemes" },
   {
     "pwntester/octo.nvim",
     event = "BufRead",
@@ -62,13 +76,13 @@ lvim.plugins = {
       require("user.octo").config()
     end,
   },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("user.lsp_signature").config()
-    end,
-  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("user.lsp_signature").config()
+  --   end,
+  -- },
   {
     "unblevable/quick-scope",
     config = function()
@@ -102,9 +116,20 @@ lvim.plugins = {
     end,
   },
   {
+    -- Note for this to work you need to create a pat and put it in `~/.gist-vim` as <token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX>
+    -- You will also need to set github username like:
+    --
+    -- [user]
+    --	 email = chris.machine@pm.me
+    --   name = Christian Chiarulli
+    -- [github]
+    --   user = ChristianChiarulli
     "mattn/vim-gist",
     event = "BufRead",
     requires = "mattn/webapi-vim",
+    config = function()
+      vim.g.gist_open_browser_after_post = 1
+    end,
   },
   {
     "tamago324/lir.nvim",
@@ -139,13 +164,13 @@ lvim.plugins = {
       require("user.colorizer").config()
     end,
   },
-  {
-    "nvim-telescope/telescope-project.nvim",
-    event = "BufWinEnter",
-    setup = function()
-      vim.cmd [[packadd telescope.nvim]]
-    end,
-  },
+  -- {
+  --   "nvim-telescope/telescope-project.nvim",
+  --   event = "BufWinEnter",
+  --   setup = function()
+  --     vim.cmd [[packadd telescope.nvim]]
+  --   end,
+  -- },
   {
     "windwp/nvim-spectre",
     event = "BufRead",
@@ -166,8 +191,42 @@ lvim.plugins = {
     end,
   },
   {
+    "vuki656/package-info.nvim",
+    config = function()
+      require "user.package-info"
+    end,
+    ft = "json",
+  },
+  {
+    "rcarriga/nvim-notify",
+    event = "BufRead",
+    config = function()
+      require("user.notify").config()
+    end,
+  },
+  {
     "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
+    -- cmd = "SymbolsOutline",
+    config = function()
+      require("user.outline").config()
+    end,
+  },
+  {
+    "tzachar/cmp-tabnine",
+    config = function()
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+      }
+    end,
+
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-cmp",
+  },
+  {
+    "dccsillag/magma-nvim",
   },
   {
     "metakirby5/codi.vim",
@@ -200,4 +259,22 @@ lvim.plugins = {
   },
   { "rhysd/git-messenger.vim" },
   { "mbbill/undotree" },
+}
+
+vim.cmd [[ au CmdWinEnter * quit ]]
+-- TODO: q quits in spectr_panel ft
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
+-- O.user_autocommands = {{ "BufWinEnter", "*", "echo \"hi again\""}}
+
+-- way to get os name
+-- print(vim.loop.os_uname().sysname)
+
+-- *Must* be *S*olidity not solidity
+require("nvim-treesitter.parsers").get_parser_configs().solidity = {
+  install_info = {
+    url = "https://github.com/JoranHonig/tree-sitter-solidity",
+    files = { "src/parser.c" },
+    requires_generate_from_grammar = true,
+  },
+  filetype = "solidity",
 }
