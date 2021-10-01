@@ -61,14 +61,22 @@ lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true
 
+-- Telescope
+lvim.builtin.telescope.on_config_done = function()
+  local actions = require "telescope.actions"
+  lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+  lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
+  lvim.builtin.telescope.defaults.mappings.i["<C-n>"] = actions.cycle_history_next
+  lvim.builtin.telescope.defaults.mappings.i["<C-p>"] = actions.cycle_history_prev
+end
+
 -- Additional Plugins
 lvim.plugins = {
-  -- Colorschemes
   { "glepnir/oceanic-material" },
   { "sainnhe/gruvbox-material" },
-  { "gruvbox-community/gruvbox" },
   { "arcticicestudio/nord-vim" },
   { "joshdick/onedark.vim" },
+  { "mfussenegger/nvim-jdtls" },
   {
     "pwntester/octo.nvim",
     event = "BufRead",
@@ -195,6 +203,7 @@ lvim.plugins = {
     config = function()
       require "user.package-info"
     end,
+    requires = { "MunifTanjim/nui.nvim" },
     ft = "json",
   },
   {
@@ -259,6 +268,10 @@ lvim.plugins = {
   },
   { "rhysd/git-messenger.vim" },
   { "mbbill/undotree" },
+  {
+    "lervag/vimtex",
+    ft = "tex",
+  },
 }
 
 vim.cmd [[ au CmdWinEnter * quit ]]

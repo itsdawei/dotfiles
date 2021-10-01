@@ -69,6 +69,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["DAPInstall.nvim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/DAPInstall.nvim"
+  },
   ["FixCursorHold.nvim"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/FixCursorHold.nvim"
@@ -99,13 +103,51 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/cmp-path"
   },
+  ["cmp-tabnine"] = {
+    config = { "\27LJ\2\np\0\0\5\0\4\0\b6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0B\1\3\1K\0\1\0\1\0\3\tsort\2\20max_num_results\3\20\14max_lines\3è\a\nsetup\23cmp_tabnine.config\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/cmp-tabnine"
+  },
   cmp_luasnip = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/cmp_luasnip"
   },
+  ["codi.vim"] = {
+    commands = { "Codi" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/codi.vim"
+  },
+  ["dashboard-nvim"] = {
+    config = { "\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.dashboard\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/dashboard-nvim"
+  },
+  ["dial.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\14user.dial\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/dial.nvim"
+  },
+  ["diffview.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/diffview.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/friendly-snippets"
+  },
+  ["git-messenger.vim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/git-messenger.vim"
+  },
+  ["gitlinker.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19user.gitlinker\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/gitlinker.nvim"
   },
   ["gitsigns.nvim"] = {
     config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18core.gitsigns\frequire\0" },
@@ -113,18 +155,66 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/gitsigns.nvim"
   },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/gruvbox-material"
+  },
+  ["hop.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\ruser.hop\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/hop.nvim"
+  },
+  ["indent-blankline.nvim"] = {
+    config = { "\27LJ\2\n.\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\19user.blankline\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/indent-blankline.nvim"
+  },
+  ["lir.nvim"] = {
+    config = { "\27LJ\2\n(\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\ruser.lir\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/lir.nvim"
+  },
   ["lualine.nvim"] = {
     config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17core.lualine\frequire\0" },
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/lualine.nvim"
   },
+  ["magma-nvim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/magma-nvim"
+  },
+  ["markdown-preview.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/markdown-preview.nvim"
+  },
+  ["neoscroll.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19user.neoscroll\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/neoscroll.nvim"
+  },
   ["nlsp-settings.nvim"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nlsp-settings.nvim"
   },
+  ["nord-vim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nord-vim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nui.nvim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/null-ls.nvim"
+  },
+  ["numb.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\14user.numb\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/numb.nvim"
   },
   ["nvim-autopairs"] = {
     config = { "\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.autopairs\frequire\0" },
@@ -133,16 +223,35 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-autopairs"
   },
+  ["nvim-bqf"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-bqf"
+  },
   ["nvim-cmp"] = {
     after = { "nvim-autopairs" },
     loaded = true,
     only_config = true
+  },
+  ["nvim-colorizer.lua"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19user.colorizer\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-comment"] = {
     config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17core.comment\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-comment"
+  },
+  ["nvim-dap"] = {
+    config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rcore.dap\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nvim-dap"
+  },
+  ["nvim-jdtls"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nvim-jdtls"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -154,6 +263,18 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-lspinstall"
   },
+  ["nvim-notify"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\16user.notify\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-notify"
+  },
+  ["nvim-spectre"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17user.spectre\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-spectre"
+  },
   ["nvim-tree.lua"] = {
     config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18core.nvimtree\frequire\0" },
     loaded = true,
@@ -164,13 +285,43 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nvim-treesitter"
   },
+  ["nvim-ts-autotag"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/nvim-ts-autotag"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/nvim-web-devicons"
   },
+  ["oceanic-material"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/oceanic-material"
+  },
+  ["octo.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\14user.octo\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/octo.nvim"
+  },
+  ["onedark.vim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/onedark.vim"
+  },
+  ["package-info.nvim"] = {
+    config = { "\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22user.package-info\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/package-info.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/packer.nvim"
+  },
+  playground = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -185,44 +336,142 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/project.nvim"
   },
+  ["quick-scope"] = {
+    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20user.quickscope\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/quick-scope"
+  },
+  rnvimr = {
+    config = { "\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16user.rnvimr\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/rnvimr"
+  },
+  ["symbols-outline.nvim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17user.outline\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/symbols-outline.nvim"
+  },
   ["telescope.nvim"] = {
     config = { "\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.telescope\frequire\0" },
     loaded = true,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/telescope.nvim"
+  },
+  ["toggleterm.nvim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18core.terminal\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/toggleterm.nvim"
+  },
+  ["trouble.nvim"] = {
+    commands = { "TroubleToggle" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/trouble.nvim"
+  },
+  undotree = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/undotree"
+  },
+  ["vim-gist"] = {
+    config = { "\27LJ\2\n>\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0!gist_open_browser_after_post\6g\bvim\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vim-gist"
+  },
+  ["vim-matchup"] = {
+    after_files = { "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vim-matchup/after/plugin/matchit.vim" },
+    config = { "\27LJ\2\n,\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\17user.matchup\frequire\0" },
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vim-matchup"
+  },
+  vimtex = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex"
+  },
+  ["webapi-vim"] = {
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/webapi-vim"
   },
   ["which-key.nvim"] = {
     config = { "\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.which-key\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/opt/which-key.nvim"
+  },
+  ["zen-mode.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\ruser.zen\frequire\0" },
+    loaded = true,
+    path = "/Users/dawei/.local/share/lunarvim/site/pack/packer/start/zen-mode.nvim"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: quick-scope
+time([[Config for quick-scope]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20user.quickscope\frequire\0", "config", "quick-scope")
+time([[Config for quick-scope]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 try_loadstring("\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.telescope\frequire\0", "config", "telescope.nvim")
 time([[Config for telescope.nvim]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+try_loadstring("\27LJ\2\n.\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\19user.blankline\frequire\0", "config", "indent-blankline.nvim")
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: rnvimr
+time([[Config for rnvimr]], true)
+try_loadstring("\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16user.rnvimr\frequire\0", "config", "rnvimr")
+time([[Config for rnvimr]], false)
+-- Config for: lir.nvim
+time([[Config for lir.nvim]], true)
+try_loadstring("\27LJ\2\n(\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\ruser.lir\frequire\0", "config", "lir.nvim")
+time([[Config for lir.nvim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20core.treesitter\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
--- Config for: project.nvim
-time([[Config for project.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17core.project\frequire\0", "config", "project.nvim")
-time([[Config for project.nvim]], false)
+-- Config for: symbols-outline.nvim
+time([[Config for symbols-outline.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17user.outline\frequire\0", "config", "symbols-outline.nvim")
+time([[Config for symbols-outline.nvim]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19user.colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: cmp-tabnine
+time([[Config for cmp-tabnine]], true)
+try_loadstring("\27LJ\2\np\0\0\5\0\4\0\b6\0\0\0'\2\1\0B\0\2\2\18\3\0\0009\1\2\0005\4\3\0B\1\3\1K\0\1\0\1\0\3\tsort\2\20max_num_results\3\20\14max_lines\3è\a\nsetup\23cmp_tabnine.config\frequire\0", "config", "cmp-tabnine")
+time([[Config for cmp-tabnine]], false)
+-- Config for: nvim-dap
+time([[Config for nvim-dap]], true)
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rcore.dap\frequire\0", "config", "nvim-dap")
+time([[Config for nvim-dap]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17core.lualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18core.nvimtree\frequire\0", "config", "nvim-tree.lua")
-time([[Config for nvim-tree.lua]], false)
 -- Config for: nvim-cmp
 time([[Config for nvim-cmp]], true)
 try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rcore.cmp\frequire\0", "config", "nvim-cmp")
 time([[Config for nvim-cmp]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19user.neoscroll\frequire\0", "config", "neoscroll.nvim")
+time([[Config for neoscroll.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18core.nvimtree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
+-- Config for: project.nvim
+time([[Config for project.nvim]], true)
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\17core.project\frequire\0", "config", "project.nvim")
+time([[Config for project.nvim]], false)
+-- Config for: zen-mode.nvim
+time([[Config for zen-mode.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\ruser.zen\frequire\0", "config", "zen-mode.nvim")
+time([[Config for zen-mode.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-autopairs ]]
@@ -231,14 +480,40 @@ vim.cmd [[ packadd nvim-autopairs ]]
 try_loadstring("\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\19core.autopairs\frequire\0", "config", "nvim-autopairs")
 
 time([[Sequenced loading]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file TroubleToggle lua require("packer.load")({'trouble.nvim'}, { cmd = "TroubleToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Codi lua require("packer.load")({'codi.vim'}, { cmd = "Codi", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+time([[Defining lazy-load commands]], false)
+
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType json ++once lua require("packer.load")({'package-info.nvim'}, { ft = "json" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'barbar.nvim', 'which-key.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'gitsigns.nvim', 'nvim-comment'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'toggleterm.nvim', 'barbar.nvim', 'which-key.nvim', 'dashboard-nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'vim-gist', 'dial.nvim', 'diffview.nvim', 'gitsigns.nvim', 'playground', 'hop.nvim', 'nvim-bqf', 'nvim-comment', 'gitlinker.nvim', 'nvim-notify', 'numb.nvim', 'nvim-spectre', 'octo.nvim'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'nvim-lspinstall'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au CursorMoved * ++once lua require("packer.load")({'vim-matchup'}, { event = "CursorMoved *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
+vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], true)
+vim.cmd [[source /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]]
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], false)
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], true)
+vim.cmd [[source /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]]
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], false)
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], true)
+vim.cmd [[source /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]]
+time([[Sourcing ftdetect script at: /Users/dawei/.local/share/lunarvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

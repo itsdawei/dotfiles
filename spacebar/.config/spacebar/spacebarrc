@@ -22,7 +22,7 @@ spacebar -m config title                on
 spacebar -m config spaces               on
 spacebar -m config space_icon           
 # spacebar -m config space_icon_strip        
-spacebar -m config space_icon_strip     daily notes web code code writ yt zoom dump
+spacebar -m config space_icon_strip     daily notes web code music writ video zoom dump
 
 spacebar -m config clock                on
 spacebar -m config clock_icon           
