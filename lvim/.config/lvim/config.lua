@@ -11,7 +11,7 @@ lvim.shell = "fish"
 lvim.leader = "space"
 
 lvim.keys.normal_mode["<esc><esc>"] = "<cmd>nohlsearch<cr>"
-lvim.keys.normal_mode["Y"] = "y$"
+-- lvim.keys.normal_mode["Y"] = "y$"
 lvim.keys.visual_mode["p"] = [["_dP]]
 
 -- for finding syntax ids for non TS enabled languages
@@ -22,7 +22,7 @@ map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<
 -- LSP
 lvim.lsp.diagnostics.virtual_text = false
 lvim.lsp.override = { "java" }
-require("user.json_schemas").setup()
+-- require("user.json_schemas").setup()
 
 -- Builtins
 lvim.builtin.dashboard.active = true
@@ -53,13 +53,14 @@ lvim.builtin.which_key.mappings["r"] = {
   w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
   f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
 }
-lvim.builtin.which_key.mappings.f = { "<cmd>lua require('lir.float').toggle()<cr>", "Files" }
+-- lvim.builtin.which_key.mappings.f = { "<cmd>lua require('lir.float').toggle()<cr>", "Files" }
 lvim.builtin.which_key.mappings.u = { "<cmd>UndotreeToggle<cr>", "undotree" }
 
 -- Treesitter
 lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.playground.enable = true
+lvim.builtin.treesitter.indent.disable = { "python" }
 
 -- Telescope
 lvim.builtin.telescope.on_config_done = function()
