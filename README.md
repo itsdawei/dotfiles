@@ -25,7 +25,7 @@ stow zsh # Just my zsh config
 An updated list of all the programs I use can be found in the `programs` directory
 
 ## Stuff to Install
-+ Neovim
++ Neolvim
 + yabai
 + skhd
 + spacebar

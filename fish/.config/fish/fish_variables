@@ -10,10 +10,10 @@ SETUVAR _tide_right_prompt_display_37562:\x1b\x28B\x1b\x5bm\x1b\x28B\x1b\x5bm\x1
 SETUVAR fish_color_autosuggestion:\x237d7d7d
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:brcyan
-SETUVAR fish_color_comment:434c5e
+SETUVAR fish_color_comment:6272A4
 SETUVAR fish_color_cwd:green
 SETUVAR fish_color_cwd_root:red
-SETUVAR fish_color_end:88c0d0
+SETUVAR fish_color_end:50FA7B
 SETUVAR fish_color_error:\x23ff6c6b
 SETUVAR fish_color_escape:00a6b2
 SETUVAR fish_color_history_current:\x2d\x2dbold
@@ -23,8 +23,8 @@ SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
 SETUVAR fish_color_normal:brcyan
 SETUVAR fish_color_operator:00a6b2
 SETUVAR fish_color_param:brcyan
-SETUVAR fish_color_quote:a3be8c
-SETUVAR fish_color_redirection:b48ead
+SETUVAR fish_color_quote:F1FA8C
+SETUVAR fish_color_redirection:8BE9FD
 SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrblack
 SETUVAR fish_color_status:red
@@ -34,7 +34,7 @@ SETUVAR fish_greeting:\x1d
 SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
-SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_user_paths:/Users/dawei/\x2elocal/bin\x1e/Users/dawei/Applications
 SETUVAR pure_begin_prompt_with_current_directory:true
