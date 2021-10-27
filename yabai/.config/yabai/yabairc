@@ -38,22 +38,20 @@ yabai -m config mouse_drop_action            swap
 # general space settings
 yabai -m config layout                       bsp
 
-
 # mission-control desktop labels
 yabai -m space 1 --label daily
 yabai -m space 2 --label notes
 yabai -m space 3 --label web
 yabai -m space 4 --label code
 yabai -m space 5 --label music
-yabai -m space 6 --label writ
+yabai -m space 6 --label zoom
 yabai -m space 7 --label video
-yabai -m space 8 --label zoom
+yabai -m space 8 --label dump
 yabai -m space 9 --label not
 yabai -m space 10 --label yet
 
 # float yt monitor
-yabai -m config --space video layout           float
-
+yabai -m config --space video layout        float
 yabai -m config --space music layout        float
 
 # specific space settings
