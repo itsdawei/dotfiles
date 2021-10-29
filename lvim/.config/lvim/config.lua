@@ -1,5 +1,5 @@
 -- general
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "oceanic_material"
 lvim.format_on_save = false
 lvim.transparent_window = false
 vim.opt.wrap = false
