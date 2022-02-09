@@ -1,217 +1,115 @@
--- general
-lvim.colorscheme = "gruvbox-material"
+-- Neovim
+-- =========================================
 lvim.format_on_save = false
-lvim.transparent_window = false
-vim.opt.wrap = false
+lvim.leader = " "
+lvim.colorscheme = "pablo"
 lvim.debug = false
+vim.lsp.set_log_level "warn"
+lvim.log.level = "warn"
+require("user.neovim").config()
 
-lvim.shell = "fish"
-
--- keymappings
-lvim.leader = "space"
-
-lvim.keys.normal_mode["<esc><esc>"] = "<cmd>nohlsearch<cr>"
-lvim.keys.visual_mode["p"] = [["_dP]]
-
--- for finding syntax ids for non TS enabled languages
-vim.cmd [[
-map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
-]]
-
--- LSP
-lvim.lsp.diagnostics.virtual_text = false
-
--- Builtins
-lvim.builtin.dashboard.active = true
-lvim.builtin.terminal.active = true
-lvim.builtin.dap.active = true
-lvim.builtin.bufferline.active = true
-
--- Whichkey
-lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "Zen" }
-lvim.builtin.which_key.mappings["r"] = {
-  name = "Replace",
-  r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-  w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-  f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
+-- Customization
+-- =========================================
+lvim.builtin.sell_your_soul_to_devil = false -- if you want microsoft to abuse your soul
+lvim.builtin.lastplace = { active = false } -- change to false if you are jumping to future
+lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
+lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
+lvim.builtin.presence = { active = false } -- change to true if you want discord presence
+lvim.builtin.orgmode = { active = false } -- change to true if you want orgmode.nvim
+lvim.builtin.dap.active = false -- change this to enable/disable debugging
+lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
+lvim.builtin.fancy_dashboard = { active = true } -- enable/disable fancy dashboard
+lvim.builtin.fancy_wild_menu = { active = false } -- enable/disable use wilder.nvim
+lvim.builtin.fancy_rename = { active = true } -- enable/disable custom rename
+lvim.builtin.fancy_diff = { active = true } -- enable/disable fancier git diff
+lvim.builtin.lua_dev = { active = true } -- change this to enable/disable folke/lua_dev
+lvim.builtin.test_runner = { active = true } -- change this to enable/disable vim-test, ultest
+lvim.builtin.cheat = { active = true } -- enable cheat.sh integration
+lvim.builtin.sql_integration = { active = false } -- use sql integration
+lvim.builtin.neoscroll = { active = true } -- smooth scrolling
+lvim.builtin.neoclip = { active = true, enable_persistant_history = false }
+lvim.builtin.nonumber_unfocus = false -- diffrentiate between focused and non focused windows
+lvim.builtin.harpoon = { active = true } -- use the harpoon plugin
+lvim.builtin.remote_dev = { active = false } -- enable/disable remote development
+lvim.builtin.cursorline = { active = true } -- use a bit fancier cursorline
+lvim.builtin.motion_provider = "hop" -- change this to use different motion providers ( hop or lightspeed )
+lvim.builtin.hlslens = { active = false } -- enable/disable hlslens
+lvim.builtin.csv_support = false -- enable/disable csv support
+lvim.builtin.sidebar = { active = false } -- enable/disable sidebar
+lvim.builtin.async_tasks = { active = false } -- enable/disable async tasks
+lvim.builtin.metals = {
+  active = false, -- enable/disable nvim-metals for scala development
+  fallbackScalaVersion = "2.13.7",
+  serverVersion = "0.10.9+271-a8bb69f6-SNAPSHOT",
 }
-lvim.builtin.which_key.mappings.u = { "<cmd>UndotreeToggle<cr>", "undotree" }
+lvim.builtin.collaborative_editing = { active = false } -- enable/disable collaborative editing
+lvim.builtin.file_browser = { active = false } -- enable/disable telescope file browser
+lvim.builtin.sniprun = { active = false } -- enable/disable sniprun
+lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 
--- Treesitter
-lvim.builtin.treesitter.ensure_installed = "maintained"
-lvim.builtin.treesitter.autotag.enable = true
-lvim.builtin.treesitter.playground.enable = true
-lvim.builtin.treesitter.indent.disable = { "python" }
+-- local user = os.getenv "USER"
+-- if user and user == "abz" then
+--   lvim.builtin.nvim_web_devicons = { active = false }
+--   lvim.builtin.sell_your_soul_to_devil = true
+--   lvim.lsp.document_highlight = false
+--   lvim.builtin.csv_support = true
+--   lvim.builtin.async_tasks.active = true
+--   lvim.builtin.dap.active = true
+--   lvim.builtin.sql_integration.active = true
+--   vim.g.instant_username = user
+--   lvim.builtin.collaborative_editing.active = true
+--   lvim.builtin.file_browser.active = true
+--   require("user.prose").config() -- setup prosemd-lsp for my local use
+-- end
+-- lvim.lsp.diagnostics.virtual_text = false -- remove this line if you want to see inline errors
+lvim.builtin.latex = {
+  view_method = "skim", -- change to zathura if you are on linux
+  preview_exec = "/Applications/Skim.app/Contents/SharedSupport/displayline", -- change this to zathura as well
+  rtl_support = true, -- if you want to use xelatex, it's a bit slower but works very well for RTL langs
+}
+lvim.builtin.notify.active = true
+lvim.lsp.automatic_servers_installation = false
+if lvim.builtin.cursorline.active then
+  lvim.lsp.document_highlight = false
+end
+lvim.lsp.code_lens_refresh = true
+require("user.builtin").config()
+
+-- StatusLine
+-- =========================================
+if lvim.builtin.fancy_statusline.active then
+  require("user.lualine").config()
+end
+
+-- Debugging
+-- =========================================
+if lvim.builtin.dap.active then
+  require("user.dap").config()
+end
+
+-- Language Specific
+-- =========================================
+vim.list_extend(lvim.lsp.override, {
+  "rust_analyzer",
+  "tsserver",
+  "dockerls",
+  "texlab",
+  "sumneko_lua",
+  "gopls",
+  "yamlls",
+  "r_language_server",
+  "pyright",
+})
+require("user.null_ls").config()
 
 -- Additional Plugins
-lvim.plugins = {
-  { "glepnir/oceanic-material" },
-  { "sainnhe/gruvbox-material" },
-  { "arcticicestudio/nord-vim" },
-  { "joshdick/onedark.vim" },
-  {
-    "pwntester/octo.nvim",
-    event = "BufRead",
-    config = function()
-      require("user.octo").config()
-    end,
-  },
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "InsertEnter",
-  --   config = function()
-  --     require("user.lsp_signature").config()
-  --   end,
-  -- },
-  {
-    "unblevable/quick-scope",
-    config = function()
-      require "user.quickscope"
-    end,
-  },
-  {
-    "kevinhwang91/rnvimr",
-    config = function()
-      require "user.rnvimr"
-    end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require "user.blankline"
-    end,
-  },
-  {
-    "ruifm/gitlinker.nvim",
-    event = "BufRead",
-    config = function()
-      require("user.gitlinker").config()
-    end,
-  },
-  {
-    "phaazon/hop.nvim",
-    event = "BufRead",
-    config = function()
-      require("user.hop").config()
-    end,
-  },
-  {
-    "tamago324/lir.nvim",
-    config = function()
-      require "user.lir"
-    end,
-  },
-  {
-    "andymass/vim-matchup",
-    event = "CursorMoved",
-    config = function()
-      require "user.matchup"
-    end,
-  },
-  {
-    "nacro90/numb.nvim",
-    event = "BufRead",
-    config = function()
-      require("user.numb").config()
-    end,
-  },
-  {
-    "monaqa/dial.nvim",
-    event = "BufRead",
-    config = function()
-      require("user.dial").config()
-    end,
-  },
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("user.colorizer").config()
-    end,
-  },
-  {
-    "windwp/nvim-spectre",
-    event = "BufRead",
-    config = function()
-      require("user.spectre").config()
-    end,
-  },
-  {
-    "folke/zen-mode.nvim",
-    config = function()
-      require("user.zen").config()
-    end,
-  },
-  {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("user.neoscroll").config()
-    end,
-  },
-  {
-    "vuki656/package-info.nvim",
-    config = function()
-      require "user.package-info"
-    end,
-    requires = { "MunifTanjim/nui.nvim" },
-    ft = "json",
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require("user.outline").config()
-    end,
-  },
-  {
-    "tzachar/cmp-tabnine",
-    config = function()
-      local tabnine = require "cmp_tabnine.config"
-      tabnine:setup {
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-      }
-    end,
+-- =========================================
+require("user.plugins").config()
 
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-  },
-  {
-    "dccsillag/magma-nvim",
-    run = ":UpdateRemotePlugins",
-  },
-  {
-    "metakirby5/codi.vim",
-    cmd = "Codi",
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-  {
-    "kevinhwang91/nvim-bqf",
-    event = "BufRead",
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    ft = "markdown",
-  },
-  {
-    "nvim-treesitter/playground",
-    event = "BufRead",
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-  },
-  {
-    "sindrets/diffview.nvim",
-    event = "BufRead",
-  },
-  { "rhysd/git-messenger.vim" },
-  { "mbbill/undotree" },
-  {
-    "lervag/vimtex",
-    ft = "tex",
-  },
-}
+-- Autocommands
+-- =========================================
+require("user.autocommands").config()
+
+-- Additional keybindings
+-- =========================================
+require("user.keybindings").config()

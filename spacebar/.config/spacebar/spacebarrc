@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 spacebar -m config position             top
-spacebar -m config height               26
+spacebar -m config height               25
 spacebar -m config padding_left         20
 spacebar -m config padding_right        20
 spacebar -m config spacing_left         25
@@ -20,9 +20,9 @@ spacebar -m config clock_icon_color     0xffa8a8a8
 spacebar -m config title                off
 
 spacebar -m config spaces               on
-spacebar -m config space_icon           
+spacebar -m config space_icon           unnamed
 # spacebar -m config space_icon_strip        
-spacebar -m config space_icon_strip     daily notes web code music zoom video dump
+spacebar -m config space_icon_strip     daily notes web code code zoom video dump
 
 spacebar -m config clock                on
 spacebar -m config clock_icon           
@@ -34,7 +34,5 @@ spacebar -m config power_icon_strip      
 # spacebar -m config right_shell          on
 # spacebar -m config right_shell_command  "task active | sed '4!d'"
 
-spacebar -m config center_shell          on
-spacebar -m config center_shell_command  "task active | sed '4!d'"
-
-echo "spacebar configuration loaded.."
+# spacebar -m config center_shell          on
+# spacebar -m config center_shell_command  "task active | sed '4!d'"
