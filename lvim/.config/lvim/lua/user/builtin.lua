@@ -2,9 +2,6 @@ local M = {}
 
 M.config = function()
   local kind = require "user.lsp_kind"
-  -- Snippets
-  -- =========================================
-  require("luasnip/loaders/from_vscode").load { paths = { "~/.config/lvim/snippets" } }
 
   -- Autopairs
   -- =========================================
@@ -13,13 +10,14 @@ M.config = function()
   --   autopairs.add_rule(Rule("$$", "$$", "tex"))
   -- end
 
-  -- Command Palette
-  -- =========================================
-  lvim.builtin.cpmenu = M.cpmenu()
-
   -- Bufferline
   -- =========================================
   local List = require "plenary.collections.py_list"
+  local g_ok, bufferline_groups = pcall(require, "bufferline.groups")
+  if not g_ok then
+    bufferline_groups = { builtin = { ungroupued = { name = "ungrouped" } } }
+  end
+  lvim.builtin.bufferline.options.diagnostics = false -- do not show diagnostics in bufferline
   lvim.builtin.bufferline.options.diagnostics_indicator = function(_, _, diagnostics)
     local result = {}
     local symbols = { error = kind.icons.error, warning = kind.icons.warn, info = kind.icons.info }
@@ -31,13 +29,14 @@ M.config = function()
     result = table.concat(result, " ")
     return #result > 0 and result or ""
   end
-
+  lvim.builtin.bufferline.options.mode = "buffers"
+  lvim.builtin.bufferline.options.sort_by = "insert_after_current"
   lvim.builtin.bufferline.options.groups = {
     options = {
       toggle_hidden_on_enter = true,
     },
     items = {
-      { name = "ungrouped" },
+      bufferline_groups.builtin.ungrouped,
       {
         highlight = { guisp = "#51AFEF" },
         name = "tests",
@@ -81,6 +80,7 @@ M.config = function()
       },
     },
   }
+  lvim.builtin.bufferline.options.separator_style = os.getenv "KITTY_WINDOW_ID" and "slant" or "thin"
 
   -- CMP
   -- =========================================
@@ -94,10 +94,10 @@ M.config = function()
     { name = "calc" },
     { name = "emoji" },
     { name = "treesitter" },
+    { name = "latex_symbols" },
     { name = "crates" },
     { name = "orgmode" },
   }
-  lvim.builtin.cmp.documentation.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
   lvim.builtin.cmp.experimental = {
     ghost_text = false,
     native_menu = false,
@@ -114,12 +114,51 @@ M.config = function()
     emoji = "",
     path = "",
     calc = "",
+    latex_symbols = "(LaTeX)",
+    crates = "(Crates)",
     cmp_tabnine = "ﮧ",
     ["vim-dadbod-completion"] = "𝓐",
   }
+  local cmp_ok, cmp = pcall(require, "cmp")
+  if not cmp_ok or cmp == nil then
+    cmp = {
+      mapping = function(...) end,
+      setup = { filetype = function(...) end, cmdline = function(...) end },
+      config = { sources = function(...) end },
+    }
+  end
+  if lvim.builtin.fancy_wild_menu.active then
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline {},
+      sources = {
+        { name = "cmdline" },
+        { name = "path" },
+      },
+    })
+  end
+  cmp.setup.filetype("toml", {
+    sources = cmp.config.sources({
+      { name = "nvim_lsp", max_item_count = 8 },
+      { name = "crates" },
+      { name = "luasnip", max_item_count = 5 },
+    }, {
+      { name = "buffer", max_item_count = 5, keyword_length = 5 },
+    }),
+  })
+  cmp.setup.filetype("tex", {
+    sources = cmp.config.sources({
+      { name = "latex_symbols", max_item_count = 3, keyword_length = 3 },
+      { name = "nvim_lsp", max_item_count = 8 },
+      { name = "luasnip", max_item_count = 5 },
+    }, {
+      { name = "buffer", max_item_count = 5, keyword_length = 5 },
+    }),
+  })
   if lvim.builtin.sell_your_soul_to_devil then
     lvim.keys.insert_mode["<c-h>"] = { [[copilot#Accept("\<CR>")]], { expr = true, script = true } }
-    local cmp = require "cmp"
+    lvim.keys.insert_mode["<M-]>"] = { "<Plug>(copilot-next)", { silent = true } }
+    lvim.keys.insert_mode["<M-[>"] = { "<Plug>(copilot-previous)", { silent = true } }
+    lvim.keys.insert_mode["<M-\\>"] = { "<Cmd>vertical Copilot panel<CR>", { silent = true } }
     lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
     lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
   end
@@ -150,17 +189,59 @@ M.config = function()
 
   -- Dashboard
   -- =========================================
-  lvim.builtin.dashboard.active = not lvim.builtin.fancy_dashboard.active
-  if not lvim.builtin.fancy_dashboard.active then
-    lvim.builtin.dashboard.custom_section["m"] = {
-      description = { "  Marks              " },
-      command = "Telescope marks",
-    }
-  end
+  lvim.builtin.alpha.mode = "custom"
+  local alpha_opts = require("user.dashboard").config()
+  lvim.builtin.alpha["custom"] = { config = alpha_opts }
 
   -- LSP
   -- =========================================
-  lvim.lsp.diagnostics.float.border = "rounded"
+  lvim.lsp.buffer_mappings.normal_mode["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" }
+  lvim.lsp.buffer_mappings.normal_mode["gI"] = {
+    "<cmd>lua require('user.telescope').lsp_implementations()<CR>",
+    "Goto Implementation",
+  }
+  lvim.lsp.buffer_mappings.normal_mode["gA"] = {
+    "<cmd>lua if vim.bo.filetype == 'rust' then vim.cmd[[RustHoverActions]] else vim.lsp.codelens.run() end<CR>",
+    "CodeLens Action",
+  }
+  lvim.lsp.buffer_mappings.normal_mode["gt"] = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition" }
+  lvim.lsp.buffer_mappings.normal_mode["K"] = {
+    "<cmd>lua require('user.builtin').show_documentation()<CR>",
+    "Show Documentation",
+  }
+  lvim.lsp.float.border = {
+    { "╔", "FloatBorder" },
+    { "═", "FloatBorder" },
+    { "╗", "FloatBorder" },
+    { "║", "FloatBorder" },
+    { "╝", "FloatBorder" },
+    { "═", "FloatBorder" },
+    { "╚", "FloatBorder" },
+    { "║", "FloatBorder" },
+  }
+  lvim.lsp.diagnostics.float.border = {
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+    { " ", "FloatBorder" },
+  }
+  if os.getenv "KITTY_WINDOW_ID" then
+    lvim.lsp.float.border = {
+      { "🭽", "FloatBorder" },
+      { "▔", "FloatBorder" },
+      { "🭾", "FloatBorder" },
+      { "▕", "FloatBorder" },
+      { "🭿", "FloatBorder" },
+      { "▁", "FloatBorder" },
+      { "🭼", "FloatBorder" },
+      { "▏", "FloatBorder" },
+    }
+    lvim.lsp.diagnostics.float.border = lvim.lsp.float.border
+  end
   lvim.lsp.diagnostics.float.focusable = false
   lvim.lsp.float.focusable = true
   lvim.lsp.diagnostics.signs.values = {
@@ -169,9 +250,16 @@ M.config = function()
     { name = "DiagnosticSignInfo", text = kind.icons.info },
     { name = "DiagnosticSignHint", text = kind.icons.hint },
   }
-  local ok, _ = pcall(require, "vim.diagnostic")
-  if ok then
-    vim.diagnostic.config { virtual_text = false }
+  lvim.lsp.diagnostics.float.source = "if_many"
+  lvim.lsp.diagnostics.float.format = function(d)
+    local t = vim.deepcopy(d)
+    local code = d.code or (d.user_data and d.user_data.lsp.code)
+    for _, table in pairs(M.codes) do
+      if vim.tbl_contains(table, code) then
+        return table.message
+      end
+    end
+    return t.message
   end
 
   -- Lualine
@@ -191,6 +279,9 @@ M.config = function()
     },
   }
   lvim.builtin.nvimtree.icons = kind.nvim_tree_icons
+  lvim.builtin.nvimtree.on_config_done = function(_)
+    lvim.builtin.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", " Explorer" }
+  end
   -- lvim.builtin.nvimtree.hide_dotfiles = 0
 
   -- Project
@@ -201,7 +292,16 @@ M.config = function()
   -- Treesitter
   -- =========================================
   lvim.builtin.treesitter.context_commentstring.enable = true
-  lvim.builtin.treesitter.ensure_installed = "maintained"
+  local languages = vim.tbl_flatten {
+    { "bash", "c", "c_sharp", "cmake", "comment", "cpp", "css", "d", "dart" },
+    { "dockerfile", "elixir", "elm", "erlang", "fennel", "fish", "go" },
+    { "gomod", "graphql", "hcl", "help", "html", "java", "javascript", "jsdoc" },
+    { "json", "jsonc", "julia", "kotlin", "latex", "ledger", "lua", "make" },
+    { "markdown", "nix", "ocaml", "perl", "php", "python", "query", "r" },
+    { "regex", "rego", "ruby", "rust", "scala", "scss", "solidity", "swift" },
+    { "teal", "toml", "tsx", "typescript", "vim", "vue", "yaml", "zig" },
+  }
+  lvim.builtin.treesitter.ensure_installed = languages
   lvim.builtin.treesitter.highlight.disable = { "org" }
   lvim.builtin.treesitter.highlight.aditional_vim_regex_highlighting = { "org" }
   lvim.builtin.treesitter.ignore_install = { "haskell", "norg" }
@@ -237,6 +337,8 @@ M.config = function()
         ["il"] = "@loop.inner",
         ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
+        ["av"] = "@variable.outer",
+        ["iv"] = "@variable.inner",
       },
     },
     swap = {
@@ -256,6 +358,7 @@ M.config = function()
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
+        ["]p"] = "@parameter.inner",
         ["]f"] = "@function.outer",
         ["]]"] = "@class.outer",
       },
@@ -264,6 +367,7 @@ M.config = function()
         ["]["] = "@class.outer",
       },
       goto_previous_start = {
+        ["[p"] = "@parameter.inner",
         ["[f"] = "@function.outer",
         ["[["] = "@class.outer",
       },
@@ -273,34 +377,20 @@ M.config = function()
       },
     },
   }
-  lvim.builtin.treesitter.on_config_done = function()
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_config.solidity = {
-      install_info = {
-        url = "https://github.com/JoranHonig/tree-sitter-solidity",
-        files = { "src/parser.c" },
-        requires_generate_from_grammar = true,
-      },
-      filetype = "solidity",
-    }
-    parser_config.jsonc.used_by = "json"
-    if lvim.builtin.orgmode.active then
-      parser_config.org = {
-        install_info = {
-          url = "https://github.com/milisims/tree-sitter-org",
-          revision = "main",
-          files = { "src/parser.c", "src/scanner.cc" },
-        },
-        filetype = "org",
-      }
-    end
-  end
 
   -- Telescope
   -- =========================================
   -- lvim.builtin.telescope.defaults.path_display = { "smart", "absolute", "truncate" }
+  lvim.builtin.telescope.defaults.dynamic_preview_title = true
   lvim.builtin.telescope.defaults.path_display = { shorten = 10 }
-  lvim.builtin.telescope.defaults.winblend = 6
+  lvim.builtin.telescope.defaults.prompt_prefix = "  "
+  lvim.builtin.telescope.defaults.borderchars = {
+    prompt = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    results = { "─", "▐", "─", "│", "╭", "▐", "▐", "╰" },
+    -- results = {' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' };
+    preview = { " ", "│", " ", "▌", "▌", "╮", "╯", "▌" },
+  }
+  lvim.builtin.telescope.defaults.selection_caret = "  "
   lvim.builtin.telescope.defaults.cache_picker = { num_pickers = 3 }
   lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
   lvim.builtin.telescope.defaults.file_ignore_patterns = {
@@ -355,19 +445,19 @@ M.config = function()
     "%.flac",
     "%.tar.gz",
   }
-  lvim.builtin.telescope.defaults.layout_config = require("user.telescope").layout_config()
+  local user_telescope = require "user.telescope"
+  lvim.builtin.telescope.defaults.layout_config = user_telescope.layout_config()
   local actions = require "telescope.actions"
-  local custom_actions = require "user.telescope"
   lvim.builtin.telescope.defaults.mappings = {
     i = {
       ["<c-c>"] = require("telescope.actions").close,
       ["<c-y>"] = require("telescope.actions").which_key,
       ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
       ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-      ["<cr>"] = custom_actions.multi_selection_open,
-      ["<c-v>"] = custom_actions.multi_selection_open_vsplit,
-      ["<c-s>"] = custom_actions.multi_selection_open_split,
-      ["<c-t>"] = custom_actions.multi_selection_open_tab,
+      ["<cr>"] = user_telescope.multi_selection_open,
+      ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+      ["<c-s>"] = user_telescope.multi_selection_open_split,
+      ["<c-t>"] = user_telescope.multi_selection_open_tab,
       ["<c-j>"] = actions.move_selection_next,
       ["<c-k>"] = actions.move_selection_previous,
     },
@@ -375,10 +465,10 @@ M.config = function()
       ["<esc>"] = actions.close,
       ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
       ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-      ["<cr>"] = custom_actions.multi_selection_open,
-      ["<c-v>"] = custom_actions.multi_selection_open_vsplit,
-      ["<c-s>"] = custom_actions.multi_selection_open_split,
-      ["<c-t>"] = custom_actions.multi_selection_open_tab,
+      ["<cr>"] = user_telescope.multi_selection_open,
+      ["<c-v>"] = user_telescope.multi_selection_open_vsplit,
+      ["<c-s>"] = user_telescope.multi_selection_open_split,
+      ["<c-t>"] = user_telescope.multi_selection_open_tab,
       ["<c-j>"] = actions.move_selection_next,
       ["<c-k>"] = actions.move_selection_previous,
       ["<c-n>"] = actions.cycle_history_next,
@@ -399,8 +489,17 @@ M.config = function()
     find_command = { "fd", "--type=file", "--hidden", "--smart-case" },
   }
   lvim.builtin.telescope.on_config_done = function(telescope)
+    local command_center = require "command_center"
+    lvim.builtin.telescope.extensions.command_center = {
+      components = {
+        command_center.component.DESCRIPTION,
+        -- command_center.component.KEYBINDINGS,
+        command_center.component.COMMAND,
+      },
+      auto_replace_desc_with_cmd = false,
+    }
     telescope.load_extension "file_create"
-    telescope.load_extension "command_palette"
+    telescope.load_extension "command_center"
     if lvim.builtin.file_browser.active then
       telescope.load_extension "file_browser"
     end
@@ -415,17 +514,12 @@ M.config = function()
   -- =========================================
   lvim.builtin.which_key.setup.window.winblend = 10
   lvim.builtin.which_key.setup.window.border = "none"
+  lvim.builtin.which_key.setup.icons = {
+    breadcrumb = "/", -- symbol used in the command line area that shows your active key combo
+    separator = "·", -- symbol used between a key and it's label
+    group = "", -- symbol prepended to a group
+  }
   lvim.builtin.which_key.setup.ignore_missing = true
-  lvim.builtin.which_key.on_config_done = function(wk)
-    local keys = {
-      ["ga"] = { "<cmd>lua require('user.telescope').code_actions()<CR>", "Code Action" },
-      ["gR"] = { "<cmd>Trouble lsp_references<CR>", "Goto References" },
-      ["gI"] = { "<cmd>lua require('user.telescope').lsp_implementations()<CR>", "Goto Implementation" },
-      ["gA"] = { "<cmd>lua vim.lsp.codelens.run()<CR>", "CodeLens Action" },
-      ["gt"] = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Goto Type Definition" },
-    }
-    wk.register(keys, { mode = "n" })
-  end
 
   -- ETC
   -- =========================================
@@ -549,84 +643,83 @@ function M.shift_tab(fallback)
   end
 end
 
-function M.cpmenu()
-  return {
-    {
-      "File",
-      { "entire selection", ':call feedkeys("GVgg")' },
-      { "file browser", ":Telescope file_browser", 1 },
-      { "files", ":lua require('telescope.builtin').find_files()", 1 },
-      { "git files", ":lua require('user.telescope').git_files()", 1 },
-      { "last search", ":lua require('telescope.builtin').resume({cache_index=3})" },
-      { "quit", ":qa" },
-      { "save all files", ":wa" },
-      { "save current file", ":w" },
-      { "search word", ":lua require('user.telescope').find_string()", 1 },
-    },
-    {
-      "Lsp",
-      { "formatting", ":lua vim.lsp.buf.formatting_seq_sync()" },
-      { "workspace diagnostics", ":Telescope diagnostics" },
-      { "workspace symbols", ":Telescope lsp_workspace_symbols" },
-    },
-    {
-      "Project",
-      { "list", ":Telescope projects" },
-      { "build", ":AsyncTask project-build" },
-      { "run", ":AsyncTask project-run" },
-      { "tasks", ":AsyncTaskList" },
-    },
-    {
-      "Vim",
-      { "buffers", ":Telescope buffers" },
-      { "check health", ":checkhealth" },
-      { "colorshceme", ":lua require('telescope.builtin').colorscheme()", 1 },
-      { "command history", ":lua require('telescope.builtin').command_history()" },
-      { "commands", ":lua require('telescope.builtin').commands()" },
-      { "cursor column", ":set cursorcolumn!" },
-      { "cursor line", ":set cursorline!" },
-      { "jumps", ":lua require('telescope.builtin').jumplist()" },
-      { "keymaps", ":lua require('telescope.builtin').keymaps()" },
-      { "paste mode", ":set paste!" },
-      { "registers (A-e)", ":lua require('telescope.builtin').registers()" },
-      { "relative number", ":set relativenumber!" },
-      { "reload vimrc", ":source $MYVIMRC" },
-      { "search highlighting", ":set hlsearch!" },
-      { "search history", ":lua require('telescope.builtin').search_history()" },
-      { "spell checker", ":set spell!" },
-      { "vim options", ":lua require('telescope.builtin').vim_options()" },
-    },
-    {
-      "Help",
-      { "cheatsheet", ":help index" },
-      { "quick reference", ":help quickref" },
-      { "search help", ":lua require('telescope.builtin').help_tags()", 1 },
-      { "summary", ":help summary" },
-      { "tips", ":help tips" },
-      { "tutorial", ":help tutor" },
-    },
-    {
-      "Dap",
-      { "brakpoints", ":lua require'telescope'.extensions.dap.list_breakpoints{}" },
-      { "clear breakpoints", ":lua require('dap.breakpoints').clear()" },
-      { "close", ":lua require'dap'.close(); require'dap'.repl.close()" },
-      { "commands", ":lua require'telescope'.extensions.dap.commands{}" },
-      { "configurations", ":lua require'telescope'.extensions.dap.configurations{}" },
-      { "continue", ":lua require'dap'.continue()" },
-      { "current scopes floating window", ":lua ViewCurrentScopesFloatingWindow()" },
-      { "current scopes", ':lua ViewCurrentScopes(); vim.cmd("wincmd w|vertical resize 40")' },
-      { "current value floating window", ":lua ViewCurrentValueFloatingWindow()" },
-      { "frames", ":lua require'telescope'.extensions.dap.frames{}" },
-      { "pause", ":lua require'dap'.pause()" },
-      { "repl", ":lua require'dap'.repl.open(); vim.cmd(\"wincmd w|resize 12\")" },
-      { "run to cursor", ":lua require'dap'.run_to_cursor()" },
-      { "step back", ":lua require'dap'.step_back()" },
-      { "step into", ":lua require'dap'.step_into()" },
-      { "step out", ":lua require'dap'.step_out()" },
-      { "step over", ":lua require'dap'.step_over()" },
-      { "toggle breakpoint", ":lua require'dap'.toggle_breakpoint()" },
-    },
-  }
+-- credit: https://github.com/max397574/NeovimConfig/blob/master/lua/configs/lsp/init.lua
+M.codes = {
+  no_matching_function = {
+    message = " Can't find a matching function",
+    "redundant-parameter",
+    "ovl_no_viable_function_in_call",
+  },
+  different_requires = {
+    message = " Buddy you've imported this before, with the same name",
+    "different-requires",
+  },
+  empty_block = {
+    message = " That shouldn't be empty here",
+    "empty-block",
+  },
+  missing_symbol = {
+    message = " Here should be a symbol",
+    "miss-symbol",
+  },
+  expected_semi_colon = {
+    message = " Remember the `;` or `,`",
+    "expected_semi_declaration",
+    "miss-sep-in-table",
+    "invalid_token_after_toplevel_declarator",
+  },
+  redefinition = {
+    message = " That variable was defined before",
+    "redefinition",
+    "redefined-local",
+  },
+  no_matching_variable = {
+    message = " Can't find that variable",
+    "undefined-global",
+    "reportUndefinedVariable",
+  },
+  trailing_whitespace = {
+    message = " Remove trailing whitespace",
+    "trailing-whitespace",
+    "trailing-space",
+  },
+  unused_variable = {
+    message = " Don't define variables you don't use",
+    "unused-local",
+  },
+  unused_function = {
+    message = " Don't define functions you don't use",
+    "unused-function",
+  },
+  useless_symbols = {
+    message = " Remove that useless symbols",
+    "unknown-symbol",
+  },
+  wrong_type = {
+    message = " Try to use the correct types",
+    "init_conversion_failed",
+  },
+  undeclared_variable = {
+    message = " Have you delcared that variable somewhere?",
+    "undeclared_var_use",
+  },
+  lowercase_global = {
+    message = " Should that be a global? (if so make it uppercase)",
+    "lowercase-global",
+  },
+}
+
+M.show_documentation = function()
+  local filetype = vim.bo.filetype
+  if vim.tbl_contains({ "vim", "help" }, filetype) then
+    vim.cmd("h " .. vim.fn.expand "<cword>")
+  elseif vim.fn.expand "%:t" == "Cargo.toml" then
+    require("crates").show_popup()
+  elseif vim.tbl_contains({ "man" }, filetype) then
+    vim.cmd("Man " .. vim.fn.expand "<cword>")
+  else
+    vim.lsp.buf.hover()
+  end
 end
 
 return M

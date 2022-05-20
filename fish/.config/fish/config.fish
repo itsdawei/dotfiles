@@ -2,11 +2,9 @@
 set -e fish_user_paths
 set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 
-set PATH /usr/local/anaconda3/bin $PATH
-
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
-# set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin /Users/dawei/.local/bin $PATH
+set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin /Users/dawei/.local/bin $PATH
 set EDITOR "lvim"                      # $EDITOR use nvim in terminal
 set VISUAL "lvim"                      # $VISUAL use nvim in GUI mode
 
@@ -117,7 +115,3 @@ thefuck --alias | source
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source
-
-# taskwarriors
-alias t='task'
-

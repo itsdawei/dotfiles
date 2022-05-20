@@ -1,20 +1,8 @@
 local M = {}
 
--- HACK: for some reason, the alt keybindings are not working in my wezterm
-M.set_wezterm_keybindings = function()
-  lvim.keys.insert_mode["å"] = lvim.keys.insert_mode["<A-a>"]
-  lvim.keys.insert_mode["ß"] = lvim.keys.insert_mode["<A-s>"]
-  lvim.keys.insert_mode["´"] = lvim.keys.insert_mode["<A-e>"]
-  lvim.keys.insert_mode["∆"] = lvim.keys.insert_mode["<A-j>"]
-  lvim.keys.insert_mode["˚"] = lvim.keys.insert_mode["<A-k>"]
-  lvim.keys.normal_mode["å"] = lvim.keys.normal_mode["<A-a>"]
-  lvim.keys.normal_mode["≈"] = lvim.keys.normal_mode["<A-x>"]
-end
-
 M.set_terminal_keymaps = function()
   local opts = { noremap = true }
   vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
@@ -23,43 +11,44 @@ end
 
 M.set_hop_keymaps = function()
   local opts = { noremap = true, silent = true }
-  vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", opts)
-  vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", opts)
+  vim.api.nvim_set_keymap("n", "s", ":HopChar2MW<cr>", opts)
+  vim.api.nvim_set_keymap("n", "S", ":HopWordMW<cr>", opts)
   vim.api.nvim_set_keymap(
     "n",
     "f",
-    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>",
-    {}
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "F",
-    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>",
-    {}
-  )
-  vim.api.nvim_set_keymap(
-    "n",
-    "t",
     "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
     {}
   )
   vim.api.nvim_set_keymap(
     "n",
+    "F",
+    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
+    {}
+  )
+  vim.api.nvim_set_keymap(
+    "o",
+    "f",
+    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>",
+    {}
+  )
+  vim.api.nvim_set_keymap(
+    "o",
+    "F",
+    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>",
+    {}
+  )
+  vim.api.nvim_set_keymap(
+    "",
+    "t",
+    "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>",
+    {}
+  )
+  vim.api.nvim_set_keymap(
+    "",
     "T",
     "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>",
     {}
   )
-end
-
-M.set_lightspeed_keymaps = function()
-  vim.cmd [[
-nmap s <Plug>Lightspeed_s
-nmap S <Plug>Lightspeed_S
-nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
-nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
-nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
-nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
-  ]]
 end
 
 M.set_hlslens_keymaps = function()
@@ -83,14 +72,14 @@ M.set_hlslens_keymaps = function()
 end
 
 local function set_bufferline_keymaps()
-  lvim.keys.normal_mode["<S-x>"] = ":bdelete!<CR>"
+  lvim.keys.normal_mode["<S-x>"] = "<Cmd>BufferKill<CR>"
   lvim.keys.normal_mode["<S-l>"] = "<Cmd>BufferLineCycleNext<CR>"
   lvim.keys.normal_mode["<S-h>"] = "<Cmd>BufferLineCyclePrev<CR>"
   lvim.keys.normal_mode["[b"] = "<Cmd>BufferLineMoveNext<CR>"
   lvim.keys.normal_mode["]b"] = "<Cmd>BufferLineMovePrev<CR>"
-  lvim.builtin.which_key.mappings["c"] = { "<CMD>bdelete!<CR>", "Close Buffer" }
+  lvim.builtin.which_key.mappings["c"] = {}
   lvim.builtin.which_key.mappings.b = {
-    name = "Buffers",
+    name = "﩯Buffer",
     ["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "goto 1" },
     ["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "goto 2" },
     ["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "goto 3" },
@@ -105,6 +94,19 @@ local function set_bufferline_keymaps()
     t = { "<Cmd>BufferLineGroupToggle docs<CR>", "toggle groups" },
     f = { "<cmd>Telescope buffers<cr>", "Find" },
     b = { "<cmd>b#<cr>", "Previous" },
+    h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
+    l = {
+      "<cmd>BufferLineCloseRight<cr>",
+      "Close all to the right",
+    },
+    D = {
+      "<cmd>BufferLineSortByDirectory<cr>",
+      "Sort by directory",
+    },
+    L = {
+      "<cmd>BufferLineSortByExtension<cr>",
+      "Sort by language",
+    },
   }
 end
 
@@ -114,10 +116,10 @@ local function set_harpoon_keymaps()
   lvim.keys.normal_mode["te"] = "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>"
   lvim.keys.normal_mode["cu"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>"
   lvim.keys.normal_mode["ce"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>"
-  lvim.builtin.which_key.mappings["a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Add Mark" }
+  lvim.builtin.which_key.mappings["a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" }
   lvim.builtin.which_key.mappings["<leader>"] = {
     "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>",
-    "Harpoon",
+    " Harpoon",
   }
 
   local whk_status, whk = pcall(require, "which-key")
@@ -125,10 +127,10 @@ local function set_harpoon_keymaps()
     return
   end
   whk.register {
-    ["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", "goto1" },
-    ["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", "goto2" },
-    ["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", "goto3" },
-    ["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", "goto4" },
+    ["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
+    ["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", " goto2" },
+    ["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
+    ["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
   }
 end
 
@@ -136,14 +138,14 @@ M.set_async_tasks_keymaps = function()
   local poor_mans_autocmds = require("user.autocommands").make_run()
   if lvim.builtin.async_tasks.active then
     lvim.builtin.which_key.mappings["m"] = {
-      name = "Make",
+      name = " Make",
       f = { "<cmd>AsyncTask file-build<cr>", "File" },
       p = { "<cmd>AsyncTask project-build<cr>", "Project" },
       e = { "<cmd>AsyncTaskEdit<cr>", "Edit" },
       l = { "<cmd>AsyncTaskList<cr>", "List" },
     }
     lvim.builtin.which_key.mappings["r"] = {
-      name = "Run",
+      name = " Run",
       f = { "<cmd>AsyncTask file-run<cr>", "File" },
       p = { "<cmd>AsyncTask project-run<cr>", "Project" },
     }
@@ -181,9 +183,6 @@ M.config = function()
       [[<cmd>lua os.execute("xdg-open " .. vim.fn.shellescape(vim.fn.expand "<cWORD>")); vim.cmd "redraw!"<cr>]]
   end
   set_bufferline_keymaps()
-  if lvim.builtin.sidebar.active then
-    lvim.keys.normal_mode["E"] = ":SidebarNvimToggle<cr>"
-  end
   lvim.keys.normal_mode["<esc><esc>"] = "<cmd>nohlsearch<cr>"
   lvim.keys.normal_mode["Y"] = "y$"
   lvim.keys.normal_mode["gv"] = "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>"
@@ -191,14 +190,17 @@ M.config = function()
     set_harpoon_keymaps()
   end
   lvim.keys.visual_mode["p"] = [["_dP]]
+  lvim.keys.visual_mode["ga"] = "<esc><Cmd>lua vim.lsp.buf.range_code_action()<CR>"
   lvim.keys.visual_mode["<leader>st"] = "<Cmd>lua require('user.telescope').grep_string_visual()<CR>"
 
   -- WhichKey keybindings
   -- =========================================
   M.set_async_tasks_keymaps()
-  if lvim.builtin.fancy_dashboard.active then
-    lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<CR>", "Dashboard" }
-  end
+  lvim.builtin.which_key.mappings["/"] = {
+    "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>",
+    " Comment",
+  }
+  lvim.builtin.which_key.mappings[";"] = { "<cmd>Alpha<CR>", "舘Dashboard" }
   if lvim.builtin.dap.active then
     lvim.builtin.which_key.mappings["de"] = { "<cmd>lua require('dapui').eval()<cr>", "Eval" }
     lvim.builtin.which_key.mappings["dU"] = { "<cmd>lua require('dapui').toggle()<cr>", "Toggle UI" }
@@ -223,15 +225,20 @@ M.config = function()
     s = { "<cmd>lua require('user.telescope').git_status()<cr>", "Git Status" },
     z = { "<cmd>lua require('user.telescope').search_only_certain_files()<cr>", "Certain Filetype" },
   }
-  lvim.builtin.which_key.mappings["C"] = {
-    "<cmd>lua require('telescope').extensions.command_palette.command_palette()<cr>",
-    "Command Palette",
-  }
+  lvim.builtin.which_key.mappings["C"] = { "<cmd>Telescope command_center<cr>", " Command Palette" }
+  lvim.keys.normal_mode["<c-P>"] = "<cmd>Telescope command_center<cr>"
 
   if lvim.builtin.file_browser.active then
     lvim.builtin.which_key.mappings["se"] = { "<cmd>Telescope file_browser<cr>", "File Browser" }
   end
-  lvim.builtin.which_key.mappings["H"] = "Help"
+  lvim.builtin.which_key.mappings["H"] = " Help"
+  lvim.builtin.which_key.mappings["h"] = { "<cmd>nohlsearch<CR>", " No Highlight" }
+  lvim.builtin.which_key.mappings.g.name = " Git"
+  lvim.builtin.which_key.mappings.l.name = " LSP"
+  lvim.builtin.which_key.mappings["f"] = {
+    require("lvim.core.telescope.custom-finders").find_project_files,
+    " Find File",
+  }
   local ok, _ = pcall(require, "vim.diagnostic")
   if ok then
     lvim.builtin.which_key.mappings["l"]["j"] = {
@@ -243,13 +250,10 @@ M.config = function()
       "Prev Diagnostic",
     }
   end
-  if lvim.builtin.fancy_rename then
-    lvim.builtin.which_key.mappings["l"]["r"] = { "<cmd>lua require('renamer').rename()<cr>", "Rename" }
-    lvim.builtin.which_key.vmappings["l"] = {
-      name = "+Lsp",
-      r = { "<ESC><CMD>lua require('renamer').rename()<CR>", "Rename" },
-    }
-  end
+  lvim.builtin.which_key.vmappings["l"] = {
+    name = "+Lsp",
+    r = { "<ESC><CMD>lua vim.lsp.buf.rename()<CR>", "Rename" },
+  }
   lvim.builtin.which_key.mappings["l"]["f"] = {
     "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
     "Format",
@@ -260,45 +264,45 @@ M.config = function()
   }
   if lvim.builtin.persistence then
     lvim.builtin.which_key.mappings["q"] = {
-      name = "+Quit",
+      name = " Quit",
       d = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
       l = { "<cmd>lua require('persistence').load(last=true)<cr>", "Restore last session" },
       s = { "<cmd>lua require('persistence').load()<cr>", "Restore for current dir" },
     }
   end
   lvim.builtin.which_key.mappings["n"] = {
-    name = "Neogen",
+    name = " Neogen",
     c = { "<cmd>lua require('neogen').generate({ type = 'class'})<CR>", "Class Documentation" },
     f = { "<cmd>lua require('neogen').generate({ type = 'func'})<CR>", "Function Documentation" },
     t = { "<cmd>lua require('neogen').generate({ type = 'type'})<CR>", "Type Documentation" },
     F = { "<cmd>lua require('neogen').generate({ type = 'file'})<CR>", "File Documentation" },
   }
-  lvim.builtin.which_key.mappings["N"] = { "<cmd>Telescope file_create<CR>", "Create new file" }
+  lvim.builtin.which_key.mappings["N"] = { "<cmd>Telescope file_create<CR>", " Create new file" }
   if lvim.builtin.tag_provider == "symbols-outline" then
-    lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", "Symbol Outline" }
-  elseif lvim.builtin.tag_provider == "vista" then
-    lvim.builtin.which_key.mappings["o"] = { "<cmd>Vista!!<cr>", "Vista" }
+    lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", " Symbol Outline" }
   end
-  lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+  lvim.builtin.which_key.mappings.L.name = " LunarVim"
+  lvim.builtin.which_key.mappings.p.name = " Packer"
+  lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", " Projects" }
   lvim.builtin.which_key.mappings["R"] = {
-    name = "Replace",
+    name = " Replace",
     f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Current Buffer" },
     p = { "<cmd>lua require('spectre').open()<cr>", "Project" },
     w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
   }
-
+  lvim.builtin.which_key.mappings.s.name = " Search"
   lvim.builtin.which_key.mappings["ss"] = {
     "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>",
     "String",
   }
   lvim.builtin.which_key.mappings["t"] = {
-    name = "Test",
+    name = "ﭧ Test",
     f = { "<cmd>Ultest<cr>", "File" },
     n = { "<cmd>UltestNearest<cr>", "Nearest" },
     s = { "<cmd>UltestSummary<cr>", "Summary" },
   }
   lvim.builtin.which_key.mappings["T"] = {
-    name = "+Trouble",
+    name = "飯Trouble",
     d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnosticss" },
     f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
     l = { "<cmd>Trouble loclist<cr>", "LocationList" },
@@ -307,14 +311,12 @@ M.config = function()
     t = { "<cmd>TodoLocList <cr>", "Todo" },
     w = { "<cmd>Trouble workspace_diagnostics<cr>", "Diagnosticss" },
   }
-  lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "Zen" }
-
-  -- My wezterm is weird
-  -- =========================================
-  local user = os.getenv "USER"
-  if user and user == "abz" then
-    M.set_wezterm_keybindings()
-  end
+  lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", " Zen" }
+  lvim.builtin.which_key.mappings["w"] = { "<cmd>w!<CR>", " Save" }
+  lvim.builtin.which_key.vmappings["g"] = {
+    name = " Git",
+    s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+  }
 
   -- Navigate merge conflict markers
   local whk_status, whk = pcall(require, "which-key")

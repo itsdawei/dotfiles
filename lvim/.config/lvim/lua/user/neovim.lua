@@ -26,8 +26,16 @@ M.config = function()
   end
   -- vim.g.did_load_filetypes = 1
   vim.g.ultest_summary_width = 30
+  vim.opt.completeopt = { "menu", "menuone", "noselect" }
   vim.opt.relativenumber = true
-  vim.opt.wrap = true
+  vim.opt.diffopt = {
+    "internal",
+    "filler",
+    "closeoff",
+    "hiddenoff",
+    "algorithm:minimal",
+  }
+  vim.opt.wrap = false
   vim.opt.termguicolors = true
   vim.opt.updatetime = 100
   vim.opt.timeoutlen = 250
@@ -51,16 +59,35 @@ M.config = function()
   vim.opt.confirm = true -- make vim prompt me to save before doing destructive things
   vim.opt.autowriteall = true -- automatically :write before running commands and changing files
   vim.opt.clipboard = "unnamedplus"
-  vim.opt.fillchars = {
-    vert = "▕", -- alternatives │
-    fold = " ",
-    eob = " ", -- suppress ~ at EndOfBuffer
-    diff = "╱", -- alternatives = ⣿ ░ ─
-    msgsep = "‾",
-    foldopen = "▾",
-    foldsep = "│",
-    foldclose = "▸",
-  }
+  if vim.fn.has "nvim-0.7" ~= 0 then
+    vim.opt.fillchars = {
+      fold = " ",
+      eob = " ", -- suppress ~ at EndOfBuffer
+      diff = "╱", -- alternatives = ⣿ ░ ─
+      msgsep = "‾",
+      foldopen = "▾",
+      foldsep = "│",
+      foldclose = "▸",
+      horiz = "━",
+      horizup = "┻",
+      horizdown = "┳",
+      vert = "┃",
+      vertleft = "┫",
+      vertright = "┣",
+      verthoriz = "╋",
+    }
+  else
+    vim.opt.fillchars = {
+      vert = "▕", -- alternatives │
+      fold = " ",
+      eob = " ", -- suppress ~ at EndOfBuffer
+      diff = "╱", -- alternatives = ⣿ ░ ─
+      msgsep = "‾",
+      foldopen = "▾",
+      foldsep = "│",
+      foldclose = "▸",
+    }
+  end
   vim.opt.wildignore = {
     "*.aux,*.out,*.toc",
     "*.o,*.obj,*.dll,*.jar,*.pyc,__pycache__,*.rbc,*.class",
@@ -111,43 +138,27 @@ M.config = function()
     precedes = "‹", -- Alternatives: … «
     trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
   }
+  vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
 
-  if vim.g.neovide then
-    vim.g.neovide_cursor_animation_length = 0.01
-    vim.g.neovide_cursor_trail_length = 0.05
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_remember_window_size = true
-    vim.cmd [[set guifont=FiraCode\ Nerd\ Font:h14]]
-  end
-
-  if vim.g.nvui then
-    -- Configure nvui here
-    vim.cmd [[NvuiCmdFontFamily FiraCode Nerd Font]]
-    vim.cmd [[set linespace=1]]
-    vim.cmd [[set guifont=FiraCode\ Nerd\ Font:h14]]
-    vim.cmd [[NvuiPopupMenuDefaultIconFg white]]
-    vim.cmd [[NvuiCmdBg #1e2125]]
-    vim.cmd [[NvuiCmdFg #abb2bf]]
-    vim.cmd [[NvuiCmdBigFontScaleFactor 1.0]]
-    vim.cmd [[NvuiCmdPadding 10]]
-    vim.cmd [[NvuiCmdCenterXPos 0.5]]
-    vim.cmd [[NvuiCmdTopPos 0.0]]
-    vim.cmd [[NvuiCmdFontSize 20.0]]
-    vim.cmd [[NvuiCmdBorderWidth 5]]
-    vim.cmd [[NvuiPopupMenuIconFg variable #56b6c2]]
-    vim.cmd [[NvuiPopupMenuIconFg function #c678dd]]
-    vim.cmd [[NvuiPopupMenuIconFg method #c678dd]]
-    vim.cmd [[NvuiPopupMenuIconFg field #d19a66]]
-    vim.cmd [[NvuiPopupMenuIconFg property #d19a66]]
-    vim.cmd [[NvuiPopupMenuIconFg module white]]
-    vim.cmd [[NvuiPopupMenuIconFg struct #e5c07b]]
-    vim.cmd [[NvuiCaretExtendTop 15]]
-    vim.cmd [[NvuiCaretExtendBottom 8]]
-    vim.cmd [[NvuiTitlebarFontSize 12]]
-    vim.cmd [[NvuiTitlebarFontFamily Arial]]
-    vim.cmd [[NvuiCursorAnimationDuration 0.1]]
-    -- vim.cmd [[NvuiToggleFrameless]]
-    vim.cmd [[NvuiOpacity 0.99]]
+  -- Cursorline highlighting control
+  --  Only have it on in the active buffer
+  vim.opt.cursorline = true -- Highlight the current line
+  if vim.fn.has "nvim-0.7" ~= 0 then
+    local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
+    vim.api.nvim_create_autocmd("WinLeave", {
+      group = group,
+      callback = function()
+        vim.opt_local.cursorline = false
+      end,
+    })
+    vim.api.nvim_create_autocmd("WinEnter", {
+      group = group,
+      callback = function()
+        if vim.bo.filetype ~= "alpha" then
+          vim.opt_local.cursorline = true
+        end
+      end,
+    })
   end
 end
 
@@ -167,6 +178,48 @@ function M.maximize_current_split()
     vim.cmd "tabedit %:p"
     vim.api.nvim_win_set_cursor(0, last_cursor)
   end
+end
+
+function _G.qftf(info)
+  local fn = vim.fn
+  local items
+  local ret = {}
+  if info.quickfix == 1 then
+    items = fn.getqflist({ id = info.id, items = 0 }).items
+  else
+    items = fn.getloclist(info.winid, { id = info.id, items = 0 }).items
+  end
+  local limit = 25
+  local fname_fmt1, fname_fmt2 = "%-" .. limit .. "s", "…%." .. (limit - 1) .. "s"
+  local valid_fmt, invalid_fmt = "%s |%5d:%-3d|%s %s", "%s"
+  for i = info.start_idx, info.end_idx do
+    local e = items[i]
+    local fname = ""
+    local str
+    if e.valid == 1 then
+      if e.bufnr > 0 then
+        fname = vim.api.nvim_buf_get_name(e.bufnr)
+        if fname == "" then
+          fname = "[No Name]"
+        else
+          fname = fname:gsub("^" .. vim.env.HOME, "~")
+        end
+        if fn.strwidth(fname) <= limit then
+          fname = fname_fmt1:format(fname)
+        else
+          fname = fname_fmt2:format(fname:sub(1 - limit, -1))
+        end
+      end
+      local lnum = e.lnum > 99999 and "inf" or e.lnum
+      local col = e.col > 999 and "inf" or e.col
+      local qtype = e.type == "" and "" or " " .. e.type:sub(1, 1):upper()
+      str = valid_fmt:format(fname, lnum, col, qtype, e.text)
+    else
+      str = invalid_fmt:format(e.text)
+    end
+    table.insert(ret, str)
+  end
+  return ret
 end
 
 return M

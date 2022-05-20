@@ -53,11 +53,7 @@ function M.layout_config()
     prompt_position = "bottom",
     horizontal = {
       preview_width = function(_, cols, _)
-        if cols > 200 then
-          return math.floor(cols * 0.5)
-        else
-          return math.floor(cols * 0.6)
-        end
+        return math.floor(cols * 0.6)
       end,
     },
     vertical = {
@@ -101,47 +97,6 @@ function M.find_string()
   builtin.live_grep(opts)
 end
 
--- show code actions in a fancy floating window
-function M.code_actions()
-  local opts = {
-    winblend = 15,
-    layout_config = {
-      prompt_position = "top",
-      width = 80,
-      height = 12,
-    },
-    borderchars = {
-      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    },
-    border = {},
-    previewer = false,
-    shorten_path = false,
-  }
-  builtin.lsp_code_actions(themes.get_dropdown(opts))
-end
-
-function M.codelens_actions()
-  local opts = {
-    winblend = 15,
-    layout_config = {
-      prompt_position = "top",
-      width = 80,
-      height = 12,
-    },
-    borderchars = {
-      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    },
-    border = {},
-    previewer = false,
-    shorten_path = false,
-  }
-  builtin.lsp_codelens_actions(themes.get_dropdown(opts))
-end
-
 -- show refrences to this using language server
 function M.lsp_references()
   local opts = {
@@ -177,7 +132,6 @@ function M.find_updir()
 
   builtin.find_files(opts)
 end
-
 
 function M.installed_plugins()
   builtin.find_files {

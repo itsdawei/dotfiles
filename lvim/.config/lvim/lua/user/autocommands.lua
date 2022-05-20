@@ -38,22 +38,7 @@ augroup BigFileDisable
 augroup END
   ]]
 
-  if lvim.builtin.sql_integration.active then
-    -- Add vim-dadbod-completion in sql files
-    vim.cmd [[
-    augroup DadbodSql
-      au!
-      autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
-    augroup END
-    ]]
-  end
-
   local codelens_viewer = "lua require('nvim-lightbulb').update_lightbulb()"
-  local user = os.getenv "USER"
-  if user and user == "abz" then
-    codelens_viewer = "lua require('user.codelens').show_line_sign()"
-  end
-
   lvim.autocommands.custom_groups = {
     { "CursorHold", "*.rs,*.go,*.ts,*.tsx", codelens_viewer },
 
@@ -84,11 +69,11 @@ augroup END
       "java",
       "nnoremap <leader>m <cmd>lua require('toggleterm.terminal').Terminal:new {cmd='mvn compile;read', hidden =false}:toggle()<CR>",
     },
-    {
-      "Filetype",
-      "scala,sbt,java",
-      "lua require('user.metals').config()",
-    },
+    -- {
+    --   "Filetype",
+    --   "scala,sbt,java",
+    --   "lua require('user.metals').config()",
+    -- },
 
     -- rust
     {
@@ -104,12 +89,12 @@ augroup END
     { "Filetype", "rust", "nnoremap gA <Cmd>RustHoverActions<CR>" },
 
     -- typescript
-    { "Filetype", "typescript,typescriptreact", "nnoremap gA <Cmd>TSLspImportAll<CR>" },
-    { "Filetype", "typescript,typescriptreact", "nnoremap gr <Cmd>TSLspRenameFile<CR>" },
-    { "Filetype", "typescript,typescriptreact", "nnoremap gS <Cmd>TSLspOrganize<CR>" },
+    { "Filetype", "typescript,typescriptreact", "nnoremap <leader>lA <Cmd>TSLspImportAll<CR>" },
+    { "Filetype", "typescript,typescriptreact", "nnoremap <leader>lR <Cmd>TSLspRenameFile<CR>" },
+    { "Filetype", "typescript,typescriptreact", "nnoremap <leader>lO <Cmd>TSLspOrganize<CR>" },
 
     -- uncomment the following if you want to show diagnostics on hover
-    -- { "CursorHold", "*", "lua vim.lsp.diagnostic.show_line_diagnostics({ show_header = false, border = 'single' })" },
+    -- { "CursorHold", "*", "lua vim.diagnostic.open_float(0,{scope='line'})" },
   }
 end
 
@@ -164,6 +149,9 @@ M.make_run = function()
       "rust",
       "nnoremap <leader>r <cmd>lua require('rust-tools.runnables').runnables()<CR>",
     },
+
+    -- toml
+    { "FileType", "toml", "lua require('cmp').setup.buffer { sources = { { name = 'crates' } } }" },
   }
 end
 

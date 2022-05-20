@@ -6,7 +6,7 @@
 cmd + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" && launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
 
 # Close active application
-cmd + shift - c : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
+cmd + shift - c : "$(yabai -m window "$(yabai -m query --windows --window | jq -re ".id")" --close)"
 
 # test a command
 # lshift - x : terminal-notifier -message "lshift - x"
@@ -17,7 +17,7 @@ cmd - return : open -na 'kitty.app'
 # cmd - return : open -na 'alacritty.app'
 
 # open brave
-cmd + shift - return : open -na 'Brave Browser.app'
+cmd + shift - return : open -na 'Firefox.app'
 
 # cycle float and tiled windows on space (back and forwards)
 cmd - k: yabai -m window --focus "$(yabai -m query --windows --space | jq -re "[sort_by(.id, .frame) | .[] | select(.role == \"AXWindow\" and .subrole == \"AXStandardWindow\") | .id] | nth(index($(yabai -m query --windows --window | jq -re ".id")) - 1)")"
@@ -41,13 +41,13 @@ shift + cmd - l : yabai -m window --warp east
 shift + alt - 0 : yabai -m space --balance
 
 # make floating window fill screen
-shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
+shift + alt - up : yabai -m window --grid 1:1:0:0:1:1
 
 # make floating window fill left-half of screen
-shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
+shift + alt - left : yabai -m window --grid 1:2:0:0:1:1
 
 # make floating window fill right-half of screen
-shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
+shift + alt - right : yabai -m window --grid 1:2:1:0:1:1
 
 # # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
 # shift + cmd - n : yabai -m space --create && index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && yabai -m window --space "${index}" && yabai -m space --focus "${index}"
@@ -59,32 +59,28 @@ shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
 # cmd + alt - w : yabai -m space --destroy
 
 # fast focus desktop
-cmd - 1 : yabai -m space --focus  1 
-cmd - 2 : yabai -m space --focus  2 
-cmd - 3 : yabai -m space --focus  3 
-cmd - 4 : yabai -m space --focus  4 
-cmd - 5 : yabai -m space --focus  5
-cmd - 6 : yabai -m space --focus  6
-cmd - 7 : yabai -m space --focus  7
-cmd - 8 : yabai -m space --focus  8
-cmd - 9 : yabai -m space --focus  9
+cmd - 1 : yabai -m space --focus 1
+cmd - 2 : yabai -m space --focus 2
+cmd - 3 : yabai -m space --focus 3
+cmd - 4 : yabai -m space --focus 4
+cmd - 5 : yabai -m space --focus 5
+cmd - 6 : yabai -m space --focus 6
+cmd - 7 : yabai -m space --focus 7
+cmd - 8 : yabai -m space --focus 8
+cmd - 9 : yabai -m space --focus 9
 cmd - 0 : yabai -m space --focus 10
 
 # send window to desktop and follow focus
-cmd + shift - 1 : yabai -m window --space  1 && yabai -m space --focus 1
-cmd + shift - 2 : yabai -m window --space  2 && yabai -m space --focus 2
-cmd + shift - 3 : yabai -m window --space  3 && yabai -m space --focus 3
-cmd + shift - 4 : yabai -m window --space  4 && yabai -m space --focus 4
-cmd + shift - 5 : yabai -m window --space  5 && yabai -m space --focus 5
-cmd + shift - 6 : yabai -m window --space  6 && yabai -m space --focus 6
-cmd + shift - 7 : yabai -m window --space  7 && yabai -m space --focus 7
-cmd + shift - 8 : yabai -m window --space  8 && yabai -m space --focus 8
-cmd + shift - 9 : yabai -m window --space  9 && yabai -m space --focus 9
+cmd + shift - 1 : yabai -m window --space 1 && yabai -m space --focus 1
+cmd + shift - 2 : yabai -m window --space 2 && yabai -m space --focus 2
+cmd + shift - 3 : yabai -m window --space 3 && yabai -m space --focus 3
+cmd + shift - 4 : yabai -m window --space 4 && yabai -m space --focus 4
+cmd + shift - 5 : yabai -m window --space 5 && yabai -m space --focus 5
+cmd + shift - 6 : yabai -m window --space 6 && yabai -m space --focus 6
+cmd + shift - 7 : yabai -m window --space 7 && yabai -m space --focus 7
+cmd + shift - 8 : yabai -m window --space 8 && yabai -m space --focus 8
+cmd + shift - 9 : yabai -m window --space 9 && yabai -m space --focus 9
 cmd + shift - 0 : yabai -m window --space 10 && yabai -m space --focus 10
-
-# focus monitor
-# cmd - 0x2B  : yabai -m display --focus prev
-# cmd - 0x2F  : yabai -m display --focus next
 
 # move window
 # shift + ctrl - a : yabai -m window --move rel:-20:0
@@ -147,12 +143,14 @@ alt - o : yabai -m indow --toggle topmost
 # toggle picture-in-picture
 alt - p : yabai -m window --toggle border && yabai -m window --toggle pip
 
+alt - i : yabai -m window 44289 --ratio 0.8
+
 shift + alt - z : yabai -m space --layout bsp
 shift + alt - x : yabai -m space --layout float
 shift + alt - c : yabai -m space --layout stack
 
 # prevents skhd from monitoring events for listed processes.
 .blacklist [
-  "terminal"
-  "finder"
+"terminal"
+"finder"
 ]
