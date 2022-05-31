@@ -22,18 +22,9 @@ M.config = function()
       event = { "BufRead", "BufNew" },
     },
     {
-      "ethanholz/nvim-lastplace",
+      "vladdoster/remember.nvim",
       config = function()
-        require("nvim-lastplace").setup {
-          lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-          lastplace_ignore_filetype = {
-            "gitcommit",
-            "gitrebase",
-            "svn",
-            "hgcommit",
-          },
-          lastplace_open_folds = true,
-        }
+        require("remember").setup {}
       end,
       event = "BufWinEnter",
       disable = not lvim.builtin.lastplace.active,
@@ -201,7 +192,7 @@ M.config = function()
       requires = "nvim-treesitter/nvim-treesitter",
     },
     {
-      "jose-elias-alvarez/nvim-lsp-ts-utils",
+      "jose-elias-alvarez/typescript.nvim",
       ft = {
         "javascript",
         "javascriptreact",
@@ -211,7 +202,10 @@ M.config = function()
         "typescript.tsx",
       },
       opt = true,
-      event = "BufReadPre",
+      event = { "BufReadPre", "BufNew" },
+      config = function()
+        require("user.tss").config()
+      end,
       before = "williamboman/nvim-lsp-installer",
     },
     {
@@ -325,17 +319,6 @@ M.config = function()
       disable = not lvim.builtin.hlslens.active,
     },
     {
-      "kosayoda/nvim-lightbulb",
-      config = function()
-        vim.fn.sign_define(
-          "LightBulbSign",
-          { text = require("user.lsp_kind").icons.code_action, texthl = "DiagnosticInfo" }
-        )
-      end,
-      event = "BufRead",
-      ft = { "rust", "go", "typescript", "typescriptreact" },
-    },
-    {
       "chrisbra/csv.vim",
       ft = { "csv" },
       disable = not lvim.builtin.csv_support,
@@ -430,6 +413,13 @@ M.config = function()
       config = function()
         require("refactoring").setup {}
       end,
+    },
+    {
+      "b0o/incline.nvim",
+      config = function()
+        require("user.incline").config()
+      end,
+      disable = not lvim.builtin.global_statusline,
     },
   }
 end

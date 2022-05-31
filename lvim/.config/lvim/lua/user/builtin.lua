@@ -103,21 +103,26 @@ M.config = function()
     native_menu = false,
     custom_menu = true,
   }
-  lvim.builtin.cmp.formatting.kind_icons = kind.cmp_kind
-  lvim.builtin.cmp.formatting.source_names = {
+  local cmp_sources = {
+    ["vim-dadbod-completion"] = "(DadBod)",
     buffer = "(Buffer)",
-    nvim_lsp = "(LSP)",
-    luasnip = "(Snip)",
-    treesitter = "",
-    nvim_lua = "(NvLua)",
-    spell = "暈",
-    emoji = "",
-    path = "",
-    calc = "",
+    cmp_tabnine = "(TabNine)",
     latex_symbols = "(LaTeX)",
-    crates = "(Crates)",
-    cmp_tabnine = "ﮧ",
-    ["vim-dadbod-completion"] = "𝓐",
+    nvim_lua = "(NvLua)",
+  }
+  lvim.builtin.cmp.formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      if entry.source.name == "cmdline" then
+        vim_item.kind = "⌘"
+        vim_item.menu = ""
+        return vim_item
+      end
+      vim_item.menu = cmp_sources[entry.source.name] or vim_item.kind
+      vim_item.kind = kind.cmp_kind[vim_item.kind] or vim_item.kind
+
+      return vim_item
+    end,
   }
   local cmp_ok, cmp = pcall(require, "cmp")
   if not cmp_ok or cmp == nil then
@@ -154,14 +159,6 @@ M.config = function()
       { name = "buffer", max_item_count = 5, keyword_length = 5 },
     }),
   })
-  if lvim.builtin.sell_your_soul_to_devil then
-    lvim.keys.insert_mode["<c-h>"] = { [[copilot#Accept("\<CR>")]], { expr = true, script = true } }
-    lvim.keys.insert_mode["<M-]>"] = { "<Plug>(copilot-next)", { silent = true } }
-    lvim.keys.insert_mode["<M-[>"] = { "<Plug>(copilot-previous)", { silent = true } }
-    lvim.keys.insert_mode["<M-\\>"] = { "<Cmd>vertical Copilot panel<CR>", { silent = true } }
-    lvim.builtin.cmp.mapping["<Tab>"] = cmp.mapping(M.tab, { "i", "c" })
-    lvim.builtin.cmp.mapping["<S-Tab>"] = cmp.mapping(M.shift_tab, { "i", "c" })
-  end
 
   -- Comment
   -- =========================================
@@ -519,6 +516,7 @@ M.config = function()
     separator = "·", -- symbol used between a key and it's label
     group = "", -- symbol prepended to a group
   }
+  lvim.builtin.which_key.setup.triggers = { "<leader>", "g", "z", "]", "["}
   lvim.builtin.which_key.setup.ignore_missing = true
 
   -- ETC
@@ -531,12 +529,6 @@ M.config = function()
     end
     return default_exe_handler(err, result, ctx, config)
   end
-  --   if lvim.builtin.lastplace.active == false then
-  --     -- go to last loc when opening a buffer
-  --     vim.cmd [[
-  --   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
-  -- ]]
-  --   end
 end
 
 function M.rename(curr, win)
@@ -609,13 +601,13 @@ function M.tab(fallback)
     cmp.select_next_item()
   elseif vim.api.nvim_get_mode().mode == "c" then
     fallback()
-  elseif copilot_keys ~= "" then -- prioritise copilot over snippets
-    -- Copilot keys do not need to be wrapped in termcodes
-    vim.api.nvim_feedkeys(copilot_keys, "i", true)
   elseif luasnip.expandable() then
     luasnip.expand()
   elseif methods.jumpable() then
     luasnip.jump(1)
+  elseif copilot_keys ~= "" then -- prioritise copilot over snippets
+    -- Copilot keys do not need to be wrapped in termcodes
+    vim.api.nvim_feedkeys(copilot_keys, "i", true)
   elseif methods.check_backspace() then
     fallback()
   else

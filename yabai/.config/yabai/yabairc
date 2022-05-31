@@ -6,12 +6,6 @@ yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 
 # yabai -m config external_bar all:30:0
 
-yabai -m config top_padding 10
-yabai -m config bottom_padding 10
-yabai -m config left_padding 10
-yabai -m config right_padding 10
-yabai -m config window_gap 10
-
 # global settings
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse autoraise
@@ -22,7 +16,7 @@ yabai -m config window_opacity off
 yabai -m config active_window_opacity 1.0
 yabai -m config normal_window_opacity 0.90
 yabai -m config window_border on
-yabai -m config window_border_width 6
+yabai -m config window_border_width 6off
 # yabai -m config active_window_border_color 0xFFdfb899
 # yabai -m config normal_window_border_color 0xFF505050
 # yabai -m config insert_feedback_color      0xFFD75F5F
@@ -30,28 +24,31 @@ yabai -m config active_window_border_color 0xff775759
 yabai -m config normal_window_border_color 0xff555555
 yabai -m config insert_feedback_color 0xffd75f5f
 yabai -m config split_ratio 0.50
-yabai -m config auto_balance off
+yabai -m config auto_balance on
 yabai -m config mouse_modifier fn
 yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
-yabai -m config mouse_drop_action swap
 
 # general space settings
 yabai -m config layout bsp
+yabai -m config top_padding 10
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config window_gap 10
 
 # mission-control desktop labels
-yabai -m space 1 --label daily
-yabai -m space 2 --label notes
+yabai -m space 1 --label code
+yabai -m space 2 --label personal
 yabai -m space 3 --label web
-yabai -m space 4 --label code
-yabai -m space 5 --label main
-yabai -m space 6 --label video
-yabai -m space 7 --label dump
-yabai -m space 8 --label not
-yabai -m space 9 --label yet
+yabai -m space 4 --label notes
+yabai -m space 5 --label media
+yabai -m space 6 --label zoom
+yabai -m space 7 --label games
 
 # specific space settings
-yabai -m config --space daily layout stack
+yabai -m config --space personal layout stack
+yabai -m config --space zoom layout float
 
 # float system preferences. Most of these just disable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
@@ -67,7 +64,6 @@ yabai -m rule --add app="^Path Finder$" manage=off
 yabai -m rule --add app="Archive Utility$" sticky=on layer=above manage=off
 
 # todo application
-# yabai -m rule --add app="^Fantastical Helper$" sticky=off grid="1:5:5:0:1:1"
 yabai -m signal --add event=application_visible app='^Fantastical Helper$' \
   action="yabai -m window 25826 --ratio abs:0.8"
 
