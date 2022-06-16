@@ -4,7 +4,8 @@ set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
-set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin /Users/dawei/.local/bin $PATH
+set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $PATH
+set PYTHONPATH = /usr/local/bin $PYTHONPATH
 set EDITOR "lvim"                      # $EDITOR use nvim in terminal
 set VISUAL "lvim"                      # $VISUAL use nvim in GUI mode
 
@@ -14,12 +15,6 @@ function fish_user_key_bindings
 end
 ### END OF VI MODE ###
 
-### AUTOCOMPLETE AND HIGHLIGHT COLORS ###
-set fish_color_normal brcyan
-set fish_color_autosuggestion '#7d7d7d'
-set fish_color_command brcyan
-set fish_color_error '#ff6c6b'
-set fish_color_param brcyan
 
 ### FUNCTIONS ###
 # Function for creating a backup file
@@ -102,16 +97,26 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
-# switch between shells
-alias tobash="chsh -s /bin/bash && echo 'Now log out.'"
-alias tozsh="chsh -s /bin/zsh && echo 'Now log out.'"
-alias tofish="chsh -s /usr/local/bin/fish && echo 'Now log out.'"
-
 # cow says
 alias cowsays='fortune | cowsay | lolcat'
+
+# minecraft docker
+alias dcm='docker-compose -f minecraft.yml'
 
 # thefuck
 thefuck --alias | source
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
+### AUTOCOMPLETE AND HIGHLIGHT COLORS ###
+set fish_color_normal brcyan
+set fish_color_autosuggestion '#7d7d7d'
+set fish_color_command brcyan
+set fish_color_error '#ff6c6b'
+set fish_color_param brcyan

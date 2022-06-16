@@ -10,15 +10,15 @@ yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse autoraise
 yabai -m config window_placement second_child
-yabai -m config window_topmost off
+yabai -m config window_topmost on
 yabai -m config window_shadow off
-yabai -m config window_opacity off
+yabai -m config window_opacity on
 yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.90
-yabai -m config window_border on
-yabai -m config window_border_width 6off
-# yabai -m config active_window_border_color 0xFFdfb899
-# yabai -m config normal_window_border_color 0xFF505050
+yabai -m config normal_window_opacity 0.9
+yabai -m config window_border off
+# yabai -m config window_border_width 4
+# yabai -m config active_window_border_color 0xff775759
+# yabai -m config normal_window_border_color 0xff555555
 # yabai -m config insert_feedback_color      0xFFD75F5F
 yabai -m config active_window_border_color 0xff775759
 yabai -m config normal_window_border_color 0xff555555
@@ -49,6 +49,7 @@ yabai -m space 7 --label games
 # specific space settings
 yabai -m config --space personal layout stack
 yabai -m config --space zoom layout float
+yabai -m config --space games layout float
 
 # float system preferences. Most of these just disable Yabai form resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
@@ -62,6 +63,9 @@ yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Path Finder$" manage=off
 yabai -m rule --add app="Archive Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Python$" layer=above manage=off
+
+# yabai -m rule --add app=Firefox border=off
 
 # todo application
 yabai -m signal --add event=application_visible app='^Fantastical Helper$' \
