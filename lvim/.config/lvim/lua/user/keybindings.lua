@@ -90,7 +90,8 @@ local function set_bufferline_keymaps()
     ["8"] = { "<Cmd>BufferLineGoToBuffer 8<CR>", "goto 8" },
     ["9"] = { "<Cmd>BufferLineGoToBuffer 9<CR>", "goto 9" },
     c = { "<Cmd>BufferLinePickClose<CR>", "delete buffer" },
-    p = { "<Cmd>BufferLinePick<CR>", "pick buffer" },
+    p = { "<Cmd>BufferLineTogglePin<CR>", "toggle pin" },
+    s = { "<Cmd>BufferLinePick<CR>", "pick buffer" },
     t = { "<Cmd>BufferLineGroupToggle docs<CR>", "toggle groups" },
     f = { "<cmd>Telescope buffers<cr>", "Find" },
     b = { "<cmd>b#<cr>", "Previous" },
@@ -287,7 +288,7 @@ M.config = function()
   }
   lvim.builtin.which_key.mappings.s.name = " Search"
   lvim.builtin.which_key.mappings["ss"] = {
-    "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>",
+    "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
     "String",
   }
   lvim.builtin.which_key.mappings["t"] = {

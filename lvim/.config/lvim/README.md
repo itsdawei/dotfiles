@@ -54,6 +54,21 @@ Themes are automatically changed based on time of the day:
 | [kanagawa](https://github.com/rebelot/kanagawa.nvim) | [9pm, 11:59pm), [0am, 1am] |
 
 You can change this in [plugins.lua](./lua/user/plugins.lua) and [theme.lua](./lua/user/theme.lua)
+or just disable it and install your own theme
+
+```lua
+lvim.colorscheme = "catppuccin"
+lvim.builtin.time_based_themes = false
+lvim.plugins = {
+  {
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require("catppuccin").setup()
+    end,
+  }
+}
+```
 
 ## Customization
 
@@ -96,6 +111,8 @@ You can change this in [plugins.lua](./lua/user/plugins.lua) and [theme.lua](./l
   - `lvim.builtin.nonumber_unfocus = true`
 - choose between [hop](https://github.com/phaazon/hop.nvim) and [lightspeed](https://github.com/ggandor/lightspeed.nvim) as your favorite motion provider
   - `lvim.builtin.motion_provider = "hop"`
+- choose between [filename->incline](https://github.com/b0o/incline.nvim) and [treesitter->winbar](https://github.com/fgheng/winbar.nvim) as your winbar provider
+  - `lvim.builtin.winbar_provider = "treesitter"`
 - if you don't need CSV support, disable it
   - `lvim.builtin.csv_support = false`
 - if you want to use the cool make and run system, enable it
@@ -368,8 +385,7 @@ _Symbols Outline_
 - [nvim-lsp-ts-utils](https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils)
 - [flutter-tools.nvim](https://github.com/akinsho/flutter-tools.nvim)
 - [NeoClip](https://github.com/AckslD/nvim-neoclip.lua)
-- [Telescope live grep raw](nvim-telescope/telescope-live-grep-raw.nvim)
-- [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb)
+- [Telescope live grep args](nvim-telescope/telescope-live-grep-args.nvim)
 - [fidget](https://github.com/j-hui/fidget.nvim)
 - [clangd_extensions.nvim](https://github.com/p00f/clangd_extensions.nvim)
 - [crates.nvim](https://github.com/Saecki/crates.nvim)
@@ -409,6 +425,10 @@ _Symbols Outline_
 - [SnipRun](https://github.com/michaelb/sniprun)
 - [Vista](https://github.com/liuchengxu/vista.vim)
 - [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+- [dressing.nvim](https://github.com/stevearc/dressing.nvim)
+- [incline.nvim](https://github.com/b0o/incline.nvim)
+- [winbar.nvim](https://github.com/b0o/incline.nvim)
+- [vim-tpipeline](https://github.com/vimpostor/vim-tpipeline)
 
 </details>
 
@@ -605,7 +625,8 @@ Note that,
 | <kbd>Shift</kbd>+<kbd>x</kbd>              |  𝐍   | close buffer         |
 | <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>f</kbd> |  𝐍   | find buffer          |
 | <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>b</kbd> |  𝐍   | toggle buffer groups |
-| <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>p</kbd> |  𝐍   | pick buffer          |
+| <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>p</kbd> |  𝐍   | toggle pin           |
+| <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>s</kbd> |  𝐍   | pick buffer          |
 | <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>1</kbd> |  𝐍   | goto buffer 1        |
 | <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>h</kbd> |  𝐍   | Close all to left    |
 | <kbd>Space</kbd>+<kbd>b</kbd>+<kbd>l</kbd> |  𝐍   | Close all to right   |

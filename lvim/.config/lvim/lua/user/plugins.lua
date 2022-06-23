@@ -7,12 +7,14 @@ M.config = function()
   end
   lvim.plugins = {
     {
+      "gruvbox-community/gruvbox",
+      config = function()
+        vim.cmd [[colorscheme gruvbox]]
+      end,
+    },
+    {
       "abzcoding/tokyonight.nvim",
       branch = "feat/local",
-      config = function()
-        require("user.theme").tokyonight()
-        vim.cmd [[colorscheme tokyonight]]
-      end,
     },
     {
       "ray-x/lsp_signature.nvim",
@@ -298,7 +300,7 @@ M.config = function()
       disable = lvim.builtin.nvim_web_devicons == nil,
     },
     {
-      "nvim-telescope/telescope-live-grep-raw.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
     { "mtdl9/vim-log-highlighting", ft = { "text", "log" } },
     {
@@ -419,7 +421,29 @@ M.config = function()
       config = function()
         require("user.incline").config()
       end,
-      disable = not lvim.builtin.global_statusline,
+      disable = lvim.builtin.winbar_provider ~= "filename",
+    },
+    {
+      "fgheng/winbar.nvim",
+      config = function()
+        require("user.winb").config()
+      end,
+      event = { "InsertEnter", "CursorMoved" },
+      disable = lvim.builtin.winbar_provider ~= "treesitter",
+    },
+    {
+      "SmiteshP/nvim-gps",
+      module_pattern = { "gps", "nvim-gps" },
+      config = function()
+        require("user.gps").config()
+      end,
+      requires = "nvim-treesitter/nvim-treesitter",
+      event = { "InsertEnter", "CursorMoved" },
+      disable = lvim.builtin.winbar_provider ~= "treesitter",
+    },
+    {
+      "vimpostor/vim-tpipeline",
+      disable = not lvim.builtin.tmux_lualine,
     },
   }
 end

@@ -2,7 +2,8 @@
 -- =========================================
 lvim.format_on_save = false
 lvim.leader = " "
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "gruvbox" -- set to a custom theme
+lvim.builtin.time_based_themes = false -- set false to use your own configured theme
 lvim.debug = false
 vim.lsp.set_log_level "warn"
 lvim.log.level = "warn"
@@ -34,6 +35,7 @@ lvim.builtin.sniprun = { active = false } -- enable/disable sniprun
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.editorconfig = { active = true } -- enable/disable editorconfig
 lvim.builtin.fancy_telescope = { active = true } -- telescope to the moon
+lvim.builtin.winbar_provider = "treesitter" -- can be "filename" or "treesitter" or ""
 lvim.builtin.metals = {
   active = false, -- enable/disable nvim-metals for scala development
   fallbackScalaVersion = "2.13.7",
@@ -41,7 +43,8 @@ lvim.builtin.metals = {
 }
 lvim.builtin.global_statusline = true -- set true to use global statusline
 lvim.builtin.dressing = { active = true } -- enable to override vim.ui.input and vim.ui.select with telescope
-lvim.builtin.refactoring = { active = true}
+lvim.builtin.refactoring = { active = true }
+lvim.builtin.tmux_lualine = true -- use vim-tpipeline to integrate lualine and tmux
 
 lvim.lsp.diagnostics.virtual_text = false -- remove this line if you want to see inline errors
 lvim.builtin.latex = {
@@ -52,6 +55,8 @@ lvim.builtin.latex = {
 lvim.builtin.notify.active = true
 lvim.lsp.automatic_servers_installation = false
 lvim.lsp.code_lens_refresh = true
+-- vim.opt.cmdheight = 0
+
 require("user.builtin").config()
 
 -- StatusLine
