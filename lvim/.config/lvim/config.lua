@@ -13,7 +13,6 @@ require("user.neovim").config()
 -- =========================================
 lvim.builtin.lastplace = { active = true } -- change to false if you are jumping to future
 lvim.builtin.tabnine = { active = true } -- change to false if you don't like tabnine
-lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
 lvim.builtin.orgmode = { active = false } -- change to true if you want orgmode.nvim
 lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
 lvim.builtin.fancy_wild_menu = { active = true } -- enable/disable cmp-cmdline

@@ -1,10 +1,6 @@
-### EXPORT ###
-set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
-
+set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $HOME/.local/bin $HOME/Applications
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
-set PATH /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $PATH
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
 set EDITOR "lvim"                      # $EDITOR use nvim in terminal
 set VISUAL "lvim"                      # $VISUAL use nvim in GUI mode
@@ -14,7 +10,6 @@ function fish_user_key_bindings
   fish_vi_key_bindings
 end
 ### END OF VI MODE ###
-
 
 ### FUNCTIONS ###
 # Function for creating a backup file
@@ -78,7 +73,7 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-# vim and emacs
+# vim
 alias nn='~/.local/bin/lvim'
 
 # Changing "ls" to "exa"
@@ -109,14 +104,23 @@ thefuck --alias | source
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
-
 ### AUTOCOMPLETE AND HIGHLIGHT COLORS ###
 set fish_color_normal brcyan
 set fish_color_autosuggestion '#7d7d7d'
 set fish_color_command brcyan
 set fish_color_error '#ff6c6b'
 set fish_color_param brcyan
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
+# tmux conda fix
+if string length -q -- $TMUX
+  eval conda deactivate && conda activate base
+end
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dawei/google-cloud-sdk/path.fish.inc' ]; . '/Users/dawei/google-cloud-sdk/path.fish.inc'; end

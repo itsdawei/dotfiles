@@ -41,6 +41,7 @@ M.config = function()
     nls.builtins.formatting.alejandra,
     nls.builtins.formatting.shfmt.with { extra_args = { "-i", "2", "-ci" } },
     nls.builtins.formatting.yapf,
+    nls.builtins.formatting.isort,
     nls.builtins.diagnostics.ansiblelint.with {
       condition = function(utils)
         return utils.root_has_file "roles" and utils.root_has_file "inventories"
@@ -87,6 +88,7 @@ M.config = function()
         return utils.root_has_file ".golangci.yml"
       end,
     },
+    nls.builtins.diagnostics.pylint,
     nls.builtins.code_actions.shellcheck,
     nls.builtins.code_actions.eslint_d.with {
       condition = function(utils)
@@ -112,7 +114,7 @@ M.config = function()
   end
 
   -- you can either config null-ls itself
-  nls.setup {
+  nls.setup{
     on_attach = require("lvim.lsp").common_on_attach,
     debounce = 150,
     save_after_format = false,

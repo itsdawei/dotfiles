@@ -161,18 +161,6 @@ M.config = function()
       end,
       event = "BufRead",
     },
-    {
-      "folke/persistence.nvim",
-      event = "BufReadPre",
-      module = "persistence",
-      config = function()
-        require("persistence").setup {
-          dir = vim.fn.expand(get_cache_dir() .. "/sessions/"), -- directory where session files are saved
-          options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
-        }
-      end,
-      disable = not lvim.builtin.persistence.active,
-    },
     { "mfussenegger/nvim-jdtls", ft = "java" },
     {
       "kristijanhusak/orgmode.nvim",
@@ -192,23 +180,6 @@ M.config = function()
       end,
       event = "InsertEnter",
       requires = "nvim-treesitter/nvim-treesitter",
-    },
-    {
-      "jose-elias-alvarez/typescript.nvim",
-      ft = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-      },
-      opt = true,
-      event = { "BufReadPre", "BufNew" },
-      config = function()
-        require("user.tss").config()
-      end,
-      before = "williamboman/nvim-lsp-installer",
     },
     {
       "lervag/vimtex",
