@@ -81,9 +81,12 @@ local which_key = {
     },
   },
   mappings = {
-    ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
-    -- ["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" },
+    ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current(nil)<CR>", "Comment" },
+
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+
+	  ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+    ["f"] = { require("core.telescope").find_project_files, "Find File" },
 
     -- Navigate merge conflict markers
     ["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
@@ -102,19 +105,13 @@ local which_key = {
       D = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
       L = { "<cmd>BufferLineSortByExtension<cr>", "Sort by language" },
     },
+
     p = {
       name = "Packer",
       s = { "<cmd>PackerSync<cr>", "Sync" },
       S = { "<cmd>PackerStatus<cr>", "Status" },
     },
 
-    -- " Available Debug Adapters:
-    -- "   https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/
-    -- " Adapter configuration and installation instructions:
-    -- "   https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
-    -- " Debug Adapter protocol:
-    -- "   https://microsoft.github.io/debug-adapter-protocol/
-    -- " Debugging
     g = {
       name = "Git",
       j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -131,6 +128,7 @@ local which_key = {
       C = { "<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
       d = { "<cmd>DiffviewOpen<cr>", "Git Diff" },
     },
+
     l = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -157,6 +155,7 @@ local which_key = {
       },
       e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
     },
+
     F = {
       name = "Find",
       f = { "<cmd>lua require('core.telescope').curbuf()<cr>", "Current Buffer" },
@@ -165,6 +164,7 @@ local which_key = {
       -- p = { "<cmd>lua require('user.telescope').project_search()<cr>", "Project" },
       s = { "<cmd>lua require('user.telescope').git_status()<cr>", "Git Status" },
     },
+
     s = {
       name = "Search",
       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -183,6 +183,7 @@ local which_key = {
         "Colorscheme with Preview",
       },
     },
+
     t = {
       name = "Trouble",
       d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnosticss" },

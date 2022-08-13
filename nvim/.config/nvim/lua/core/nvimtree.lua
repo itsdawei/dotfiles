@@ -149,16 +149,6 @@ function M.setup()
 		return
 	end
 
-	G.which_key.mappings["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" }
-	-- require("which-key").register({ ["<leader>e"] = "<cmd>NvimTreeToggle<CR>"}, "Explorer" )
-
-	-- Implicitly update nvim-tree when project module is active
-	-- if lvim.builtin.project.active then
-	--   lvim.builtin.nvimtree.setup.respect_buf_cwd = true
-	--   lvim.builtin.nvimtree.setup.update_cwd = true
-	--   lvim.builtin.nvimtree.setup.update_focused_file = { enable = true, update_cwd = true }
-	-- end
-
 	local function telescope_find_files(_)
 		require("core.nvimtree").start_telescope("find_files")
 	end
