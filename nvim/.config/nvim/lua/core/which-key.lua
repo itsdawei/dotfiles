@@ -71,6 +71,7 @@ M.config = function()
 			noremap = true, -- use `noremap` when creating keymaps
 			nowait = true, -- use `nowait` when creating keymaps
 		},
+
 		-- NOTE: Prefer using : over <cmd> as the latter avoids going back in normal-mode.
 		-- see https://neovim.io/doc/user/map.html#:map-cmd
 		vmappings = {
@@ -78,15 +79,20 @@ M.config = function()
 		},
 		mappings = {
 			["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
-			["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
 			-- ["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" },
 			["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+
+      -- Navigate merge conflict markers
+      ["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
+      ["[n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'bW')<cr>]]", "prev merge conflict" },
+
 			b = {
 				name = "Buffers",
+				["<S-l>"] = { "<cmd>BufferLineCycleNext<cr>", "Next buffer" },
+				["<S-h>"] = { "<cmd>BufferLineCyclePrev<cr>", "Previous buffer" },
 				j = { "<cmd>BufferLinePick<cr>", "Jump" },
 				f = { "<cmd>Telescope buffers<cr>", "Find" },
 				b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
-				-- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
 				e = { "<cmd>BufferLinePickClose<cr>", "Pick which buffer to close" },
 				h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
 				l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
@@ -148,29 +154,25 @@ M.config = function()
 				},
 				e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 			},
-			-- F = {
-			-- 	name = "Find",
-			-- 	f = { "<cmd>lua require('telescope').curbuf()<cr>", "Current Buffer" },
-			-- 	g = { "<cmd>lua require('telescope').git_files()<cr>", "Git Files" },
-			-- 	l = {
-			-- 		"<cmd>lua require('telescope.builtin').resume()<cr>",
-			-- 		"Last Search",
-			-- 	},
-			-- 	p = { "<cmd>lua require('user.telescope').project_search()<cr>", "Project" },
-			-- 	s = { "<cmd>lua require('user.telescope').git_status()<cr>", "Git Status" },
-			-- 	z = { "<cmd>lua require('user.telescope').search_only_certain_files()<cr>", "Certain Filetype" },
-			-- },
+			F = {
+				name = "Find",
+				f = { "<cmd>lua require('core.telescope').curbuf()<cr>", "Current Buffer" },
+				g = { "<cmd>lua require('telescope').git_files()<cr>", "Git Files" },
+				l = { "<cmd>lua require('telescope.builtin').resume()<cr>", "Last Search" },
+				-- p = { "<cmd>lua require('user.telescope').project_search()<cr>", "Project" },
+				s = { "<cmd>lua require('user.telescope').git_status()<cr>", "Git Status" },
+			},
 			s = {
 				name = "Search",
 				b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 				c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+				e = { "<cmd>Telescope file_browser<cr>", "File Browser" },
 				f = { "<cmd>Telescope find_files<cr>", "Find File" },
 				h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-				H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
 				M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-				R = { "<cmd>Telescope registers<cr>", "Registers" },
-				t = { "<cmd>Telescope live_grep<cr>", "Text" },
+				-- R = { "<cmd>Telescope registers<cr>", "Registers" },
+				s = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "String" },
 				k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 				C = { "<cmd>Telescope commands<cr>", "Commands" },
 				p = {
@@ -189,10 +191,10 @@ M.config = function()
 				w = { "<cmd>Trouble workspace_diagnostics<cr>", "Diagnosticss" },
 			},
 
-      -- Symbols
+			-- Symbols
 			o = { "<cmd>SymbolsOutline<cr>", "Symbol Outline" },
 
-      -- Harpoon
+			-- Harpoon
 			a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
 			["<leader>"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", " Harpoon" },
 			["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
@@ -209,22 +211,9 @@ M.setup = function()
 		return
 	end
 
-	wk.setup(G.which_key)
-
-	local opts = G.which_key.opts
-	local vopts = G.which_key.vopts
-
-	local mappings = G.which_key.mappings
-	local vmappings = G.which_key.vmappings
-
-	wk.register(mappings, opts)
-	wk.register(vmappings, vopts)
-
-	-- Navigate merge conflict markers
-	wk.register({
-		["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
-		["[n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'bW')<cr>]]", "prev merge conflict" },
-	})
+	wk.setup(G.which_key.setup)
+	wk.register(G.which_key.mappings, G.which_key.opts)
+	wk.register(G.which_key.vmappings, G.which_key.vopts)
 end
 
 return M

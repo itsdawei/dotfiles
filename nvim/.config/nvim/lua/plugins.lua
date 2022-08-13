@@ -15,6 +15,15 @@ local M = {}
 function M.setup()
 	require("packer").startup(function(use)
 		use({ "wbthomason/packer.nvim" })
+
+		-- use({
+		-- 	"vladdoster/remember.nvim",
+		-- 	config = function()
+		-- 		require("remember").setup({})
+		-- 	end,
+		-- 	event = "BufWinEnter",
+		-- })
+
 		use({ "neovim/nvim-lspconfig" })
 		use({ "onsails/lspkind-nvim" })
 		use({
@@ -52,6 +61,7 @@ function M.setup()
 				require("telescope").load_extension("file_browser")
 			end,
 		})
+		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 
 		-- Install nvim-cmp, and buffer source as a dependency
 		use({
@@ -84,6 +94,7 @@ function M.setup()
 		use({ "hrsh7th/cmp-buffer" })
 		use({ "hrsh7th/cmp-path" })
 		use({ "hrsh7th/cmp-cmdline" })
+		use({ "kdheepak/cmp-latex-symbols", ft = "tex" })
 		use({
 			-- NOTE: Temporary fix till folke comes back
 			"max397574/lua-dev.nvim",
@@ -344,6 +355,19 @@ function M.setup()
 			config = function()
 				require("neoscroll").setup({
 					easing_function = "quadratic",
+				})
+			end,
+			event = "BufRead",
+		})
+		use({
+			"declancm/cinnamon.nvim",
+			config = function()
+				require("cinnamon").setup({
+					default_keymaps = true,
+					extra_keymaps = true,
+					extended_keymaps = false,
+					centered = true,
+					scroll_limit = 100,
 				})
 			end,
 			event = "BufRead",
