@@ -2,8 +2,11 @@ set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/lo
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
-set EDITOR "lvim"                      # $EDITOR use nvim in terminal
-set VISUAL "lvim"                      # $VISUAL use nvim in GUI mode
+set EDITOR "nvim"                      # $EDITOR use nvim in terminal
+set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
+
+set -U FZF_TMUX 1
+set -U FZF_ENABLE_OPEN_PREVIEW 1
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
@@ -32,36 +35,6 @@ function copy
 		command cp $argv
 	end
 end
-
-# Function for printing a column (splits input on whitespace)
-# ex: echo 1 2 3 | coln 3
-# output: 3
-function coln
-	while read -l input
-		echo $input | awk '{print $'$argv[1]'}'
-	end
-end
-
-# Function for printing a row
-# ex: seq 3 | rown 3
-# output: 3
-function rown --argument index
-	sed -n "$index p"
-end
-
-# Function for ignoring the first 'n' lines
-# ex: seq 10 | skip 5
-# results: prints everything but the first 5 lines
-function skip --argument n
-	tail +(math 1 + $n)
-end
-
-# Function for taking the first 'n' lines
-# ex: seq 10 | take 5
-# results: prints only the first 5 lines
-function take --argument number
-	head -$number
-end
 ### END OF FUNCTIONS ###
 
 
@@ -74,7 +47,7 @@ alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
 # vim
-alias nn='~/.local/bin/lvim'
+alias nn='nvim'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -120,7 +93,3 @@ eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | so
 if string length -q -- $TMUX
   eval conda deactivate && conda activate base
 end
-
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dawei/google-cloud-sdk/path.fish.inc' ]; . '/Users/dawei/google-cloud-sdk/path.fish.inc'; end
