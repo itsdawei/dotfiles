@@ -5,8 +5,6 @@ G = {
 
 require("keymappings").setup()
 
-require("builtins").setup()
-
 require("settings").setup()
 
 require("autocmds").setup()
