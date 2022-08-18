@@ -29,6 +29,7 @@ function M.setup()
 		-- }),
 
 		-- Python
+    null_ls.builtins.diagnostics.pylint,
 		null_ls.builtins.formatting.yapf,
 		null_ls.builtins.formatting.isort,
 

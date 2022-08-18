@@ -27,7 +27,10 @@ function M.setup()
           jedi_symbols = {enabled = true, all_scopes = true},
           pycodestyle = {enabled = false},
           pyflakes = {enabled = false},
-          pylint = {enabled = true},
+          -- pylint = {
+          --   enabled = true,
+          --   executable = "pylint",
+          -- },
           -- isort = {enabled = true},
           -- yapf = {enabled = true},
         }
@@ -35,7 +38,6 @@ function M.setup()
     },
     single_file_support = true,
   }
-
 
   local servers = require("nvim-lsp-installer.servers")
   local server_available, requested_server = servers.get_server("pylsp")

@@ -16,13 +16,13 @@ function M.setup()
 	require("packer").startup(function(use)
 		use({ "wbthomason/packer.nvim" })
 
-		-- use({
-		-- 	"vladdoster/remember.nvim",
-		-- 	config = function()
-		-- 		require("remember").setup({})
-		-- 	end,
-		-- 	event = "BufWinEnter",
-		-- })
+		use({
+			"vladdoster/remember.nvim",
+			config = function()
+				require("remember").setup({})
+			end,
+			event = "BufWinEnter",
+		})
 
 		use({ "neovim/nvim-lspconfig" })
 		use({ "onsails/lspkind-nvim" })

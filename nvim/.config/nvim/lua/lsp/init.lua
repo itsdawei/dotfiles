@@ -30,7 +30,7 @@ M.setup = function()
   end
 
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
     signs = common.config.diagnostics.signs,
     underline = true,
     update_in_insert = false,
@@ -55,7 +55,6 @@ M.setup = function()
   require("lsp.pylsp").setup()
 
   -- Check if there exists a provider for it
-
   for server, config in pairs(servers) do
     common.server_setup(server, config)
   end

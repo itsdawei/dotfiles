@@ -74,7 +74,7 @@ local which_key = {
   -- NOTE: Prefer using : over <cmd> as the latter avoids going back in normal-mode.
   -- see https://neovim.io/doc/user/map.html#:map-cmd
   vmappings = {
-    ["/"] = { "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+    ["/"] = { "<ESC><CMD>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment" },
     l = {
       name = "+Lsp",
       r = { "<ESC><CMD>lua vim.lsp.buf.rename()<CR>", "Rename" },
@@ -134,7 +134,7 @@ local which_key = {
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
       d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
       w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-      f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
+      f = { "<cmd>lua vim.lsp.buf.format({timeout_ms = 10000})<cr>", "Format" },
       i = { "<cmd>LspInfo<cr>", "Info" },
       I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
       j = { vim.diagnostic.goto_next, "Next Diagnostic" },
