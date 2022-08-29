@@ -384,6 +384,17 @@ function M.setup()
 		-- startup time
 		use({ "dstein64/vim-startuptime" })
 
+		-- Tables
+		use({
+			"dhruvasagar/vim-table-mode",
+			config = function()
+				vim.cmd([[
+          let g:table_mode_corner_corner='+'
+          let g:table_mode_header_fillchar='='
+        ]])
+			end,
+		})
+
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins
 		if PackerBootstrap then

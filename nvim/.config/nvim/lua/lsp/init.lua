@@ -30,7 +30,7 @@ M.setup = function()
   end
 
   vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     signs = common.config.diagnostics.signs,
     underline = true,
     update_in_insert = false,
