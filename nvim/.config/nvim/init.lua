@@ -15,6 +15,9 @@ vim.g.mapleader = " "
 require("plugins").setup()
 require("lsp").setup()
 
+-- load snippets.
+require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/snippets"})
+
 -- colorscheme must get called after plugins are loaded or it will break new installs.
 vim.cmd([[
   " Set contrast.

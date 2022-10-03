@@ -93,3 +93,6 @@ eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | so
 if string length -q -- $TMUX
   eval conda deactivate && conda activate base
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dawei/google-cloud-sdk/path.fish.inc' ]; . '/Users/dawei/google-cloud-sdk/path.fish.inc'; end
