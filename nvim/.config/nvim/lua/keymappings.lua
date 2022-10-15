@@ -68,6 +68,9 @@ local defaults = {
 		["te"] = "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>",
 		["cu"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>",
 		["ce"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>",
+
+    -- Reload Luasnip
+    ["<leader><leader>s"] = "require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/snippets'})"
 	},
 
 	---@usage change or add keymappings for terminal mode

@@ -20,9 +20,11 @@
 \RequirePackage{tikz}
 \RequirePackage[most,many,breakable]{tcolorbox}
 \RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{booktabs}
 \RequirePackage{float}
 \RequirePackage{ulem}
-\RequirePackage{multicol,array}
+\RequirePackage{multicol, array}
 \RequirePackage{listings}
 \RequirePackage[numbered]{matlab-prettifier}
 

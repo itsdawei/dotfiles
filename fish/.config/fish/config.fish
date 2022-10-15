@@ -2,6 +2,7 @@ set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/lo
 set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
+set JAVA_HOME = /usr/bin/java
 set EDITOR "nvim"                      # $EDITOR use nvim in terminal
 set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
 
