@@ -94,10 +94,9 @@ local wk_settings = {
 	vmappings = {
 		["/"] = { "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment" },
 		l = {
-			name = "+Lsp",
 			r = { "<esc><cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 		},
-		["r"] = {
+		r = {
 			function()
 				require("ssr").open()
 			end,
@@ -108,10 +107,10 @@ local wk_settings = {
 		-- ["<CR>"] = { "<cmd>lua require('user.neovim').maximize_current_split()<CR>", "Maximize"},
 		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current(nil)<CR>", "Comment" },
 
-		["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+		h = { "<cmd>nohlsearch<CR>", "No Highlight" },
 
-		["e"] = { "<cmd>NeoTreeRevealToggle<CR>", " Explorer" },
-		["f"] = { require("core.telescope").find_project_files, "Find File" },
+		e = { "<cmd>NeoTreeRevealToggle<CR>", " Explorer" },
+		f = { require("core.telescope").find_project_files, "Find File" },
 
 		-- Navigate merge conflict markers
 		["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
@@ -165,30 +164,22 @@ local wk_settings = {
 			h = { "<cmd>DiffviewFileHistory<cr>", "File History" },
 		},
 
+		F = { "<cmd>lua vim.lsp.buf.format({timeout_ms = 10000})<cr>", "Format" },
+
 		l = {
 			name = "LSP",
 			a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-			d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
 			w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-			f = { "<cmd>lua vim.lsp.buf.format({timeout_ms = 10000})<cr>", "Format" },
-			i = { "<cmd>LspInfo<cr>", "Info" },
-			I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+			i = { "<cmd>LspInfo<cr>", "LSP Info" },
 			j = {
 				"<cmd>lua vim.diagnostic.goto_next({float = {border = 'rounded', focusable = false, source = 'always'}, severity = {min = vim.diagnostic.severity.WARN}})<cr>",
 				"Next Diagnostic",
 			},
-
 			k = {
 				"<cmd>lua vim.diagnostic.goto_prev({float = {border = 'rounded', focusable = false, source = 'always'}, severity = {min = vim.diagnostic.severity.WARN}})<cr>",
 				"Prev Diagnostic",
 			},
 			l = { vim.lsp.codelens.run, "CodeLens Action" },
-			-- p = {
-			-- 	name = "Peek",
-			-- 	d = { "<cmd>lua require('core.lsp.peek').Peek('definition')<cr>", "Definition" },
-			-- 	t = { "<cmd>lua require('core.lsp.peek').Peek('typeDefinition')<cr>", "Type Definition" },
-			-- 	i = { "<cmd>lua require('core.lsp.peek').Peek('implementation')<cr>", "Implementation" },
-			-- },
 			q = { vim.diagnostic.setloclist, "Quickfix" },
 			r = { vim.lsp.buf.rename, "Rename" },
 			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -199,15 +190,6 @@ local wk_settings = {
 			e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 		},
 
-		F = {
-			name = "Find",
-			f = { "<cmd>lua require('core.telescope').curbuf()<cr>", "Current Buffer" },
-			g = { "<cmd>lua require('telescope').git_files()<cr>", "Git Files" },
-			l = { "<cmd>lua require('telescope.builtin').resume()<cr>", "Last Search" },
-			-- p = { "<cmd>lua require('user.telescope').project_search()<cr>", "Project" },
-			s = { "<cmd>lua require('user.telescope').git_status()<cr>", "Git Status" },
-		},
-
 		s = {
 			name = "Search",
 			b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -215,16 +197,13 @@ local wk_settings = {
 			e = { "<cmd>Telescope file_browser<cr>", "File Browser" },
 			f = { "<cmd>Telescope find_files<cr>", "Find File" },
 			h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+			l = { "<cmd>lua require('telescope.builtin').resume()<cr>", "Last Search" },
 			M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 			r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 			-- R = { "<cmd>Telescope registers<cr>", "Registers" },
 			s = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "String" },
 			k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 			C = { "<cmd>Telescope commands<cr>", "Commands" },
-			p = {
-				"<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
-				"Colorscheme with Preview",
-			},
 		},
 
 		t = {
@@ -256,24 +235,17 @@ local wk_settings = {
 			w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
 		},
 
-		P = { "<cmd>Telescope projects<CR>", " Projects" },
+		P = { "<cmd>Telescope project<CR>", " Projects" },
 	},
 }
 
 local defaults = {
 	---@usage change or add keymappings for insert mode
 	insert_mode = {
-		-- 'jk' for quitting insert mode
+		-- For quitting insert mode.
 		["jk"] = "<ESC>",
-		-- 'kj' for quitting insert mode
 		["kj"] = "<ESC>",
-		-- 'jj' for quitting insert mode
 		["jj"] = "<ESC>",
-		-- navigation
-		["<A-Up>"] = "<C-\\><C-N><C-w>k",
-		["<A-Down>"] = "<C-\\><C-N><C-w>j",
-		["<A-Left>"] = "<C-\\><C-N><C-w>h",
-		["<A-Right>"] = "<C-\\><C-N><C-w>l",
 	},
 
 	---@usage change or add keymappings for normal mode

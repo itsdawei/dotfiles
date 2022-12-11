@@ -30,20 +30,20 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
 	-- Core
-	use({ "wbthomason/packer.nvim" })
-	use({ "nvim-lua/plenary.nvim" })
 	use({
 		"lewis6991/impatient.nvim",
 		config = function()
 			require("impatient").enable_profile()
 		end,
 	})
+	use({ "wbthomason/packer.nvim" })
 	use({ "max397574/which-key.nvim" })
 	use({
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
 		requires = {
-			"MunifTanjim/nui.nvim",
+			{ "MunifTanjim/nui.nvim" },
+			{ "kyazdani42/nvim-web-devicons" },
 		},
 		config = function()
 			require("core.neotree").config()
@@ -55,7 +55,6 @@ return packer.startup(function(use)
 			require("core.alpha").setup()
 		end,
 	})
-
 	use({
 		"vladdoster/remember.nvim",
 		config = function()
@@ -64,10 +63,18 @@ return packer.startup(function(use)
 		event = "BufWinEnter",
 	})
 
-	-- LSP
+	--- LSP ---
 	use({ "williamboman/mason.nvim" })
 	use({ "williamboman/mason-lspconfig.nvim" })
 	use({ "neovim/nvim-lspconfig" })
+	use({ "jose-elias-alvarez/null-ls.nvim" })
+	-- {
+	-- 				"kosayoda/nvim-lightbulb",
+	-- 				config = function()
+	-- 					require("plugins.lsp.nvim-lightbulb")
+	-- 				end,
+	-- 				event = { "InsertEnter", "CursorMoved" },
+	-- 			},
 	use({ "onsails/lspkind-nvim" })
 	use({
 		"ray-x/lsp_signature.nvim",
@@ -76,15 +83,17 @@ return packer.startup(function(use)
 		end,
 		event = { "BufRead", "BufNew" },
 	})
-	use({ "jose-elias-alvarez/null-ls.nvim" })
 
-	-- Completion
+	--- Completion ---
 	use({
 		"hrsh7th/nvim-cmp",
+		module = { "nvim-cmp", "cmp" },
 		config = function()
 			require("core.cmp").setup()
 		end,
+		event = "InsertEnter *",
 	})
+	-- Sources
 	use({ "hrsh7th/cmp-buffer" })
 	use({ "hrsh7th/cmp-path" })
 	use({ "hrsh7th/cmp-cmdline" })
@@ -92,6 +101,17 @@ return packer.startup(function(use)
 	use({ "hrsh7th/cmp-nvim-lua" })
 	use({ "saadparwaiz1/cmp_luasnip" })
 	use({ "kdheepak/cmp-latex-symbols", ft = "tex" })
+	-- Snippets
+	use({
+		"L3MON4D3/LuaSnip",
+		modele = { "luasnip", "LuaSnip" },
+		config = function()
+			-- require("luasnip.loaders.from_lua").lazy_load()
+			-- require("luasnip.loaders.from_vscode").lazy_load()
+			-- require("luasnip.loaders.from_snipmate").lazy_load()
+			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
+		end,
+	})
 
 	use({ "nvim-lua/popup.nvim" })
 
@@ -101,46 +121,17 @@ return packer.startup(function(use)
 		config = function()
 			require("core.telescope").setup()
 		end,
-	})
-	use({ "xiyaowong/telescope-emoji.nvim" })
-	use({
-		"nvim-telescope/telescope-fzf-native.nvim",
-		requires = { "nvim-telescope/telescope.nvim" },
-		run = "make",
-	})
-	use({
-		"nvim-telescope/telescope-file-browser.nvim",
-		config = function()
-			require("telescope").load_extension("file_browser")
-		end,
-	})
-	use({
-		"nvim-telescope/telescope-media-files.nvim",
-		config = function()
-			require("telescope").load_extension("file_browser")
-		end,
-	})
-	use({ "nvim-telescope/telescope-live-grep-args.nvim" })
-	use({ "nvim-telescope/telescope-ui-select.nvim" })
-	use({ "nvim-telescope/telescope-project.nvim" })
-	use({ "nvim-telescope/telescope-frecency.nvim" })
-
-	-- Snippets
-	use({
-		"L3MON4D3/LuaSnip",
-		config = function()
-			-- local utils = require "lvim.utils"
-			local paths = {}
-			-- local user_snippets = utils.join_paths(get_config_dir(), "snippets")
-			-- if utils.is_directory(user_snippets) then
-			--   paths[#paths + 1] = user_snippets
-			-- end
-			require("luasnip.loaders.from_lua").lazy_load()
-			require("luasnip.loaders.from_vscode").lazy_load({
-				paths = paths,
-			})
-			require("luasnip.loaders.from_snipmate").lazy_load()
-		end,
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-file-browser.nvim" },
+			{ "nvim-telescope/telescope-ui-select.nvim" },
+			{ "nvim-telescope/telescope-fzf-native.nvim" },
+			{ "nvim-telescope/telescope-live-grep-args.nvim" },
+			{ "xiyaowong/telescope-emoji.nvim" },
+			{ "nvim-telescope/telescope-media-files.nvim" },
+			{ "nvim-telescope/telescope-project.nvim" },
+			{ "nvim-telescope/telescope-frecency.nvim" },
+		},
 	})
 
 	-- Autopairs
@@ -188,9 +179,6 @@ return packer.startup(function(use)
 		end,
 		event = "BufRead",
 	})
-
-	-- Icons
-	use({ "kyazdani42/nvim-web-devicons" })
 
 	-- Status Line and Bufferline
 	use({
