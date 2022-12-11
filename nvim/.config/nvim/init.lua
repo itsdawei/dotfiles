@@ -3,6 +3,8 @@ G = {
 	use_icons = true,
 }
 
+require("plugins")
+
 require("keymappings").setup()
 
 require("settings").setup()
@@ -10,10 +12,9 @@ require("settings").setup()
 require("autocmds").setup()
 -- autocmds.enable_transparent_mode()
 
-vim.g.mapleader = " "
-
-require("plugins").setup()
 require("lsp").setup()
+
+vim.g.mapleader = " "
 
 -- load snippets.
 require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/snippets"})

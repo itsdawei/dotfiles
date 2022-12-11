@@ -40,16 +40,8 @@ M.setup = function()
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, common.config.float)
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, common.config.float)
 
-  require("nvim-lsp-installer").setup({
-    ensure_installed = {},
-    ui = {
-      icons = {
-        server_installed = "✓",
-        server_pending = "",
-        server_uninstalled = "✗",
-      },
-    }
-  })
+  require("mason").setup()
+  require("mason-lspconfig").setup()
 
   require("lsp.sumneko_lua").setup()
   require("lsp.pylsp").setup()

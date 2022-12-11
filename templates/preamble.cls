@@ -6,12 +6,15 @@
 \RequirePackage{charter}
 \RequirePackage{enumitem}
 \RequirePackage{algpseudocode}
+\RequirePackage{csquotes}
+\RequirePackage[normalem]{ulem}
 
 % Symbols
 \RequirePackage{amsmath, amsfonts, amsthm, amssymb, mathtools}
 \RequirePackage{siunitx}
 \RequirePackage[makeroom]{cancel}
 \RequirePackage{xfrac}
+\RequirePackage[f]{esvect} % vectors
 
 % Colors & Graphics
 \RequirePackage[dvipsnames]{xcolor}
@@ -39,6 +42,8 @@
 	bookmarksnumbered=true,
 	bookmarksopen=true
 }
+
+\DeclareMathOperator{\R}{\mathbb{R}}
 
 % \usepackage{etoolbox}
 % %\usepackage{authblk}
@@ -150,6 +155,45 @@
   borderline west={0.5mm}{0pt}{cyan!40},
   borderline west={0.5mm}{0pt}{myremarkpurple!10, dashed},
 }
+
+%PROBLEM
+\newtcbtheorem[auto counter]{problem}{Problem}
+{%
+  enhanced,
+  breakable,
+  frame hidden,
+  interior hidden,
+  top=6mm,
+  fonttitle=\bfseries,
+  coltitle=black,
+  colbacktitle=cyan!15!white,
+  colframe=cyan!50!white,
+  borderline={0.5mm}{0mm}{cyan!20!white},
+  borderline={0.5mm}{0mm}{cyan!50!white, dashed},
+  attach boxed title to top left = {yshift=-4mm},
+  boxed title style = {boxrule=1pt}, 
+}{prob}
+\makeatletter
+\newcommand\tcb@cnt@problemautorefname{Problem}
+\makeatother
+
+%SOLUTION
+\newtcbtheorem[no counter]{solution}{Solution}
+{%
+  enhanced,
+  breakable,
+  frame hidden,
+  interior hidden,
+  top=6mm,
+  fonttitle=\bfseries,
+  coltitle=black,
+  colbacktitle=green!20!white,
+  colframe=green!75!white,
+  borderline={0.5mm}{0mm}{green!20!white},
+  borderline={0.5mm}{0mm}{green!50!white, dashed},
+  attach boxed title to top left = {yshift=-4mm},
+  boxed title style = {boxrule=1pt},
+}{sol}
 
 \lstset{
     style              = Matlab-editor,

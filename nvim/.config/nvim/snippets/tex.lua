@@ -70,7 +70,7 @@ local tab = function(args, snip)
 end
 
 return {
-  -- Preamble
+	-- Preamble
 	s(
 		{ trig = "template", name = "basic template", dscr = "Insert basic template." },
 		fmt(
@@ -125,6 +125,17 @@ return {
 		)
 	),
 	s(
+		{ trig = "proof", desc = "Insert Proof Environment" },
+		fmt(
+			[[
+        \begin{{proof}}{{}}{{}}
+          {}
+        \end{{proof}}
+      ]],
+			i(1)
+		)
+	),
+	s(
 		"item",
 		fmt(
 			[[
@@ -138,7 +149,6 @@ return {
 			}
 		)
 	),
-
 	s(
 		"enum",
 		fmt(
@@ -215,5 +225,4 @@ return {
 		i(1),
 		t({ "}" }),
 	}),
-
 }

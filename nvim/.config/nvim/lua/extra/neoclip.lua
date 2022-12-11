@@ -33,12 +33,6 @@ function M.setup()
 		local dropdown = require("telescope.themes").get_dropdown(opts)
 		require("telescope").extensions.neoclip.default(dropdown)
 	end
-
-	local wk_status, wk = pcall(require, "which-key")
-	if not wk_status then
-		return
-	end
-	wk.register({ ["<leader>y"] = { clip, "Yank History" } })
 end
 
 return M

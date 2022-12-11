@@ -92,17 +92,13 @@ function M.capabilities()
 
   local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if status_ok then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
   end
 
   return capabilities
 end
 
 function M.on_attach(client, bufnr)
-  -- local lu = require "lvim.lsp.utils"
-  -- lu.setup_document_highlight(client, bufnr)
-  -- lu.setup_codelens_refresh(client, bufnr)
-
   -- Add buffer key mappings
   local mappings = {
     normal_mode = "n",
