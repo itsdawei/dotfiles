@@ -46,28 +46,12 @@ M.setup = function()
   local autopairs = require("nvim-autopairs")
   local Rule = require("nvim-autopairs.rule")
 
-  -- autopairs.setup({
-  --   check_ts = lvim.builtin.autopairs.check_ts,
-  --   enable_check_bracket_line = lvim.builtin.autopairs.enable_check_bracket_line,
-  --   ts_config = lvim.builtin.autopairs.ts_config,
-  --   disable_filetype = lvim.builtin.autopairs.disable_filetype,
-  --   disable_in_macro = lvim.builtin.autopairs.disable_in_macro,
-  --   ignored_next_char = lvim.builtin.autopairs.ignored_next_char,
-  --   enable_moveright = lvim.builtin.autopairs.enable_moveright,
-  --   enable_afterquote = lvim.builtin.autopairs.enable_afterquote,
-  --   map_c_w = lvim.builtin.autopairs.map_c_w,
-  --   map_bs = lvim.builtin.autopairs.map_bs,
-  --   disable_in_visualblock = lvim.builtin.autopairs.disable_in_visualblock,
-  --   fast_wrap = lvim.builtin.autopairs.fast_wrap,
-  -- })
-
   autopairs.setup(G.autopairs_configs)
 
   require("nvim-treesitter.configs").setup({ autopairs = { enable = true } })
 
   local ts_conds = require("nvim-autopairs.ts-conds")
 
-  -- TODO: can these rules be safely added from "config.lua" ?
   autopairs.add_rules {
     -- press % => %% is only inside comment or string
     Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node { "string", "comment" }),
