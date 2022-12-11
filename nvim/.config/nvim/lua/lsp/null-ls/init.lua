@@ -7,29 +7,30 @@ function M.setup()
 	end
 
 	local sources = {
-    -- CMake
+		-- CMake
 		null_ls.builtins.formatting.cmake_format,
 
-    -- SQL
+		-- SQL
 		-- null_ls.builtins.formatting.sqlformat,
 
-    -- Lua
+		-- Lua
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.luacheck,
 
-    -- Latex
+		-- Latex
 		null_ls.builtins.diagnostics.chktex,
 
-    -- Markdown
-		-- null_ls.builtins.diagnostics.markdownlint.with({
-		-- 	filetypes = { "markdown" },
-		-- }),
-		-- null_ls.builtins.diagnostics.vale.with({
-		-- 	filetypes = { "markdown" },
-		-- }),
+		-- Markdown
+		null_ls.builtins.diagnostics.markdownlint.with({
+			filetypes = { "markdown" },
+			extra_args = { "-r", "~MD013" },
+		}),
+		null_ls.builtins.diagnostics.vale.with({
+			filetypes = { "markdown" },
+		}),
 
 		-- Python
-    null_ls.builtins.diagnostics.pylint,
+		null_ls.builtins.diagnostics.pylint,
 		null_ls.builtins.formatting.yapf,
 		null_ls.builtins.formatting.isort,
 
@@ -38,6 +39,7 @@ function M.setup()
 		null_ls.builtins.diagnostics.shellcheck,
 		null_ls.builtins.code_actions.shellcheck,
 	}
+
 	table.insert(
 		sources,
 		null_ls.builtins.code_actions.refactoring.with({
