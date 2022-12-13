@@ -7,6 +7,9 @@ function M.setup()
 	end
 
 	local sources = {
+    -- Prettier
+    null_ls.builtins.formatting.prettier,
+
 		-- CMake
 		null_ls.builtins.formatting.cmake_format,
 

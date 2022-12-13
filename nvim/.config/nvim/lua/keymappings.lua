@@ -228,13 +228,6 @@ local wk_settings = {
 		["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
 		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
 
-		R = {
-			name = " Replace",
-			f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Current Buffer" },
-			p = { "<cmd>lua require('spectre').open()<cr>", "Project" },
-			w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-		},
-
 		P = { "<cmd>Telescope project<CR>", " Projects" },
 	},
 }

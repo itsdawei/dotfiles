@@ -46,6 +46,7 @@ M.setup = function()
   require("lsp.sumneko_lua").setup()
   require("lsp.pylsp").setup()
   require("lsp.texlab").setup()
+  -- require("lspconfig")["jsonls"].setup()
 
   -- Check if there exists a provider for it
   for server, config in pairs(servers) do

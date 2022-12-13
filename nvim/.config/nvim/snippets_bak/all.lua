@@ -18,13 +18,12 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 local events = require("luasnip.util.events")
 
--- local utils = require("~/.config/nvim/snippets/utils")
+local utils = require("snippets.utils")
 
 -- FUNCTIONS START --------------------------------------------------------
 
 -- 'recursive' dynamic snippet. Expands to some text followed by itself.
-local rec_ls
-rec_ls = function()
+local rec_ls = function()
 	return sn(
 		nil,
 		c(1, {
@@ -41,14 +40,22 @@ return {
 	-- Use a dynamic_node to interpolate the output of a
 	-- function (see utils.date_input above) into the initial
 	-- value of an insert_node.
-	-- s("novel", {
-	--     t("It was a dark and stormy night on "),
-	--     d(1, utils.date_input, {}, { user_args = "%A, %B %d of %Y" }),
-	--     t(" and the clocks were striking thirteen."),
-	-- }),
+	s("novel", {
+		t("It was a dark and stormy night on "),
+		d(1, utils.date_input, {}, { user_args = "%A, %B %d of %Y" }),
+		t(" and the clocks were striking thirteen."),
+	}),
+
+	utils.pair("(", ")", neg, char_count_same),
+	utils.pair("{", "}", neg, char_count_same),
+	utils.pair("[", "]", neg, char_count_same),
+	utils.pair("<", ">", neg, char_count_same),
+	utils.pair("'", "'", neg, even_count),
+	utils.pair('"', '"', neg, even_count),
+	utils.pair("`", "`", neg, even_count),
 
 	-- Use a function to execute any shell command and print its text.
-	-- s("bash", f(utils.bash, {}, "ls")),
+	s("bash", f(utils.bash, {}, "ls")),
 
 	-- current date
 	s({ trig = "ymd", name = "Current date", dscr = "Insert the current date" }, {
@@ -56,4 +63,6 @@ return {
 	}),
 
 	s({ trig = "{,", wordTrig = false, hidden = true }, { t({ "{", "\t" }), i(1), t({ "", "}" }) }),
+
+	ls.parser.parse_snippet({ trig = "tr" }, "if ${1:[[ ${2:word} -eq ${3:word2} ]]}; then\n\t$4\nfi"),
 }
