@@ -3,11 +3,13 @@
 % Typesetting and language
 \RequirePackage[american]{babel}
 \RequirePackage[T1]{fontenc}
+\RequirePackage[tt=false, type1=true]{libertine}
 \RequirePackage{charter}
 \RequirePackage{enumitem}
 \RequirePackage{algpseudocode}
 \RequirePackage{csquotes}
 \RequirePackage[normalem]{ulem}
+\RequirePackage{titlesec}
 
 % Symbols
 \RequirePackage{amsmath, amsfonts, amsthm, amssymb, mathtools}
@@ -195,11 +197,16 @@
   boxed title style = {boxrule=1pt},
 }{sol}
 
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
 \lstset{
+    backgroundcolor    = \color{backcolor},   
     style              = Matlab-editor,
-    basicstyle         = \mlttfamily,
+    basicstyle         =\linespread{1}\ttfamily,
     escapechar         = \~,
-    mlshowsectionrules = true,
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbersep=5pt,                  
 }
 
 \linespread{1.5}

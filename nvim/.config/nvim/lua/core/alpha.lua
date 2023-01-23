@@ -20,12 +20,11 @@ local function configure_additional_autocmds()
 end
 
 local function footer()
-	local total_plugins = #vim.tbl_keys(packer_plugins)
 	local datetime = os.date(" %d-%m-%Y   %H:%M:%S")
 	local version = vim.version()
 	local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
 
-	return datetime .. "   " .. total_plugins .. " plugins" .. nvim_version_info
+	return datetime .. nvim_version_info
 end
 
 function M.setup()
@@ -41,7 +40,7 @@ function M.setup()
 	dashboard.section.footer.val = footer()
 	dashboard.section.footer.opts.hl = "Constant"
 
-	require("alpha").setup(dashboard.opts)
+	alpha.setup(dashboard.opts)
 	configure_additional_autocmds()
 end
 

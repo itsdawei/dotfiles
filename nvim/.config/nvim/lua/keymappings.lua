@@ -229,6 +229,52 @@ local wk_settings = {
 		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
 
 		P = { "<cmd>Telescope project<CR>", " Projects" },
+
+		-- Mind
+		M = {
+			c = {
+				function()
+					require("mind").wrap_main_tree_fn(function(args)
+						require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
+					end)
+				end,
+				"Copy node link index",
+			},
+			j = {
+				function()
+					require("mind").wrap_main_tree_fn(function(args)
+						local tree = args.get_tree()
+						local path = vim.fn.strftime("/Journal/%Y/%b/%d")
+						local _, node = require("mind.node").get_node_by_path(tree, path, true)
+
+						if node == nil then
+							vim.notify("cannot open journal 🙁", vim.log.levels.WARN)
+							return
+						end
+
+						require("mind.commands").open_data(tree, node, args.data_dir, args.save_tree, args.opts)
+						args.save_tree()
+					end)
+				end,
+				"Open journal",
+			},
+			M = { "<cmd>MindOpenMain<CR>", "Open main tree" },
+			z = { "<cmd>MindClose<CR>", "Close" },
+			m = { "<cmd>MindOpenSmartProject<CR>", "Open smart project tree" },
+			s = {
+				function()
+					require("mind").wrap_smart_project_tree_fn(function(args)
+						require("mind.commands").open_data_index(
+							args.get_tree(),
+							args.data_dir,
+							args.save_tree,
+							args.opts
+						)
+					end)
+				end,
+				"Open data index",
+			},
+		},
 	},
 }
 
