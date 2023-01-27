@@ -87,7 +87,9 @@ set fish_color_param brcyan
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /usr/local/Caskroom/miniconda/base/bin/conda "shell.fish" "hook" $argv | source
+if test -f /home/dawei/miniconda3/bin/conda
+    eval /home/dawei/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+end
 # <<< conda initialize <<<
 
 # tmux conda fix
