@@ -1,0 +1,6 @@
+create_default_packages:
+  - pip
+  - pylint
+  - yapf
+  - isort
+auto_activate_base: false
