@@ -283,6 +283,7 @@ return lazy.setup({
 	{
 		"lervag/vimtex",
 		ft = "tex",
+    lazy = false,
 	},
 	{
 		"mtdl9/vim-log-highlighting",
