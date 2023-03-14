@@ -1,4 +1,7 @@
 """Provides the Qtile configurations."""
+
+# pylint: disable=invalid-name, import-error, missing-function-docstring
+
 import os
 import subprocess
 from typing import List
@@ -448,33 +451,33 @@ if __name__ in ["config", "__main__"]:
     widgets_screen2 = init_widgets_screen2()
 
 
-def window_to_prev_group(qtile):
+def window_to_prev_group(qtile):  # pylint: disable=redefined-outer-name
     if qtile.currentWindow is not None:
         i = qtile.groups.index(qtile.currentGroup)
         qtile.currentWindow.togroup(qtile.groups[i - 1].name)
 
 
-def window_to_next_group(qtile):
+def window_to_next_group(qtile):  # pylint: disable=redefined-outer-name
     if qtile.currentWindow is not None:
         i = qtile.groups.index(qtile.currentGroup)
         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
 
 
-def window_to_previous_screen(qtile):
+def window_to_previous_screen(qtile):  # pylint: disable=redefined-outer-name
     i = qtile.screens.index(qtile.current_screen)
     if i != 0:
         group = qtile.screens[i - 1].group.name
         qtile.current_window.togroup(group)
 
 
-def window_to_next_screen(qtile):
+def window_to_next_screen(qtile):  # pylint: disable=redefined-outer-name
     i = qtile.screens.index(qtile.current_screen)
     if i + 1 != len(qtile.screens):
         group = qtile.screens[i + 1].group.name
         qtile.current_window.togroup(group)
 
 
-def switch_screens(qtile):
+def switch_screens(qtile):  # pylint: disable=redefined-outer-name
     i = qtile.screens.index(qtile.current_screen)
     group = qtile.screens[i - 1].group
     qtile.current_screen.set_group(group)
