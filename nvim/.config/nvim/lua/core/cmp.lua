@@ -8,7 +8,7 @@ M.methods = {}
 local function jumpable(dir)
 	local luasnip_ok, luasnip = pcall(require, "luasnip")
 	if not luasnip_ok then
-		return
+		return false
 	end
 
 	local win_get_cursor = vim.api.nvim_win_get_cursor
@@ -113,7 +113,6 @@ end
 M.methods.jumpable = jumpable
 
 function M.setup()
-	-- ensure that cmp and luasnip has been installed
 	local status_cmp_ok, cmp = pcall(require, "cmp")
 	if not status_cmp_ok then
 		return
@@ -138,7 +137,6 @@ function M.setup()
 			format = require("lspkind").cmp_format({
 				mode = "symbol", -- show only symbol annotations
 				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
 				-- The function below will be called before any actual modifications from lspkind
 				-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
 				before = function(entry, vim_item)
@@ -247,7 +245,7 @@ function M.setup()
 					cmp.select_next_item()
 				elseif luasnip.expandable() then
 					luasnip.expand()
-				elseif jumpable() then
+				elseif jumpable(1) then
 					luasnip.jump(1)
 				else
 					fallback()
@@ -268,7 +266,6 @@ function M.setup()
 				"i",
 				"s",
 			}),
-
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<CR>"] = cmp.mapping(function(fallback)
@@ -310,6 +307,11 @@ function M.setup()
 		}, {
 			{ name = "buffer", max_item_count = 5, keyword_length = 5 },
 		}),
+	})
+	cmp.setup({
+		sources = {
+			{ name = "orgmode" },
+		},
 	})
 end
 

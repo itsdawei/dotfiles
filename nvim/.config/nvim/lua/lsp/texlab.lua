@@ -2,9 +2,9 @@ M = {}
 
 function M.setup()
   vim.g.vimtex_compiler_method = "latexmk"
-  vim.g.vimtex_view_method = "skim"
-  vim.g.vimtex_view_skim_activate = 1
-  vim.g.vimtex_view_skim_reading_bar = 0
+  vim.g.vimtex_view_method = "zathura"
+  -- vim.g.vimtex_view_skim_activate = 1
+  -- vim.g.vimtex_view_skim_reading_bar = 0
 
   local latexmk_args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" }
   vim.g.tex_flavor = "latex"
@@ -23,10 +23,10 @@ function M.setup()
   -- local sumatrapdf_args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" }
   -- local evince_args = { "-f", "%l", "%p", '"code -g %f:%l"' }
   -- local okular_args = { "--unique", "file:%p#src:%l%f" }
-  -- local zathura_args = { "--synctex-forward", "%l:1:%f", "%p" }
+  local zathura_args = { "--synctex-forward", "%l:1:%f", "%p" }
   -- local qpdfview_args = { "--unique", "%p#src:%f:%l:1" }
-  local skim_args = { "%l", "%p", "%f" }
-  tex_preview_settings = skim_args
+  -- local skim_args = { "%l", "%p", "%f" }
+  tex_preview_settings = zathura_args
 
   local opts = {
     setup = {

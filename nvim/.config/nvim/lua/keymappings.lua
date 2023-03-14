@@ -73,7 +73,6 @@ local wk_settings = {
 			v = { "j", "k" },
 		},
 	},
-
 	opts = {
 		mode = "n", -- NORMAL mode
 		prefix = "<leader>",
@@ -90,7 +89,6 @@ local wk_settings = {
 		noremap = true, -- use `noremap` when creating keymaps
 		nowait = true, -- use `nowait` when creating keymaps
 	},
-
 	vmappings = {
 		["/"] = { "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Comment" },
 		l = {
@@ -106,16 +104,12 @@ local wk_settings = {
 	mappings = {
 		-- ["<CR>"] = { "<cmd>lua require('user.neovim').maximize_current_split()<CR>", "Maximize"},
 		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current(nil)<CR>", "Comment" },
-
 		h = { "<cmd>nohlsearch<CR>", "No Highlight" },
-
 		e = { "<cmd>NeoTreeRevealToggle<CR>", " Explorer" },
 		f = { require("core.telescope").find_project_files, "Find File" },
-
 		-- Navigate merge conflict markers
 		["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
 		["[n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'bW')<cr>]]", "prev merge conflict" },
-
 		b = {
 			name = "﩯Buffer",
 			["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "goto 1" },
@@ -139,13 +133,11 @@ local wk_settings = {
 			D = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
 			L = { "<cmd>BufferLineSortByExtension<cr>", "Sort by language" },
 		},
-
 		p = {
 			name = "Packer",
 			s = { "<cmd>PackerSync<cr>", "Sync" },
 			S = { "<cmd>PackerStatus<cr>", "Status" },
 		},
-
 		g = {
 			name = "Git",
 			j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -163,9 +155,7 @@ local wk_settings = {
 			d = { "<cmd>DiffviewOpen<cr>", "Diff" },
 			h = { "<cmd>DiffviewFileHistory<cr>", "File History" },
 		},
-
 		F = { "<cmd>lua vim.lsp.buf.format({timeout_ms = 10000})<cr>", "Format" },
-
 		l = {
 			name = "LSP",
 			a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -189,7 +179,6 @@ local wk_settings = {
 			},
 			e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 		},
-
 		s = {
 			name = "Search",
 			b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -205,7 +194,6 @@ local wk_settings = {
 			k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 			C = { "<cmd>Telescope commands<cr>", "Commands" },
 		},
-
 		t = {
 			name = "Trouble",
 			d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnosticss" },
@@ -216,20 +204,16 @@ local wk_settings = {
 			t = { "<cmd>TodoLocList <cr>", "Todo" },
 			w = { "<cmd>Trouble workspace_diagnostics<cr>", "Diagnostics" },
 		},
-
-		-- Symbols
-		o = { "<cmd>Vista!!<cr>", "Symbol Outline" },
-
-		-- Harpoon
+		-- Symbols (https://github.com/liuchengxu/vista.vim)
+		v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
+		-- Harpoon (https://github.com/ThePrimeagen/harpoon)
 		a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
 		["<leader>"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", " Harpoon" },
 		["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
 		["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", " goto2" },
 		["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
 		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
-
 		P = { "<cmd>Telescope project<CR>", " Projects" },
-
 		-- Mind
 		M = {
 			c = {
@@ -286,45 +270,38 @@ local defaults = {
 		["kj"] = "<ESC>",
 		["jj"] = "<ESC>",
 	},
-
 	---@usage change or add keymappings for normal mode
 	normal_mode = {
 		-- Better window movement
-		["<C-h>"] = "<C-w>h",
-		["<C-j>"] = "<C-w>j",
-		["<C-k>"] = "<C-w>k",
-		["<C-l>"] = "<C-w>l",
+		-- ["<C-h>"] = "<C-w>h",
+		-- ["<C-j>"] = "<C-w>j",
+		-- ["<C-k>"] = "<C-w>k",
+		-- ["<C-l>"] = "<C-w>l",
 
 		-- Resize with arrows
 		["<C-Up>"] = ":resize -2<CR>",
 		["<C-Down>"] = ":resize +2<CR>",
 		["<C-Left>"] = ":vertical resize -2<CR>",
 		["<C-Right>"] = ":vertical resize +2<CR>",
-
 		-- Buffer
 		["<S-x>"] = "<cmd>lua require('core.bufferline').delete_buffer()<CR>",
 		["<S-l>"] = ":BufferLineCycleNext<CR>",
 		["<S-h>"] = ":BufferLineCyclePrev<CR>",
-
 		-- Move current line / block with Alt-j/k a la vscode.
 		["<A-j>"] = ":m .+1<CR>==",
 		["<A-k>"] = ":m .-2<CR>==",
-
 		-- QuickFix
 		["]q"] = ":cnext<CR>",
 		["[q"] = ":cprev<CR>",
 		["<C-q>"] = ":call QuickFixToggle()<CR>",
-
 		-- Harpoon
 		["tu"] = "<cmd>lua require('harpoon.term').gotoTerminal(1)<CR>",
 		["te"] = "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>",
 		["cu"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>",
 		["ce"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>",
-
 		-- Reload Luasnip
-		["<leader><leader>s"] = "require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/snippets'})",
+		-- ["<leader><leader>s"] = "require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/snippets'})",
 	},
-
 	---@usage change or add keymappings for terminal mode
 	term_mode = {
 		-- Terminal window navigation
@@ -333,30 +310,23 @@ local defaults = {
 		["<C-k>"] = "<C-\\><C-N><C-w>k",
 		["<C-l>"] = "<C-\\><C-N><C-w>l",
 	},
-
 	---@usage change or add keymappings for visual mode
 	visual_mode = {
-		-- Better indenting
 		["<"] = "<gv",
 		[">"] = ">gv",
-
 		["Y"] = "y$",
 		["p"] = [["_dP]],
 		["ga"] = "<esc><cmd>lua vim.lsp.buf.range_code_action()<CR>",
-
 		["<leader>st"] = "<cmd>lua require('user.telescope').grep_string_visual()<CR>",
-
 		-- ["p"] = '"0p',
 		-- ["P"] = '"0P',
 	},
-
 	---@usage change or add keymappings for visual block mode
 	visual_block_mode = {
 		-- Move selected line / block of text in visual mode
 		["K"] = ":move '<-2<CR>gv-gv",
 		["J"] = ":move '>+1<CR>gv-gv",
 	},
-
 	---@usage change or add keymappings for command mode
 	command_mode = {
 		-- navigate tab completion with <c-j> and <c-k>
@@ -395,11 +365,6 @@ function M.setup()
 				pcall(vim.api.nvim_del_keymap, mode, key)
 			end
 		end
-	end
-
-	G.keys = {}
-	for idx, _ in pairs(defaults) do
-		G.keys[idx] = {}
 	end
 end
 

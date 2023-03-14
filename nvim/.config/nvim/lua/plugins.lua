@@ -277,13 +277,15 @@ return lazy.setup({
 	},
 	{
 		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
+		run = function()
+			vim.fn["mkdp#util#install"]()
+		end,
 		ft = "markdown",
 	},
 	{
 		"lervag/vimtex",
 		ft = "tex",
-    lazy = false,
+		lazy = false,
 	},
 	{
 		"mtdl9/vim-log-highlighting",
@@ -337,5 +339,41 @@ return lazy.setup({
 			require("core.mind").config()
 		end,
 		event = "VeryLazy",
+	},
+	{
+		"nvim-orgmode/orgmode",
+		config = function()
+			-- Load custom treesitter grammar for org filetype
+			require("orgmode").setup_ts_grammar()
+
+			require("orgmode").setup({
+        org_highlight_latex_and_related = "entities",
+        -- org_highlight_latex_and_related = "entities",
+				org_agenda_files = { "~/Documents/org/**/*" },
+				org_default_notes_file = "~/Documents/org/refile.org",
+			})
+		end,
+	},
+	{
+		"akinsho/org-bullets.nvim",
+		config = function()
+			require("org-bullets").setup()
+		end,
+	},
+	{
+		"alexghergh/nvim-tmux-navigation",
+		config = function()
+			require("nvim-tmux-navigation").setup({
+				disable_when_zoomed = true, -- defaults to false
+				keybindings = {
+					left = "<C-h>",
+					down = "<C-j>",
+					up = "<C-k>",
+					right = "<C-l>",
+					last_active = "<C-\\>",
+					next = "<C-Space>",
+				},
+			})
+		end,
 	},
 })

@@ -18,7 +18,6 @@ function M.setup()
 
 		-- Lua
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.luacheck,
 
 		-- Latex
 		null_ls.builtins.diagnostics.chktex,

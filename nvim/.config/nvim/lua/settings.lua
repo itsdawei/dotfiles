@@ -133,7 +133,7 @@ function M.setup()
 		"getscriptPlugin",
 		"gzip",
 		"logipat",
-		"netrw",
+		-- "netrw",
 		"netrwPlugin",
 		"netrwSettings",
 		"netrwFileHandlers",

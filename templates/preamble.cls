@@ -197,6 +197,29 @@
   boxed title style = {boxrule=1pt},
 }{sol}
 
+\newtcbtheorem[auto counter]{definition}{Definition}
+{%
+  enhanced,
+  breakable,
+  frame hidden,
+  interior hidden,
+  top=6mm,
+  fonttitle=\bfseries,
+  coltitle=black,
+  colbacktitle=cyan!15!white,
+  colframe=cyan!50!white,
+  borderline={0.5mm}{0mm}{cyan!20!white},
+  borderline={0.5mm}{0mm}{cyan!50!white, dashed},
+  attach boxed title to top left = {yshift=-4mm},
+  boxed title style = {boxrule=1pt}, 
+}{def}
+
+\newtheorem*{notation}{Notation}
+\newtheorem*{note}{Note}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+
 \definecolor{backcolor}{rgb}{0.95,0.95,0.92}
 \lstset{
     backgroundcolor    = \color{backcolor},   

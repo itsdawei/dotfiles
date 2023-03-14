@@ -1,6 +1,6 @@
 local M = {}
 
-G.autopairs_configs = {
+M.autopairs_configs = {
   ---@usage  modifies the function or method delimiter by filetypes
   map_char = {
     all = "(",
@@ -46,7 +46,7 @@ M.setup = function()
   local autopairs = require("nvim-autopairs")
   local Rule = require("nvim-autopairs.rule")
 
-  autopairs.setup(G.autopairs_configs)
+  autopairs.setup(M.autopairs_configs)
 
   require("nvim-treesitter.configs").setup({ autopairs = { enable = true } })
 
