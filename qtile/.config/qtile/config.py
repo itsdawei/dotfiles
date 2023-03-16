@@ -18,6 +18,7 @@ browser = "firefox"
 
 keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch Terminal"),
+    Key([mod], "r", lazy.spawn("kitty -e ranger"), desc="Launch ranger"),
     Key(
         [mod, "shift"],
         "Return",
@@ -169,13 +170,11 @@ keys = [
 ]
 
 groups = [
-    Group("", layout="monadtall"),
-    Group("", layout="monadtall"),
-    Group("COM", layout="monadtall"),
+    Group("DEV", layout="monadtall"),
+    Group("WEB", layout="monadtall"),
+    Group("COM", layout="monadtall", matches=[Match(wm_class="mailspring")]),
     Group("DOC", layout="monadtall"),
     Group("VBOX", layout="monadtall"),
-    Group("\uf015", layout="monadtall"),
-    Group("", layout="monadtall"),
 ]
 
 # Allow MODKEY+[0 through 9] to bind to groups, see
@@ -278,7 +277,7 @@ def init_widgets_list():
             other_current_screen_border=colors[6],
             other_screen_border=colors[4],
         ),
-        widget.TextBox(foreground="474747",
+        widget.TextBox(foreground="474748",
                        background=colors[0],
                        padding=2,
                        text="|",
@@ -505,10 +504,6 @@ floating_layout = layout.Floating(float_rules=[
     # default_float_rules include: utility, notification, toolbar, splash, dialog,
     # file_progress, confirm, download and error.
     *layout.Floating.default_float_rules,
-    Match(title="Confirmation"),  # tastyworks exit box
-    Match(title="Qalculate!"),  # qalculate-gtk
-    Match(wm_class="kdenlive"),  # kdenlive
-    Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"

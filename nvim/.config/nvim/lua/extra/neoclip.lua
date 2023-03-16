@@ -33,6 +33,8 @@ function M.setup()
 		local dropdown = require("telescope.themes").get_dropdown(opts)
 		require("telescope").extensions.neoclip.default(dropdown)
 	end
+
+	require("which-key").register({ ["<leader>y"] = { clip, "Open yank history" } })
 end
 
 return M

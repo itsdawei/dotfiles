@@ -43,7 +43,7 @@ M.setup = function()
 	require("mason").setup()
 	require("mason-lspconfig").setup()
 
-	require("lsp.sumneko_lua").setup()
+	require("lsp.lua_ls").setup()
 	require("lsp.pylsp").setup()
 	require("lsp.texlab").setup()
 	-- require("lspconfig")["jsonls"].setup()

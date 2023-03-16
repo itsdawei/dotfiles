@@ -1,3 +1,4 @@
+-- TODO Remove
 local M = {}
 
 M.config = function()

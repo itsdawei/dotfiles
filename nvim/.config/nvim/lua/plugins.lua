@@ -16,7 +16,6 @@ if not status_ok then
 	return
 end
 
--- Install your plugins here
 return lazy.setup({
 	-- Core
 	{ "max397574/which-key.nvim" },
@@ -31,7 +30,7 @@ return lazy.setup({
 			require("core.neotree").config()
 		end,
 	},
-	{ "MunifTanjim/nui.nvim" },
+	-- { "MunifTanjim/nui.nvim" },
 	{
 		"goolord/alpha-nvim",
 		config = function()
@@ -43,7 +42,6 @@ return lazy.setup({
 		config = function()
 			require("remember").setup({})
 		end,
-		event = "BufWinEnter",
 	},
 
 	--- LSP ---
@@ -292,17 +290,6 @@ return lazy.setup({
 		ft = { "text", "log" },
 	},
 
-	-- clipboard management
-	{
-		"AckslD/nvim-neoclip.lua",
-		config = function()
-			require("extra.neoclip").setup()
-		end,
-		opt = true,
-		keys = "<leader>y",
-		dependencies = { "kkharji/sqlite.lua" },
-	},
-
 	-- smooth scrolling
 	{
 		"declancm/cinnamon.nvim",
@@ -331,15 +318,15 @@ return lazy.setup({
 	-- Colorscheme
 	{ "sainnhe/gruvbox-material" },
 
-	{
-		"phaazon/mind.nvim",
-		branch = "v2.2",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("core.mind").config()
-		end,
-		event = "VeryLazy",
-	},
+	-- {
+	-- 	"phaazon/mind.nvim",
+	-- 	branch = "v2.2",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- 	config = function()
+	-- 		require("core.mind").config()
+	-- 	end,
+	-- 	event = "VeryLazy",
+	-- },
 	{
 		"nvim-orgmode/orgmode",
 		config = function()
@@ -347,24 +334,18 @@ return lazy.setup({
 			require("orgmode").setup_ts_grammar()
 
 			require("orgmode").setup({
-        org_highlight_latex_and_related = "entities",
-        -- org_highlight_latex_and_related = "entities",
+				org_highlight_latex_and_related = "entities",
+				-- org_highlight_latex_and_related = "entities",
 				org_agenda_files = { "~/Documents/org/**/*" },
 				org_default_notes_file = "~/Documents/org/refile.org",
 			})
 		end,
 	},
 	{
-		"akinsho/org-bullets.nvim",
-		config = function()
-			require("org-bullets").setup()
-		end,
-	},
-	{
 		"alexghergh/nvim-tmux-navigation",
 		config = function()
 			require("nvim-tmux-navigation").setup({
-				disable_when_zoomed = true, -- defaults to false
+				disable_when_zoomed = true,
 				keybindings = {
 					left = "<C-h>",
 					down = "<C-j>",
