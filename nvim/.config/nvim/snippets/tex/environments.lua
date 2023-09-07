@@ -17,15 +17,33 @@ end
 
 local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
--- Return snippet tables
 return {
+	-- PREAMBLE
+	s(
+		{ trig = "template" },
+		fmta(
+			[[
+        \documentclass[a4paper]{/home/dawei/.dotfiles/templates/preamble}
+
+        \cfoot{\thepage}
+        \lhead{Lee}
+        \chead{}
+        \rhead{}
+
+        \begin{document}
+        <>
+        \end{document}
+      ]],
+			{ i(0) }
+		)
+	),
 	-- GENERIC ENVIRONMENT
 	s(
 		{ trig = "beg", snippetType = "autosnippet" },
 		fmta(
 			[[
         \begin{<>}
-            <>
+          <>
         \end{<>}
       ]],
 			{
@@ -42,7 +60,7 @@ return {
 		fmta(
 			[[
         \begin{<>}{<>}
-            <>
+          <>
         \end{<>}
       ]],
 			{
@@ -60,7 +78,7 @@ return {
 		fmta(
 			[[
         \begin{<>}{<>}{<>}
-            <>
+          <>
         \end{<>}
       ]],
 			{
@@ -79,7 +97,7 @@ return {
 		fmta(
 			[[
         \begin{topic}{<>}{<>}
-            <>
+          <>
         \end{topic}
       ]],
 			{
@@ -96,7 +114,7 @@ return {
 		fmta(
 			[[
         \begin{equation*}
-            <>
+          <>
         \end{equation*}
       ]],
 			{
@@ -111,9 +129,9 @@ return {
 		fmta(
 			[[
         \begin{equation*}
-            \begin{split}
-                <>
-            \end{split}
+          \begin{split}
+            <>
+          \end{split}
         \end{equation*}
       ]],
 			{
@@ -128,7 +146,7 @@ return {
 		fmta(
 			[[
         \begin{align*}
-            <>
+          <>
         \end{align*}
       ]],
 			{
@@ -143,9 +161,7 @@ return {
 		fmta(
 			[[
         \begin{itemize}
-
-            \item <>
-
+          \item <>
         \end{itemize}
       ]],
 			{
@@ -160,9 +176,7 @@ return {
 		fmta(
 			[[
         \begin{enumerate}
-
-            \item <>
-
+          \item <>
         \end{enumerate}
       ]],
 			{
@@ -187,6 +201,14 @@ return {
 			i(1),
 		})
 	),
+	-- PROBLEM
+	s(
+		{ trig = "problem" },
+		fmta([[\noindent\textbf{<>}]], {
+			d(1, get_visual),
+		}),
+		{ condition = line_begin }
+	),
 	-- FIGURE
 	s(
 		{ trig = "fig" },
@@ -195,10 +217,31 @@ return {
         \begin{figure}[htb!]
           \centering
           \includegraphics[width=<>\linewidth]{<>}
-          \caption{<>}
-          \label{fig:<>}
+          \caption{<>}\label{fig:<>}
         \end{figure}
-        ]],
+      ]],
+			{
+				i(1),
+				i(2),
+				i(3),
+				i(4),
+			}
+		),
+		{ condition = line_begin }
+	),
+	s(
+		{ trig = "tab" },
+		fmta(
+			[[
+        \begin{table}[htb!]
+          \centering
+          \caption{<>}
+          \label{tab:<>}
+          \begin{tabular}{<>}
+            <>
+          \end{tabular}
+        \end{table}
+      ]],
 			{
 				i(1),
 				i(2),

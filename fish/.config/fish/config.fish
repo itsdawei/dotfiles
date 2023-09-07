@@ -71,8 +71,11 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
-# cow says
-alias cowsays='fortune | cowsay | lolcat'
+# tmux
+alias jupyter-tmux='tmux new -d -s jupyter "jupyter-lab --no-browser"';
+alias tas='tmux attach-session -t'
+
+alias agenda='gcalcli agenda "$(date \'+%d\')" "$(date -d \'+1 day\' \'+%d\')"'
 
 # minecraft docker
 alias dcm='docker-compose -f minecraft.yml'

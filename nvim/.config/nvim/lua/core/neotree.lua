@@ -56,7 +56,7 @@ M.config = function()
 			},
 		},
 		window = {
-			position = "left",
+			position = "right",
 			width = 30,
 		},
 		filesystem = {

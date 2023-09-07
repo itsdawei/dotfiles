@@ -1,33 +1,6 @@
 local M = {}
 
 M.config = {
-  diagnostics = {
-    signs = {
-      active = true,
-      values = {
-        { name = "DiagnosticSignError", text = "" },
-        { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
-        { name = "DiagnosticSignInfo", text = "" },
-      },
-    },
-    float = {
-      focusable = false,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-      format = function(d)
-        local t = vim.deepcopy(d)
-        local code = d.code or (d.user_data and d.user_data.lsp.code)
-        if code then
-          t.message = string.format("%s [%s]", t.message, code):gsub("1. ", "")
-        end
-        return t.message
-      end,
-    },
-  },
   document_highlight = true,
   code_lens_refresh = true,
   float = {
@@ -80,22 +53,18 @@ M.config = {
 }
 
 function M.capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-    },
-  }
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+  -- capabilities.textDocument.completion.completionItem.resolveSupport = {
+  --   properties = {
+  --     "documentation",
+  --     "detail",
+  --     "additionalTextEdits",
+  --   },
+  -- }
 
-  local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-  if status_ok then
-    capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-  end
-
-  return capabilities
+  -- return require("cmp_nvim_lsp").default_capabilities(capabilities)
+  return require("cmp_nvim_lsp").default_capabilities()
 end
 
 function M.on_attach(client, bufnr)

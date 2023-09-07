@@ -11,9 +11,6 @@ function M.setup()
 				"setup.py",
 				"setup.cfg",
 				"requirements.txt",
-				"Pipfile",
-				"manage.py",
-				"pyrightconfig.json",
 			}
 			return util.root_pattern(unpack(root_files))(fname)
 				or util.root_pattern(".git")(fname)
@@ -22,19 +19,17 @@ function M.setup()
 		settings = {
 			pylsp = {
 				plugins = {
-					jedi_completion = { enabled = true },
-					jedi_hover = { enabled = true },
-					jedi_references = { enabled = true },
-					jedi_signature_help = { enabled = true },
-					jedi_symbols = { enabled = true, all_scopes = true },
+					jedi_completion = { enabled = false },
+					jedi_hover = { enabled = false },
+					jedi_references = { enabled = false },
+					jedi_signature_help = { enabled = false },
+					jedi_symbols = { enabled = false, all_scopes = false },
 					pycodestyle = { enabled = false },
 					pyflakes = { enabled = false },
-					-- pylint = {
-					--   enabled = true,
-					--   executable = "pylint",
-					-- },
-					-- isort = {enabled = true},
-					-- yapf = {enabled = true},
+					pylint = { enabled = true },
+					-- pylint = { enabled = true , executable = "pylint"},
+					-- isort = { enabled = true },
+					-- yapf = { enabled = true },
 				},
 			},
 		},

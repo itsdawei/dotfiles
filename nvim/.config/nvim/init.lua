@@ -13,11 +13,14 @@ require("autocmds").setup()
 -- autocmds.enable_transparent_mode()
 
 require("lsp").setup()
+-- require("mason").setup()
+-- require("mason-lspconfig").setup()
+-- require("lsp.null-ls").setup()
 
 vim.g.mapleader = " "
 
 -- load snippets.
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/snippets"})
+require("core.luasnip")
 
 -- colorscheme must get called after plugins are loaded or it will break new installs.
 vim.cmd([[

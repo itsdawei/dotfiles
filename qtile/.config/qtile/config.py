@@ -4,6 +4,7 @@
 
 import os
 import subprocess
+from datetime import datetime, timedelta
 from typing import List
 
 from libqtile import bar, hook, layout, qtile, widget
@@ -15,6 +16,9 @@ from libqtile.lazy import lazy
 mod = "mod4"
 terminal = "kitty"
 browser = "firefox"
+
+today = datetime.now().strftime("%d")
+tomorrow = (datetime.now() + timedelta(1)).strftime("%d")
 
 keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch Terminal"),
@@ -121,30 +125,30 @@ keys = [
         desc="Toggle between split and unsplit sides of stack"),
 
     # Dmenu scripts launched using the key chord SUPER+p followed by "key"
-    KeyChord([mod], "p", [
-        Key([], "h", lazy.spawn("dm-hub"), desc="List all dmscripts"),
-        Key([], "a", lazy.spawn("dm-sounds"), desc="Choose ambient sound"),
-        Key([], "b", lazy.spawn("dm-setbg"), desc="Set background"),
-        Key([],
-            "c",
-            lazy.spawn("dtos-colorscheme"),
-            desc="Choose color scheme"),
-        Key([],
-            "e",
-            lazy.spawn("dm-confedit"),
-            desc="Choose a config file to edit"),
-        Key([], "i", lazy.spawn("dm-maim"), desc="Take a screenshot"),
-        Key([], "k", lazy.spawn("dm-kill"), desc="Kill processes "),
-        Key([], "m", lazy.spawn("dm-man"), desc="View manpages"),
-        Key([], "n", lazy.spawn("dm-note"), desc="Store and copy notes"),
-        Key([], "o", lazy.spawn("dm-bookman"), desc="Browser bookmarks"),
-        Key([], "p", lazy.spawn("passmenu -p \"Pass: \""), desc="Logout menu"),
-        Key([], "q", lazy.spawn("dm-logout"), desc="Logout menu"),
-        Key([], "r", lazy.spawn("dm-radio"), desc="Listen to online radio"),
-        Key([], "s", lazy.spawn("dm-websearch"),
-            desc="Search various engines"),
-        Key([], "t", lazy.spawn("dm-translate"), desc="Translate text"),
-    ]),
+    # KeyChord([mod], "p", [
+    #     Key([], "h", lazy.spawn("dm-hub"), desc="List all dmscripts"),
+    #     Key([], "a", lazy.spawn("dm-sounds"), desc="Choose ambient sound"),
+    #     Key([], "b", lazy.spawn("dm-setbg"), desc="Set background"),
+    #     Key([],
+    #         "c",
+    #         lazy.spawn("dtos-colorscheme"),
+    #         desc="Choose color scheme"),
+    #     Key([],
+    #         "e",
+    #         lazy.spawn("dm-confedit"),
+    #         desc="Choose a config file to edit"),
+    #     Key([], "i", lazy.spawn("dm-maim"), desc="Take a screenshot"),
+    #     Key([], "k", lazy.spawn("dm-kill"), desc="Kill processes "),
+    #     Key([], "m", lazy.spawn("dm-man"), desc="View manpages"),
+    #     Key([], "n", lazy.spawn("dm-note"), desc="Store and copy notes"),
+    #     Key([], "o", lazy.spawn("dm-bookman"), desc="Browser bookmarks"),
+    #     Key([], "p", lazy.spawn("passmenu -p \"Pass: \""), desc="Logout menu"),
+    #     Key([], "q", lazy.spawn("dm-logout"), desc="Logout menu"),
+    #     Key([], "r", lazy.spawn("dm-radio"), desc="Listen to online radio"),
+    #     Key([], "s", lazy.spawn("dm-websearch"),
+    #         desc="Search various engines"),
+    #     Key([], "t", lazy.spawn("dm-translate"), desc="Translate text"),
+    # ]),
     # Function keys
     Key([],
         "XF86MonBrightnessUp",
@@ -169,11 +173,12 @@ keys = [
 ]
 
 groups = [
-    Group("DEV", layout="monadtall"),
+    Group("DEV1", layout="monadtall"),
+    Group("DEV2", layout="monadtall"),
     Group("WEB", layout="monadtall"),
+    Group("NOTE", layout="monadtall", matches=[Match(wm_class="notion-app")]),
+    Group("READ", layout="monadtall"),
     Group("COM", layout="monadtall", matches=[Match(wm_class="mailspring")]),
-    Group("DOC", layout="monadtall"),
-    Group("VBOX", layout="monadtall"),
 ]
 
 # Allow MODKEY+[0 through 9] to bind to groups, see
@@ -185,6 +190,16 @@ dgroups_key_binder = simple_key_binder("mod4")
 # Define scratchpads
 groups.append(
     ScratchPad("scratchpad", [
+        DropDown(
+            "agenda",
+            f"kitty --hold --class=agenda -e gcalcli agenda {today} {tomorrow}",
+            width=0.5,
+            height=0.3,
+            x=0.25,
+            y=0.25,
+            opacity=1,
+            on_focus_lost_hide=False,
+        ),
         DropDown("term",
                  "kitty --class=scratch",
                  width=0.7,
@@ -206,13 +221,16 @@ groups.append(
                  x=0.15,
                  y=0.15,
                  opacity=0.9),
-        DropDown("org",
-                 "kitty --class=org -e nvim /home/dawei/Documents/org/",
-                 width=0.7,
-                 height=0.7,
-                 x=0.15,
-                 y=0.15,
-                 opacity=0.9),
+        DropDown(
+            "org",
+            "kitty --class=org -e nvim /home/dawei/Documents/org/todo.org",
+            width=0.5,
+            height=0.7,
+            x=0.25,
+            y=0.15,
+            opacity=1,
+            on_focus_lost_hide=False,
+        ),
     ]))
 
 # Scratchpad keybindings
@@ -220,7 +238,8 @@ keys.extend([
     Key([mod], "t", lazy.group["scratchpad"].dropdown_toggle("term")),
     Key([mod], "r", lazy.group["scratchpad"].dropdown_toggle("ranger")),
     Key([mod], "v", lazy.group["scratchpad"].dropdown_toggle("volume")),
-    Key([mod], "m", lazy.group["scratchpad"].dropdown_toggle("mus")),
+    Key([mod], "o", lazy.group["scratchpad"].dropdown_toggle("org")),
+    Key([mod], "a", lazy.group["scratchpad"].dropdown_toggle("agenda")),
 ])
 
 layout_theme = {
@@ -254,8 +273,8 @@ layouts = [
                    active_fg="000000",
                    inactive_bg="a9a1e1",
                    inactive_fg="1c1f24",
-                   padding_left=0,
-                   padding_x=0,
+                   padding_left=5,
+                   padding_x=5,
                    padding_y=5,
                    section_top=10,
                    section_bottom=20,
@@ -282,7 +301,7 @@ colors = [
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = {
     "font": "SourceCodePro",
-    "fontsize": 11,
+    "fontsize": 12,
     "padding": 2,
     "background": colors[0],
 }
@@ -345,7 +364,7 @@ def init_widgets_list():
             padding=10,
             foreground="474747",
         ),
-        widget.Systray(icon_size=10, padding=0),
+        widget.Systray(icon_size=12),
         widget.Sep(
             linewidth=1,
             padding=10,
@@ -363,21 +382,16 @@ def init_widgets_list():
             threshold=90,
         ),
         widget.Spacer(length=6),
-        widget.TextBox(
-            text="",
-            fontsize=14,
-            foreground=colors[4],
-        ),
         widget.CPU(foreground=colors[4],
                    update_interval=1.0,
-                   format="{load_percent}%",
+                   format=" {load_percent}%",
                    padding=5),
         widget.Spacer(length=6),
-        widget.TextBox(
-            fontsize=14,
-            foreground=colors[7],
-            text="",
-        ),
+        # widget.TextBox(
+        #     text="",
+        #     fontsize=14,
+        #     foreground=colors[7],
+        # ),
         widget.Memory(
             foreground=colors[7],
             padding=5,
@@ -391,7 +405,7 @@ def init_widgets_list():
         widget.Volume(
             foreground=colors[8],
             padding=5,
-            fmt="Vol: {}",
+            fmt="Vol {}",
             mouse_callbacks={
                 'Button3': lambda: qtile.cmd_spawn("pavucontrol")
             },

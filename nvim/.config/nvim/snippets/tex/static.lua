@@ -9,7 +9,6 @@ tex.in_text = function()
 	return not tex.in_mathzone()
 end
 
--- Return snippet tables
 return {
 	s({ trig = "LL", snippetType = "autosnippet" }, {
 		t("& "),

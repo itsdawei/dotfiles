@@ -48,7 +48,7 @@ local wk_settings = {
 			scroll_up = "<c-u>", -- binding to scroll up inside the popup
 		},
 		window = {
-			border = "single", -- none, single, double, shadow
+			border = "double", -- none, single, double, shadow
 			position = "bottom", -- bottom, top
 			margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
 			padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
@@ -60,11 +60,10 @@ local wk_settings = {
 			spacing = 3, -- spacing between columns
 			align = "left", -- align columns left, center or right
 		},
-		hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+		hidden = { "<silent>", "<cmd>", "<Cmd>", "<cr>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
 		ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
 		show_help = true, -- show help message on the command line when the popup is visible
 		triggers = "auto", -- automatically setup triggers
-		-- triggers = {"<leader>"} -- or specify a list manually
 		triggers_blacklist = {
 			-- list of mode / prefixes that should never be hooked by WhichKey
 			-- this is mostly relevant for key maps that start with a native binding
@@ -103,9 +102,10 @@ local wk_settings = {
 	},
 	mappings = {
 		-- ["<CR>"] = { "<cmd>lua require('user.neovim').maximize_current_split()<CR>", "Maximize"},
-		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current(nil)<CR>", "Comment" },
+		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
 		h = { "<cmd>nohlsearch<CR>", "No Highlight" },
-		e = { "<cmd>NeoTreeRevealToggle<CR>", " Explorer" },
+		e = { "<cmd>Neotree filesystem toggle right<cr>", " Explorer" },
+		I = { "<cmd>lua vim.lsp.inlay_hint(0)<cr>", " Toggle Inlay" },
 		f = { require("core.telescope").find_project_files, "Find File" },
 		-- Navigate merge conflict markers
 		["]n"] = { "[[:call search('^(@@ .* @@|[<=>|]{7}[<=>|]@!)', 'W')<cr>]]", "next merge conflict" },
@@ -139,14 +139,14 @@ local wk_settings = {
 		},
 		g = {
 			name = "Git",
-			j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-			k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-			l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-			p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-			r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-			R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-			s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-			u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+			j = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next Hunk" },
+			k = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev Hunk" },
+			l = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame" },
+			p = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk" },
+			r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk" },
+			R = { "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer" },
+			s = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk" },
+			u = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", "Undo Stage Hunk" },
 			o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
 			b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 			c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
@@ -170,7 +170,7 @@ local wk_settings = {
 			},
 			l = { vim.lsp.codelens.run, "CodeLens Action" },
 			q = { vim.diagnostic.setloclist, "Quickfix" },
-			r = { vim.lsp.buf.rename, "Rename" },
+			r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
 			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
 			S = {
 				"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
@@ -213,51 +213,6 @@ local wk_settings = {
 		["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
 		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
 		P = { "<cmd>Telescope project<CR>", " Projects" },
-		-- Mind
-		M = {
-			c = {
-				function()
-					require("mind").wrap_main_tree_fn(function(args)
-						require("mind.commands").copy_node_link_index(args.get_tree(), nil, args.opts)
-					end)
-				end,
-				"Copy node link index",
-			},
-			j = {
-				function()
-					require("mind").wrap_main_tree_fn(function(args)
-						local tree = args.get_tree()
-						local path = vim.fn.strftime("/Journal/%Y/%b/%d")
-						local _, node = require("mind.node").get_node_by_path(tree, path, true)
-
-						if node == nil then
-							vim.notify("cannot open journal 🙁", vim.log.levels.WARN)
-							return
-						end
-
-						require("mind.commands").open_data(tree, node, args.data_dir, args.save_tree, args.opts)
-						args.save_tree()
-					end)
-				end,
-				"Open journal",
-			},
-			M = { "<cmd>MindOpenMain<CR>", "Open main tree" },
-			z = { "<cmd>MindClose<CR>", "Close" },
-			m = { "<cmd>MindOpenSmartProject<CR>", "Open smart project tree" },
-			s = {
-				function()
-					require("mind").wrap_smart_project_tree_fn(function(args)
-						require("mind.commands").open_data_index(
-							args.get_tree(),
-							args.data_dir,
-							args.save_tree,
-							args.opts
-						)
-					end)
-				end,
-				"Open data index",
-			},
-		},
 	},
 }
 
@@ -298,8 +253,6 @@ local defaults = {
 		["te"] = "<cmd>lua require('harpoon.term').gotoTerminal(2)<CR>",
 		["cu"] = "<cmd>lua require('harpoon.term').sendCommand(1, 1)<CR>",
 		["ce"] = "<cmd>lua require('harpoon.term').sendCommand(1, 2)<CR>",
-		-- Reload Luasnip
-		-- ["<leader><leader>s"] = "require('luasnip.loaders.from_lua').load({paths = '~/.config/nvim/snippets'})",
 	},
 	---@usage change or add keymappings for terminal mode
 	term_mode = {

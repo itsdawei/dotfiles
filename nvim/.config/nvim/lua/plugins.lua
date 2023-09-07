@@ -65,6 +65,14 @@ return lazy.setup({
 		event = { "BufRead", "BufNew" },
 	},
 
+	--- Navigation ---
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			require("core.leap").setup()
+		end,
+	},
+
 	--- Completion ---
 	{
 		"hrsh7th/nvim-cmp",
@@ -72,25 +80,25 @@ return lazy.setup({
 		config = function()
 			require("core.cmp").setup()
 		end,
-		event = "InsertEnter *",
+		event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-buffer", -- source for text in buffer
+      "hrsh7th/cmp-path", -- source for file system paths
+	    "saadparwaiz1/cmp_luasnip", -- for autocompletion
+    }
 	},
 	-- Sources
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },
 	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-nvim-lua" },
-	{ "saadparwaiz1/cmp_luasnip" },
 	{ "kdheepak/cmp-latex-symbols", ft = "tex" },
 	-- Snippets
 	{
 		"L3MON4D3/LuaSnip",
-		modele = { "luasnip", "LuaSnip" },
+		module = { "luasnip", "LuaSnip" },
 		config = function()
 			require("luasnip.loaders.from_snipmate").lazy_load()
 		end,
 	},
-
 	{ "nvim-lua/popup.nvim" },
 
 	-- Telescope
@@ -161,7 +169,7 @@ return lazy.setup({
 	{
 		"folke/todo-comments.nvim",
 		config = function()
-			require("core.todo_comments").config()
+			require("core.todo_comments").setup()
 		end,
 		event = "BufRead",
 	},
@@ -180,6 +188,18 @@ return lazy.setup({
 		end,
 		branch = "main",
 		event = "BufWinEnter",
+	},
+
+	-- Match-up
+	{
+		"andymass/vim-matchup",
+		event = "BufReadPost",
+		config = function()
+			vim.g.matchup_enabled = 1
+			vim.g.matchup_surround_enabled = 1
+			vim.g.matchup_matchparen_deferred = 1
+			vim.g.matchup_matchparen_offscreen = { method = "popup" }
+		end,
 	},
 
 	--- EXTRA PLUGINS ---
@@ -201,13 +221,13 @@ return lazy.setup({
 	},
 
 	-- Outline
-	{
-		"liuchengxu/vista.vim",
-		setup = function()
-			require("core.vista").config()
-		end,
-		event = "BufReadPost",
-	},
+	-- {
+	-- 	"liuchengxu/vista.vim",
+	-- 	setup = function()
+	-- 		require("core.vista").config()
+	-- 	end,
+	-- 	event = "BufReadPost",
+	-- },
 
 	-- diffview
 	{
@@ -236,11 +256,7 @@ return lazy.setup({
 	-- 	end,
 	-- })
 	{ "ThePrimeagen/harpoon" },
-	{
-		"editorconfig/editorconfig-vim",
-		event = "BufRead",
-	},
-	{ "stevearc/dressing.nvim" },
+	{ "stevearc/dressing.nvim", event = "VeryLazy" },
 	{
 		"ThePrimeagen/refactoring.nvim",
 		ft = { "typescript", "javascript", "lua", "c", "cpp", "go", "python", "java", "php" },
@@ -268,20 +284,13 @@ return lazy.setup({
 
 	-- filtypes
 	{
-		"nathom/filetype.nvim",
-		config = function()
-			require("extra.filetype").setup()
-		end,
-	},
-	{
 		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
-		end,
+		build = "cd app && npm install",
 		ft = "markdown",
 	},
 	{
 		"lervag/vimtex",
+		config = function() end,
 		ft = "tex",
 		lazy = false,
 	},
@@ -333,11 +342,25 @@ return lazy.setup({
 			-- Load custom treesitter grammar for org filetype
 			require("orgmode").setup_ts_grammar()
 
+			require("nvim-treesitter.configs").setup({
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = { "org" },
+				},
+				ensure_installed = { "org" }, -- Or run :TSUpdate org
+			})
+
 			require("orgmode").setup({
 				org_highlight_latex_and_related = "entities",
-				-- org_highlight_latex_and_related = "entities",
 				org_agenda_files = { "~/Documents/org/**/*" },
 				org_default_notes_file = "~/Documents/org/refile.org",
+				org_agenda_templates = {
+					T = {
+						description = "Todo",
+						template = "* TODO %?\n  DEADLINE: %T",
+						target = "~/Documents/org/todo.org",
+					},
+				},
 			})
 		end,
 	},

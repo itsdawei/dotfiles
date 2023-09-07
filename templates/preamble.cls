@@ -2,7 +2,7 @@
 
 % Typesetting and language
 \RequirePackage[american]{babel}
-\RequirePackage[T1]{fontenc}
+% \RequirePackage[T1]{fontenc}
 \RequirePackage[tt=false, type1=true]{libertine}
 \RequirePackage{charter}
 \RequirePackage{enumitem}

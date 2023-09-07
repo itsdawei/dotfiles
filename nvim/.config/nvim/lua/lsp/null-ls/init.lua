@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 function M.setup()
 	local status_ok, null_ls = pcall(require, "null-ls")
@@ -20,38 +20,32 @@ function M.setup()
 		null_ls.builtins.formatting.stylua,
 
 		-- Latex
-		null_ls.builtins.diagnostics.chktex,
+    -- null_ls.builtins.diagnostics.chktex,
+    -- null_ls.builtins.formatting.latexindent,
 
 		-- Markdown
 		null_ls.builtins.diagnostics.markdownlint.with({
 			filetypes = { "markdown" },
 			extra_args = { "-r", "~MD013" },
 		}),
-		null_ls.builtins.diagnostics.vale.with({
-			filetypes = { "markdown" },
-		}),
+		-- null_ls.builtins.diagnostics.vale.with({
+		-- 	filetypes = { "markdown" },
+		-- }),
 
 		-- Python
-		null_ls.builtins.diagnostics.pylint,
+		-- null_ls.builtins.diagnostics.pylint,
 		null_ls.builtins.formatting.yapf,
 		null_ls.builtins.formatting.isort,
 
-		-- Shell
-		null_ls.builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }),
-		null_ls.builtins.diagnostics.shellcheck,
-		null_ls.builtins.code_actions.shellcheck,
-	}
-
-	table.insert(
-		sources,
+    -- Refactoring
 		null_ls.builtins.code_actions.refactoring.with({
 			filetypes = { "typescript", "javascript", "lua", "c", "cpp", "go", "python", "java", "php" },
 		})
-	)
+	}
 
 	null_ls.setup({
 		on_attach = require("lsp").on_attach,
-		debounce = 200,
+		debounce = 150,
 		save_after_format = false,
 		sources = sources,
 	})
