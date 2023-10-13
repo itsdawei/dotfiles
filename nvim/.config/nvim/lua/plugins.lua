@@ -81,11 +81,11 @@ return lazy.setup({
 			require("core.cmp").setup()
 		end,
 		event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-buffer", -- source for text in buffer
-      "hrsh7th/cmp-path", -- source for file system paths
-	    "saadparwaiz1/cmp_luasnip", -- for autocompletion
-    }
+		dependencies = {
+			"hrsh7th/cmp-buffer", -- source for text in buffer
+			"hrsh7th/cmp-path", -- source for file system paths
+			"saadparwaiz1/cmp_luasnip", -- for autocompletion
+		},
 	},
 	-- Sources
 	{ "hrsh7th/cmp-cmdline" },
@@ -317,8 +317,10 @@ return lazy.setup({
 	-- indent line
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		scope_color = "surfact2",
 		config = function()
-			require("indent_blankline").setup({})
+			require("core.indent_blankline").setup()
 		end,
 	},
 

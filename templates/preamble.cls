@@ -45,8 +45,6 @@
 	bookmarksopen=true
 }
 
-\DeclareMathOperator{\R}{\mathbb{R}}
-
 % \usepackage{etoolbox}
 % %\usepackage{authblk}
 % \usepackage[ruled,vlined,linesnumbered]{algorithm2e}

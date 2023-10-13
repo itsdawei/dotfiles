@@ -5,11 +5,10 @@
 import os
 import subprocess
 from datetime import datetime, timedelta
-from typing import List
 
 from libqtile import bar, hook, layout, qtile, widget
-from libqtile.config import (Click, Drag, DropDown, Group, Key, KeyChord,
-                             Match, ScratchPad, Screen)
+from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
+                             ScratchPad, Screen)
 from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
 
@@ -192,11 +191,11 @@ groups.append(
     ScratchPad("scratchpad", [
         DropDown(
             "agenda",
-            f"kitty --hold --class=agenda -e gcalcli agenda {today} {tomorrow}",
-            width=0.5,
-            height=0.3,
-            x=0.25,
-            y=0.25,
+            "firefox -new-instance 'https://track.toggl.com/timer' -P 'scratchpad'",
+            width=0.8,
+            height=0.8,
+            x=0.1,
+            y=0.1,
             opacity=1,
             on_focus_lost_hide=False,
         ),
@@ -243,26 +242,26 @@ keys.extend([
 ])
 
 layout_theme = {
-    "border_width": 2,
-    "margin": 8,
+    "border_width": 5,
+    "margin": 10,
     "border_focus": "e1acff",
     "border_normal": "1D2330",
 }
 
 layouts = [
-    # layout.MonadWide(**layout_theme),
+    layout.MonadWide(**layout_theme),
     # layout.Bsp(**layout_theme),
-    #layout.Stack(stacks=2, **layout_theme),
+    # layout.Stack(stacks=2, **layout_theme),
     # layout.Columns(**layout_theme),
     # layout.RatioTile(**layout_theme),
-    #layout.Tile(shift_windows=True, **layout_theme),
+    # layout.Tile(shift_windows=True, **layout_theme),
     # layout.VerticalTile(**layout_theme),
     # layout.Matrix(**layout_theme),
     # layout.Zoomy(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Stack(num_stacks=2),
-    layout.RatioTile(**layout_theme),
+    # layout.Stack(num_stacks=2),
+    # layout.RatioTile(**layout_theme),
     layout.TreeTab(font="Ubuntu",
                    fontsize=10,
                    sections=["FIRST", "SECOND", "THIRD", "FOURTH"],
@@ -281,7 +280,7 @@ layouts = [
                    level_shift=8,
                    vspace=3,
                    panel_width=200),
-    layout.Floating(**layout_theme)
+    # layout.Floating(**layout_theme)
 ]
 
 # gruvbox-material
@@ -387,11 +386,6 @@ def init_widgets_list():
                    format=" {load_percent}%",
                    padding=5),
         widget.Spacer(length=6),
-        # widget.TextBox(
-        #     text="",
-        #     fontsize=14,
-        #     foreground=colors[7],
-        # ),
         widget.Memory(
             foreground=colors[7],
             padding=5,
@@ -486,7 +480,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = True
@@ -510,14 +504,3 @@ auto_minimize = True
 def start_once():
     """Startup hook."""
     subprocess.call([os.path.expanduser("~") + "/.config/qtile/autostart.sh"])
-
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"

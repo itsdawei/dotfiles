@@ -1,10 +1,6 @@
 local M = {}
 
 local servers = {
-	tsserver = true,
-	html = true,
-	cssls = true,
-	yamlls = true,
 	clangd = {
 		cmd = {
 			"clangd",
@@ -66,8 +62,19 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, common.config.float)
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, common.config.float)
 
-	require("mason").setup()
-	require("mason-lspconfig").setup()
+	require("mason").setup({
+		ui = {
+			icons = {
+				package_installed = "✓",
+				package_pending = "➜",
+				package_uninstalled = "✗",
+			},
+		},
+	})
+	require("mason-lspconfig").setup({
+		ensure_installed = { "lua_ls", "pylsp" },
+		automatic_installation = true,
+	})
 
 	require("lsp.lua_ls").setup()
 	require("lsp.pylsp").setup()
