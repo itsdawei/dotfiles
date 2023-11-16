@@ -3,6 +3,8 @@ G = {
 	use_icons = true,
 }
 
+vim.opt.termguicolors = true
+
 require("plugins")
 
 require("keymappings").setup()

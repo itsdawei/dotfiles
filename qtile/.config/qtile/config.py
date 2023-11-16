@@ -175,8 +175,10 @@ groups = [
     Group("DEV1", layout="monadtall"),
     Group("DEV2", layout="monadtall"),
     Group("WEB", layout="monadtall"),
-    Group("NOTE", layout="monadtall", matches=[Match(wm_class="notion-app")]),
     Group("READ", layout="monadtall"),
+    Group("NOTE", layout="monadtall", matches=[Match(wm_class="zotero")]),
+    Group("VID", layout="monadtall"),
+    Group("ZOOM", layout="monadtall", matches=[Match(wm_class="zoom")]),
     Group("COM", layout="monadtall", matches=[Match(wm_class="mailspring")]),
 ]
 

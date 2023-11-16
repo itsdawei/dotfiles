@@ -6,10 +6,13 @@
 \RequirePackage[tt=false, type1=true]{libertine}
 \RequirePackage{charter}
 \RequirePackage{enumitem}
-\RequirePackage{algpseudocode}
+\RequirePackage{algorithm2e}
+% \RequirePackage{algpseudocode}
 \RequirePackage{csquotes}
 \RequirePackage[normalem]{ulem}
 \RequirePackage{titlesec}
+\RequirePackage{parskip}
+\RequirePackage{microtype}
 
 % Symbols
 \RequirePackage{amsmath, amsfonts, amsthm, amssymb, mathtools}
@@ -29,7 +32,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{float}
 \RequirePackage{ulem}
-\RequirePackage{multicol, array}
+% \RequirePackage{multicol, array}
 \RequirePackage{listings}
 \RequirePackage[numbered]{matlab-prettifier}
 
@@ -42,7 +45,7 @@
 	pdftitle={Assignment},
 	colorlinks=true,
 	bookmarksnumbered=true,
-	bookmarksopen=true
+	bookmarksopen=true,
 }
 
 % \usepackage{etoolbox}
@@ -62,6 +65,8 @@
 
 % tcolorbox definitions
 \tcbuselibrary{theorems,skins,hooks}
+
+%THEOREM
 \newtcbtheorem[number within=section]{theorem}{Theorem}
 {%
 	enhanced,
@@ -217,6 +222,7 @@
 \newtheorem*{observe}{Observe}
 \newtheorem*{property}{Property}
 \newtheorem*{intuition}{Intuition}
+\newtheorem{question}{Question}
 
 \definecolor{backcolor}{rgb}{0.95,0.95,0.92}
 \lstset{

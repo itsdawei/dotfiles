@@ -1,5 +1,4 @@
 set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $HOME/.local/bin $HOME/Applications
-set fish_greeting                      # Supresses fish's intro message
 set TERM "screen-256color"             # Sets the terminal type
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
 set JAVA_HOME = /usr/bin/java
@@ -8,6 +7,14 @@ set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
 
 set -U FZF_TMUX 1
 set -U FZF_ENABLE_OPEN_PREVIEW 1
+
+function fish_greeting
+    if test (random 1 128) = 1
+        pokemon-colorscripts -r --no-title -s
+    else
+        pokemon-colorscripts -r --no-title
+    end
+end
 
 ### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
