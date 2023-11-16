@@ -1,13 +1,25 @@
-# Machfiles
+## My Productivity Workflow
 
-## Installing
+### Main Applications
+
+- OS: [Arch Linux](https://archlinux.org/)
+- Desktop Environment: [qtile](https://qtile.org/)
+- Terminal: [kitty](https://sw.kovidgoyal.net/kitty/) + [tmux](https://github.com/tmux/tmux/wiki)
+- Shell: [fish](https://fishshell.com/)
+- Editor: [neovim](https://neovim.io/)
+- Broswer: [firefox](https://www.mozilla.org/en-US/firefox/new/)
+- File Manager: [ranger](https://github.com/ranger/ranger)
+
+Other applications in the workflow is found at (TODO add files).
+
+## Installation
 
 You will need `git` and GNU `stow`
 
 Clone into your `$HOME` directory or `~`
 
 ```bash
-git clone https://github.com/ChristianChiarulli/Machfiles.git ~
+git clone https://github.com/itsdawei/dotfiles ~
 ```
 
 Run `stow` to symlink everything or just select what you want
@@ -20,15 +32,3 @@ stow */ # Everything (the '/' ignores the README)
 stow zsh # Just my zsh config
 ```
 
-## Programs
-
-An updated list of all the programs I use can be found in the `programs` directory
-
-## Stuff to Install
-+ Neolvim
-+ yabai
-+ skhd
-+ spacebar
-+ karabiner
-+ ranger
-+ neofetch
