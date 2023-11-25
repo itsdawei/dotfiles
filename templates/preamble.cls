@@ -67,22 +67,22 @@
 \tcbuselibrary{theorems,skins,hooks}
 
 %THEOREM
-\newtcbtheorem[number within=section]{theorem}{Theorem}
-{%
-	enhanced,
-	breakable,
-	frame hidden,
-  interior hidden,
-  top = 6mm,
-  fonttitle = \bfseries,
-	coltitle = black,
-  colbacktitle = cyan!15!white,
-  colframe = cyan!50!white,
-  borderline = {0.5mm}{0mm}{cyan!15!white},
-  borderline = {0.5mm}{0mm}{cyan!50!white, dashed},
-  attach boxed title to top left = {yshift=-4mm},
-  boxed title style = {boxrule=1pt}, 
-}{th}
+% \newtcbtheorem[number within=section]{theorem}{Theorem}
+% {%
+% 	enhanced,
+% 	breakable,
+% 	frame hidden,
+%   interior hidden,
+%   top = 6mm,
+%   fonttitle = \bfseries,
+% 	coltitle = black,
+%   colbacktitle = cyan!15!white,
+%   colframe = cyan!50!white,
+%   borderline = {0.5mm}{0mm}{cyan!15!white},
+%   borderline = {0.5mm}{0mm}{cyan!50!white, dashed},
+%   attach boxed title to top left = {yshift=-4mm},
+%   boxed title style = {boxrule=1pt}, 
+% }{th}
 
 %COROLLARY
 \newtcbtheorem[use counter from=theorem]{corollary}{Corollary}

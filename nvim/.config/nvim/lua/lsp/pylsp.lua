@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
 	local opts = {
 		on_attach = require("lsp.common").on_attach,
+		-- capabilities = require("lsp.common").capabilities(),
 		capabilities = require("lsp.common").capabilities(),
 		root_dir = function(fname)
 			local util = require("lspconfig.util")
