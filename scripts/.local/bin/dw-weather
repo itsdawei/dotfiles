@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Script name: dm-weather
+# Description: Simple graphical weather app
+# Dependencies: dmenu, curl, yad
+# GitLab: https://www.gitlab.com/dwt1/dmscripts
+# License: https://www.gitlab.com/dwt1/dmscripts/LICENSE
+# Contributors: HostGrady
+#               Derek Taylor
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+MENU="rofi -dmenu -no-fixed-num-lines -p"
+weather_locations=$(
+	cat <<EOF
+Los Angeles
+Evanston
+Wuhan
+EOF
+)
+
+# Here we obtain the location from the list in the config
+# As this is loaded from other file it is technically not defined
+_location="$(printf '%s\n' "${weather_locations}" | ${MENU} "Where do you want to see the weather?")"
+echo "$_location"
+
+# See https://wttr.in/:help for meaning
+# options="mFTQ1"
+options="mFTQ"
+
+# Curl wttr.in, a CLI weather app.
+curl -s "https://wttr.in/${_location// /%20}?${options}" | yad --text-info

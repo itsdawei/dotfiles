@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Inspired by https://www.gitlab.com/dwt1/dmscripts
+# Script name: dm-setbg
+# Description: A wallpaper setting utility using dmenu, imv and swaybg/xwallpaper
+# Dependencies: rofi, swww
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+MENU="rofi -dmenu -no-fixed-num-lines -no-custom"
+
+set_wallpaper="swww img"
+wall_dir="$HOME/wallpapers"
+
+choice="$(echo -e "Set\nRandom" | ${MENU})"
+case "$choice" in
+"Set")
+  # Read each line printed to stdin, imv behaves weird
+  imv "${wall_dir}" | while read -r wallpaper; do
+    $set_wallpaper "$wallpaper" # Sets the wallpaper and frees it from the process
+    notify-send "Wallpaper has been updated" "$wallpaper is the current wallpaper"
+  done
+  ;;
+"Random")
+  valid_paper="Reroll"
+  until [ "$valid_paper" = "Exit" ]; do
+    wallpaper=$(file --mime-type ${wall_dir}/* |
+      grep "image/" |
+      cut -d ":" -f 1 |
+      shuf -n 1)
+    $set_wallpaper "$wallpaper"
+    valid_paper="$(echo -e "Reroll\nExit" | ${MENU})"
+    echo $valid_paper
+  done
+  notify-send "Wallpaper has been updated" "$wallpaper is the current wallpaper"
+  ;;
+esac
