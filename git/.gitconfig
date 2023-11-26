@@ -1,0 +1,8 @@
+# This is Git's per-user configuration file.
+[user]
+	email = dhlee@usc.edu
+	name = itsdawei
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
