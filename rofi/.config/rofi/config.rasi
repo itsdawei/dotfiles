@@ -1,0 +1,39 @@
+// Config //
+configuration {
+  modes: [ combi ];
+  combi-modes: [ window, drun, run ];
+  show-icons:                  true;
+  display-drun:                "";
+  display-run:                 "";
+  display-filebrowser:         "";
+  display-window:              "";
+  drun-display-format:         "{name}";
+  window-format:               "{w}{t}";
+  font:                        "Mononoki 10";
+}
+
+@theme "gruvbox-light"
+
+listview {
+  columns: 2;
+}
+
+entry {
+  placeholder : "Type Here";
+}
+
+element {
+  padding: 5px;
+  spacing: 10px;
+  border: 0;
+  orientation: horizontal;
+  children: [ element-text, element-icon ];
+}
+
+element-icon {
+  size: 2.5em;
+}
+
+element-text {
+  vertical-align: 0.5;
+}

@@ -1,0 +1,113 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin": 5,
+    "spacing": 4,
+
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "tray"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+      "battery",
+      "temperature",
+      "cpu",
+      "memory",
+      "pulseaudio",
+      // "network",
+      "backlight",
+      // "keyboard-state",
+      "clock",
+      "idle_inhibitor",
+    ],
+
+    "custom/launcher": {
+      "format": "  ",
+      "on-click": "rofi -show drun",
+    },
+
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+        "1": "󰲠",
+        "2": "󰲢",
+        "3": "󰲤",
+        "4": "󰲦",
+        "5": "󰲨",
+        "6": "󰲪",
+        "7": "󰲬",
+        "8": "󰲮",
+        "9": "󰲰",
+        "10": "󰿬",
+        "-99": "",
+        "active": "",
+        "default": ""
+      },
+      "all-outputs": true,
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "hyprland/window": {
+      "format": " {}",
+      "rewrite": {
+        "(\\d\\. )?(.*) - Chromium": "<span color=\"#4285F4\"></span>  $2 ",
+        "nvim (.*)": "<span color=\"#57A143\"></span>  $1",
+        "nvim": "<span color=\"#57A143\">  Neovim</span> ",
+        "ranger(.*)": "<span color=\"#ffffff\"></span>  $1",
+        //"kitty (.*)": "<span color=\"#ffffff\"></span>  $1",
+        "Search(.*)": "<span color=\"#a855f7\"></span>  Search$1",
+      },
+      "max-length": 200,
+      "separate-outputs": true,
+    },
+
+
+    "tray": {
+      "spacing": 10
+    },
+    "battery": {
+      "format": "{icon} {capacity}%",
+      "format-icons": ["", "", "", "", "", "", "", "", "", ""],
+      "format-charging": " {capacity}%",
+      "tooltip": false,
+    },
+    "cpu": {
+       // "format": "{icon} {usage}%",
+       "format": " {}%",
+
+       "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    },
+    "memory": {
+      "interval": 30,
+      "format": "{used:0.1f}G/{total:0.1f}G "
+    },
+    "pulseaudio": {
+      "format": "{icon} {volume}%",
+      "format-bluetooth": "{icon} {volume}% ",
+      "format-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "default": ["", "", "󰕾", "󰕾", "󰕾", "", "", ""]
+      },
+      "scroll-step": 1,
+      "on-click": "pavucontrol"
+    },
+    "network": {
+      "interface": "wlp0s20f3",
+      "interval": 2,
+      "format": " {bandwidthDownBits}  {bandwidthUpBits}",
+   //   "format": "{ifname}",
+   //   "format-wifi": "  {essid}",
+   //   "format-ethernet": "{ipaddr}/{cidr} ",
+   //   "format-disconnected": "<span color='#b4befe'>󰖪 </span>No Network",
+    },
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{icon} {percent}%",
+      "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "clock": {
+      //"format": "{:%H:%M}",
+      "format": " {:%I:%M %p}",
+      //"format-alt": " {:%a %b %d}",
+      //"tooltip-format": "{:%d %B %H:%M}"
+    },
+}
