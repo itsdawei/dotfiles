@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Inspired by https://www.gitlab.com/dwt1/dmscripts
+# Script name: dm-websearch
+# Description: Search various search engines (inspired by surfraw).
+# Dependencies: dmenu, fzf, rofi, firefox
+
+# Set with the flags "-e", "-u","-o pipefail" cause the script to fail
+# if certain things happen, which is a good thing.  Otherwise, we can
+# get hidden bugs that are hard to discover.
+set -euo pipefail
+
+MENU="rofi -dmenu -no-fixed-num-lines -p"
+BROWSER="firefox"
+
+declare -Ag websearch
+websearch[google]="https://www.google.com/search?q="
+websearch[youtube]="https://www.youtube.com/results?search_query="
+websearch[github]="https://github.com/search?q="
+
+# Choosing a search engine by name from array above.
+engine=$(printf "%s\n" "${!websearch[@]}" | ${MENU} "Choose search engine")
+
+# Enter the query.
+query="$(${MENU} "Enter search query ($engine)" | jq -s -R -r @uri)"
+
+# Search with firefox.
+firefox --new-window "${websearch["${engine}"]}${query}"
