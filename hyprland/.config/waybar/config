@@ -1,5 +1,6 @@
 {
     "layer": "top",
+    "output": "!DP-6",
     "position": "top",
     "margin": 5,
     "spacing": 4,
