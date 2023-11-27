@@ -17,11 +17,11 @@ function M.setup()
 		completion = {
 			completeopt = "menu,menuone,preview,noselect",
 		},
-		-- experimental = {
-		-- 	ghost_text = false,
-		-- 	native_menu = false,
-		-- 	custom_menu = true,
-		-- },
+		experimental = {
+			ghost_text = false,
+			native_menu = false,
+			custom_menu = true,
+		},
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_extend(args.body)

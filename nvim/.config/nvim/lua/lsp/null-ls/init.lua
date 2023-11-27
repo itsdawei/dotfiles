@@ -48,6 +48,7 @@ function M.setup()
 		debounce = 150,
 		save_after_format = false,
 		sources = sources,
+    debug=true,
 	})
 end
 

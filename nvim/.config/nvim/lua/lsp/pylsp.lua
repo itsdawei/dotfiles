@@ -3,7 +3,6 @@ local M = {}
 function M.setup()
 	local opts = {
 		on_attach = require("lsp.common").on_attach,
-		-- capabilities = require("lsp.common").capabilities(),
 		capabilities = require("lsp.common").capabilities(),
 		root_dir = function(fname)
 			local util = require("lspconfig.util")
@@ -19,18 +18,22 @@ function M.setup()
 		end,
 		settings = {
 			pylsp = {
+				-- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+				-- configurationSources = {},
 				plugins = {
-					jedi_completion = { enabled = false },
-					jedi_hover = { enabled = false },
-					jedi_references = { enabled = false },
-					jedi_signature_help = { enabled = false },
-					jedi_symbols = { enabled = false, all_scopes = false },
-					pycodestyle = { enabled = false },
+					-- formatter options
+					-- black = { enable = true },
+					yapf = { enabled = true },
+					autopep8 = { enabled = false },
+					-- linter options
+					pylint = { enabled = true, executable = "pylint" },
 					pyflakes = { enabled = false },
-					pylint = { enabled = true },
-					-- pylint = { enabled = true , executable = "pylint"},
-					-- isort = { enabled = true },
-					-- yapf = { enabled = true },
+					pycodestyle = { enabled = false },
+					mccabe = { enabled = false },
+					-- auto-completion options
+					jedi_completion = { fuzzy = true },
+					-- import sorting
+					pyls_isort = { enabled = true },
 				},
 			},
 		},

@@ -17,7 +17,7 @@ MENU="rofi -dmenu -p"
 # - Remove "active" field
 WIFI_LIST=$(nmcli -f active,ssid dev wifi list |
 	tail -n +2 |
-  sort | 
+	sort |
 	uniq -u |
 	sort -k1,1r |
 	awk '{$1=$1};1' |

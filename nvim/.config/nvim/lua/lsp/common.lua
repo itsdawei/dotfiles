@@ -62,9 +62,7 @@ function M.capabilities()
       "additionalTextEdits",
     },
   }
-
   return require("cmp_nvim_lsp").default_capabilities(capabilities)
-  -- return require("cmp_nvim_lsp").default_capabilities()
 end
 
 function M.on_attach(client, bufnr)

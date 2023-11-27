@@ -15,9 +15,6 @@ require("autocmds").setup()
 -- autocmds.enable_transparent_mode()
 
 require("lsp").setup()
--- require("mason").setup()
--- require("mason-lspconfig").setup()
--- require("lsp.null-ls").setup()
 
 vim.g.mapleader = " "
 
