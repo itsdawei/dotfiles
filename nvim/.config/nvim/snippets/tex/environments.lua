@@ -23,7 +23,10 @@ return {
 		{ trig = "template" },
 		fmta(
 			[[
-        \documentclass[a4paper]{/home/dawei/.dotfiles/templates/preamble}
+        \documentclass[a4paper]{article}
+
+        \input{/home/dawei/.dotfiles/templates/preamble}
+        \input{/home/dawei/.dotfiles/templates/math_commands}
 
         \cfoot{\thepage}
         \lhead{Lee}
@@ -110,7 +113,7 @@ return {
 	),
 	-- EQUATION
 	s(
-		{ trig = "nn", snippetType = "autosnippet" },
+		{ trig = "beq", snippetType = "autosnippet" },
 		fmta(
 			[[
         \begin{equation*}
@@ -142,7 +145,7 @@ return {
 	),
 	-- ALIGN
 	s(
-		{ trig = "all", snippetType = "autosnippet" },
+		{ trig = "bal", snippetType = "autosnippet" },
 		fmta(
 			[[
         \begin{align*}
