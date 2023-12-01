@@ -220,9 +220,9 @@ local defaults = {
 	---@usage change or add keymappings for insert mode
 	insert_mode = {
 		-- For quitting insert mode.
-		["jk"] = "<ESC>",
-		["kj"] = "<ESC>",
-		["jj"] = "<ESC>",
+		-- ["jk"] = "<ESC>",
+		-- ["kj"] = "<ESC>",
+		-- ["jj"] = "<ESC>",
 	},
 	---@usage change or add keymappings for normal mode
 	normal_mode = {
