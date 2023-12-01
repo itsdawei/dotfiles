@@ -178,7 +178,7 @@ return {
 		{ trig = "enn", snippetType = "autosnippet" },
 		fmta(
 			[[
-        \begin{enumerate}
+        \begin{enumerate}[label=(\alph*)]
           \item <>
         \end{enumerate}
       ]],

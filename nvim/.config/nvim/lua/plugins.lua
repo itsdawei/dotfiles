@@ -30,7 +30,6 @@ return lazy.setup({
 			require("core.neotree").config()
 		end,
 	},
-	-- { "MunifTanjim/nui.nvim" },
 	{
 		"goolord/alpha-nvim",
 		config = function()
@@ -87,16 +86,16 @@ return lazy.setup({
 			"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		},
 	},
-	-- Sources
 	{ "hrsh7th/cmp-cmdline" },
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "kdheepak/cmp-latex-symbols", ft = "tex" },
+
 	-- Snippets
 	{
 		"L3MON4D3/LuaSnip",
 		module = { "luasnip", "LuaSnip" },
 		config = function()
-			require("luasnip.loaders.from_snipmate").lazy_load()
+      require("core.luasnip")
 		end,
 	},
 	{ "nvim-lua/popup.nvim" },
@@ -119,14 +118,6 @@ return lazy.setup({
 			{ "nvim-telescope/telescope-frecency.nvim" },
 		},
 	},
-	{ "nvim-telescope/telescope-fzf-native.nvim" },
-	{ "nvim-telescope/telescope-file-browser.nvim" },
-	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{ "nvim-telescope/telescope-live-grep-args.nvim" },
-	{ "xiyaowong/telescope-emoji.nvim" },
-	{ "nvim-telescope/telescope-media-files.nvim" },
-	{ "nvim-telescope/telescope-project.nvim" },
-	{ "nvim-telescope/telescope-frecency.nvim" },
 
 	-- Autopairs
 	{
@@ -233,13 +224,13 @@ return lazy.setup({
 	},
 
 	-- Outline
-	-- {
-	-- 	"liuchengxu/vista.vim",
-	-- 	setup = function()
-	-- 		require("core.vista").config()
-	-- 	end,
-	-- 	event = "BufReadPost",
-	-- },
+	{
+		"liuchengxu/vista.vim",
+		setup = function()
+			require("core.vista").config()
+		end,
+		event = "BufReadPost",
+	},
 
 	-- diffview
 	{
@@ -311,21 +302,6 @@ return lazy.setup({
 		ft = { "text", "log" },
 	},
 
-	-- smooth scrolling
-	{
-		"declancm/cinnamon.nvim",
-		config = function()
-			require("cinnamon").setup({
-				default_keymaps = true,
-				extra_keymaps = true,
-				extended_keymaps = false,
-				centered = true,
-				scroll_limit = 100,
-			})
-		end,
-		event = "BufRead",
-	},
-
 	-- indent line
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -340,13 +316,13 @@ return lazy.setup({
 
 	-- Colorscheme
 	{ "sainnhe/gruvbox-material" },
-
 	{
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
 	},
+
 	{
 		"nvim-orgmode/orgmode",
 		config = function()

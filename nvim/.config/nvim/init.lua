@@ -16,7 +16,7 @@ require("settings").setup()
 require("autocmds").setup()
 
 -- load snippets.
-require("core.luasnip")
+-- require("core.luasnip")
 
 require("lsp").setup()
 

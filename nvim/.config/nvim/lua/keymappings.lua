@@ -204,14 +204,14 @@ local wk_settings = {
 			w = { "<cmd>Trouble workspace_diagnostics<cr>", "Diagnostics" },
 		},
 		-- Symbols (https://github.com/liuchengxu/vista.vim)
-		v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
+		-- v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
 		-- Harpoon (https://github.com/ThePrimeagen/harpoon)
-		-- a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
-		-- ["<leader>"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", " Harpoon" },
-		-- ["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
-		-- ["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", " goto2" },
-		-- ["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
-		-- ["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
+		a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
+		["<leader>"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", " Harpoon" },
+		["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
+		["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", " goto2" },
+		["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
+		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
 		P = { "<cmd>Telescope project<CR>", " Projects" },
 	},
 }
@@ -227,10 +227,10 @@ local defaults = {
 	---@usage change or add keymappings for normal mode
 	normal_mode = {
 		-- Better window movement
-		-- ["<C-h>"] = "<C-w>h",
-		-- ["<C-j>"] = "<C-w>j",
-		-- ["<C-k>"] = "<C-w>k",
-		-- ["<C-l>"] = "<C-w>l",
+		["<C-h>"] = "<C-w>h",
+		["<C-j>"] = "<C-w>j",
+		["<C-k>"] = "<C-w>k",
+		["<C-l>"] = "<C-w>l",
 
 		-- Resize with arrows
 		["<C-Up>"] = ":resize -2<CR>",

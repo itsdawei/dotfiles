@@ -8,7 +8,7 @@
 
 window#waybar {
   background-color: transparent;
-  color: #ffffff;
+  color: white;
   border-top: 8px transparent;
   border-radius: 0px;
   margin: 16px 16px;
@@ -30,28 +30,32 @@ window#waybar.chromium {
 
 #workspaces button {
   padding: 0 5px;
-  color: #ffffff;
+  color: white;
+}
+
+#workspaces button.active {
+  border-bottom: 3px solid green;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
   background: rgba(0, 0, 0, 0.2);
   box-shadow: none;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid white;
 }
 
 #workspaces button.focused {
   background-color: #64727d;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid white;
 }
 
 #workspaces button.urgent {
-  background-color: #eb4d4b;
+  background-color: red;
 }
 
 #mode {
   background-color: #64727d;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid white;
 }
 
 #workspaces button,
@@ -69,7 +73,7 @@ window#waybar.chromium {
 #idle_inhibitor {
   padding: 0 10px;
   margin: 0 4px;
-  color: #ffffff;
+  color: white;
   background-color: rgba(255, 255, 255, 0.1);
   border-bottom: 3px solid rgba(255, 255, 255, 0.2);
 }

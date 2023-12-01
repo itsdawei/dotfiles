@@ -39,7 +39,7 @@
         "9": "󰲰",
         "10": "󰿬",
         "-99": "",
-        "active": "",
+        // "active": "",
         "default": ""
       },
       "all-outputs": true,
@@ -60,7 +60,6 @@
       "separate-outputs": true,
     },
 
-
     "tray": {
       "spacing": 10
     },
@@ -72,8 +71,7 @@
     },
     "cpu": {
        // "format": "{icon} {usage}%",
-       "format": " {}%",
-
+       "format": "{usage}% ",
        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     },
     "memory": {
@@ -101,7 +99,6 @@
    //   "format-disconnected": "<span color='#b4befe'>󰖪 </span>No Network",
     },
     "backlight": {
-      "device": "intel_backlight",
       "format": "{icon} {percent}%",
       "format-icons": ["", "", "", "", "", "", "", "", ""]
     },

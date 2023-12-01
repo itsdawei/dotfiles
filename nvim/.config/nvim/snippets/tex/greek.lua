@@ -101,4 +101,8 @@ return {
 	s({ trig = ";W", snippetType = "autosnippet" }, {
 		t("\\Omega"),
 	}),
+  -- TODO: What is a good trig for nabla?
+	-- s({ trig = "nab", snippetType = "autosnippet" }, {
+	-- 	t("\\nabla"),
+	-- }),
 }
