@@ -71,7 +71,7 @@ return {
 		}),
 		{ condition = tex.in_mathzone }
 	),
-	-- SUBSCRIPT SHORTCUT
+	-- SUBSCRIPT
 	-- Places the first alphanumeric character after the trigger into a subscript.
 	s(
 		{ trig = "([%w%)%]%}]):([%w])", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
@@ -85,13 +85,10 @@ return {
 		}),
 		{ condition = tex.in_mathzone }
 	),
-	-- EULER'S NUMBER SUPERSCRIPT SHORTCUT
+	-- EULER'S NUMBER SUPERSCRIPT
 	s(
 		{ trig = "([^%a])ee", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
-		fmta("<>e^{<>}", {
-			f(function(_, snip)
-				return snip.captures[1]
-			end),
+		fmta("\\exp\\left(<>\\right)", {
 			d(1, get_visual),
 		}),
 		{ condition = tex.in_mathzone }
@@ -126,28 +123,6 @@ return {
 				return snip.captures[1]
 			end),
 			t("j"),
-		}),
-		{ condition = tex.in_mathzone }
-	),
-	-- PLUS SUPERSCRIPT SHORTCUT
-	s(
-		{ trig = "([%a%)%]%}])%+%+", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
-		fmta("<>^{<>}", {
-			f(function(_, snip)
-				return snip.captures[1]
-			end),
-			t("+"),
-		}),
-		{ condition = tex.in_mathzone }
-	),
-	-- COMPLEMENT SUPERSCRIPT
-	s(
-		{ trig = "([%a%)%]%}])CC", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
-		fmta("<>^{<>}", {
-			f(function(_, snip)
-				return snip.captures[1]
-			end),
-			t("\\complement"),
 		}),
 		{ condition = tex.in_mathzone }
 	),
@@ -456,9 +431,9 @@ return {
 	s({ trig = "stm", snippetType = "autosnippet" }, {
 		t("\\setminus "),
 	}),
-	-- SUBSET, i.e. \subset
+	-- SUBSET
 	s({ trig = "sbb", snippetType = "autosnippet" }, {
-		t("\\subset "),
+		t("\\subseteq "),
 	}),
 	-- APPROX, i.e. \approx
 	s({ trig = "px", snippetType = "autosnippet" }, {

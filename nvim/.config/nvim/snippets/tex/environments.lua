@@ -40,6 +40,40 @@ return {
 			{ i(0) }
 		)
 	),
+	s(
+		{ trig = "presentation" },
+		fmta(
+			[[
+        \documentclass[notes=hide]{beamer}
+
+        \input{/home/dawei/.dotfiles/templates/pre_preamble}
+        \input{/home/dawei/.dotfiles/templates/math_commands}
+
+        \addbibresource{refs.bib}
+
+        \usetheme{Madrid}
+        % \usetheme{Boadilla}
+        % \usecolortheme{default}
+
+        \title[Short title]{Title}
+        \author{David Haolong Lee}
+
+        \AtBeginSection[]{
+          \begin{frame}
+            \frametitle{Table of Contents}
+            \tableofcontents[currentsection]
+          \end{frame}
+        }
+
+        \begin{document}
+
+        \frame{\titlepage}
+        <>
+        \end{document}
+      ]],
+			{ i(0) }
+		)
+	),
 	-- GENERIC ENVIRONMENT
 	s(
 		{ trig = "beg", snippetType = "autosnippet" },
@@ -253,5 +287,20 @@ return {
 			}
 		),
 		{ condition = line_begin }
+	),
+	-- FRAME (Only for Beamer)
+	s(
+		{ trig = "bfr", snippetType = "autosnippet" },
+		fmta(
+			[[
+        \begin{frame}{<>}
+          <>
+        \end{frame}
+      ]],
+			{
+				i(1),
+				i(2),
+			}
+		)
 	),
 }
