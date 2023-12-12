@@ -95,7 +95,7 @@ return lazy.setup({
 		"L3MON4D3/LuaSnip",
 		module = { "luasnip", "LuaSnip" },
 		config = function()
-      require("core.luasnip")
+			require("core.luasnip")
 		end,
 	},
 	{ "nvim-lua/popup.nvim" },
@@ -108,7 +108,7 @@ return lazy.setup({
 		end,
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim" },
+			-- { "nvim-telescope/telescope-fzf-native.nvim" },
 			{ "nvim-telescope/telescope-file-browser.nvim" },
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 			{ "nvim-telescope/telescope-live-grep-args.nvim" },
@@ -117,6 +117,10 @@ return lazy.setup({
 			{ "nvim-telescope/telescope-project.nvim" },
 			{ "nvim-telescope/telescope-frecency.nvim" },
 		},
+	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 	},
 
 	-- Autopairs

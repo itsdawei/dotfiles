@@ -1,11 +1,14 @@
-{
+[{
     "layer": "top",
-    "output": "!DP-6",
+    "output": "!DP-5",
     "position": "top",
-    "margin": 5,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": -5,
     "spacing": 4,
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "tray"],
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "tray", "hyprland/submap"],
     "modules-center": ["hyprland/window"],
     "modules-right": [
       "battery",
@@ -15,14 +18,13 @@
       "pulseaudio",
       // "network",
       "backlight",
-      // "keyboard-state",
       "clock",
-      "idle_inhibitor",
+      "idle_inhibitor"
     ],
 
     "custom/launcher": {
       "format": "  ",
-      "on-click": "rofi -show drun",
+      "on-click": "rofi -show drun"
     },
 
     "hyprland/workspaces": {
@@ -49,19 +51,21 @@
     "hyprland/window": {
       "format": " {}",
       "rewrite": {
-        "(\\d\\. )?(.*) - Chromium": "<span color=\"#4285F4\"></span>  $2 ",
-        "nvim (.*)": "<span color=\"#57A143\"></span>  $1",
-        "nvim": "<span color=\"#57A143\">  Neovim</span> ",
-        "ranger(.*)": "<span color=\"#ffffff\"></span>  $1",
-        //"kitty (.*)": "<span color=\"#ffffff\"></span>  $1",
-        "Search(.*)": "<span color=\"#a855f7\"></span>  Search$1",
+        "(.*) — Mozilla Firefox": " $1", 
+        "(.*) - fish": "  [$1]",
+        "(.*) - (nn|nvim)": "<span color=\"#5af78e\">  Neovim</span> ",
+        "ranger(.*)": "  $1"
       },
       "max-length": 200,
-      "separate-outputs": true,
+      "separate-outputs": true
+    },
+    "hyprland/submap": {
+      "format": "✌️ {}",
+      "tooltip": false
     },
 
     "tray": {
-      "spacing": 10
+      "spacing": 8
     },
     "battery": {
       "format": "{icon} {capacity}%",
@@ -70,9 +74,7 @@
       "tooltip": false,
     },
     "cpu": {
-       // "format": "{icon} {usage}%",
-       "format": "{usage}% ",
-       "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+       "format": "{usage}% "
     },
     "memory": {
       "interval": 30,
@@ -103,9 +105,67 @@
       "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "clock": {
+      "format": " {:%I:%M %p}"
+    }
+},
+{
+    "layer": "top",
+    "output": "DP-5",
+    "position": "top",
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": -5,
+    "spacing": 4,
+
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["clock"],
+
+    "custom/launcher": {
+      "format": "  ",
+      "on-click": "rofi -show drun"
+    },
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+        "1": "󰲠",
+        "2": "󰲢",
+        "3": "󰲤",
+        "4": "󰲦",
+        "5": "󰲨",
+        "6": "󰲪",
+        "7": "󰲬",
+        "8": "󰲮",
+        "9": "󰲰",
+        "10": "󰿬",
+        "-99": "",
+        // "active": "",
+        "default": ""
+      },
+      "all-outputs": true,
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+    },
+    "hyprland/window": {
+      "format": " {}",
+      "rewrite": {
+        "(.*) — Mozilla Firefox": " $1", 
+        "(.*) - fish": "  [$1]",
+        "(.*) - (nn|nvim)": "<span color=\"#5af78e\">  Neovim</span> ",
+        "ranger(.*)": "  $1"
+      },
+      "max-length": 200,
+      "separate-outputs": true
+    },
+    "hyprland/submap": {
+      "format": "✌️ {}",
+      "tooltip": false
+    },
+    "clock": {
       //"format": "{:%H:%M}",
-      "format": " {:%I:%M %p}",
       //"format-alt": " {:%a %b %d}",
       //"tooltip-format": "{:%d %B %H:%M}"
-    },
-}
+      "format": " {:%I:%M %p}"
+    }
+}]

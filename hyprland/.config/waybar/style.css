@@ -11,22 +11,11 @@ window#waybar {
   color: white;
   border-top: 8px transparent;
   border-radius: 0px;
-  margin: 16px 16px;
 }
 
 window#waybar.hidden {
   opacity: 0.2;
 }
-
-/*
-window#waybar.empty { background-color: transparent; }
-window#waybar.solo { background-color: #FFFFFF; }
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
-}
-*/
 
 #workspaces button {
   padding: 0 5px;
@@ -71,7 +60,7 @@ window#waybar.chromium {
 #tray,
 #mode,
 #idle_inhibitor {
-  padding: 0 10px;
+  padding: 0 8px;
   margin: 0 4px;
   color: white;
   background-color: rgba(255, 255, 255, 0.1);

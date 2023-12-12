@@ -118,8 +118,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="143.539606529896"
-         height="93.679014190914" />
+         width="6.06771739449088"
+         height="4.57850628950465" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -155,12 +155,12 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="7.55905532836914"
-         ry="7.55905532836914"
+         rx="0.188976380768723"
+         ry="0.188976380768723"
          arc_type="0" />
       <eventcontext
          id="star"
-         magnitude="8"
+         magnitude="3"
          style="fill:yellow;"
          usecurrent="1"
          isflatsided="1" />
@@ -189,7 +189,7 @@
          style="stroke-width:1px;"
          usecurrent="1"
          shape="0"
-         freehand-mode="2" />
+         freehand-mode="0" />
     </group>
     <eventcontext
        id="calligraphic"
@@ -321,8 +321,9 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/()"
        show_sample_in_list="1"
        use_svg2="1"
-       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;"
-       selcue="1" />
+       style="line-height:1.25;font-family:sans-serif;font-size:2.66666667px"
+       selcue="1"
+       align_mode="1" />
     <eventcontext
        id="nodes"
        selcue="1"
@@ -338,8 +339,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="177.205621417323"
-       y="73.4381820472441"
+       x="145.650132651444"
+       y="656.798133705549"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -580,7 +581,7 @@
        id="toolbox" />
     <group
        id="fillstroke"
-       page="1" />
+       page="2" />
     <group
        id="filtereffects" />
     <group
@@ -590,7 +591,8 @@
        applyseparately="0"
        rotateCounterClockwise="1" />
     <group
-       id="align" />
+       id="align"
+       objects-align-to="first" />
     <group
        id="xml"
        h="500"
@@ -608,7 +610,7 @@
     <group
        id="preferences"
        state="1"
-       page="48" />
+       page="2" />
     <group
        id="gradienteditor" />
     <group
@@ -621,12 +623,15 @@
        defaultopts="1">
       <group
          id="exportarea"
-         value="drawing" />
+         value="selection" />
       <group
          id="defaultxdpi" />
       <group
          id="batchexportarea"
          value="layer" />
+      <group
+         id="defaultdpi"
+         value="600" />
     </group>
     <group
        id="save_as"
@@ -644,11 +649,11 @@
     <group
        id="open"
        enable_preview="1"
-       path="/home/dawei/.cache/inkscape" />
+       path="/home/dawei/Documents/talks/GNN_Talk_Assets/" />
     <group
        id="import"
        enable_preview="1"
-       path="/home/dawei/dev/density_descent_search/experiments/final_data/lin_proj/dds_kde/trial_0/"
+       path="/home/dawei/Downloads/"
        ask="1"
        ask_svg="1"
        link="embed"
@@ -660,7 +665,10 @@
        redirect="0" />
     <group
        id="clonetiler"
-       dotrace="0" />
+       dotrace="0"
+       fillrect="0"
+       jmax="1"
+       imax="3" />
     <group
        id="gridtiler"
        SpacingType="20" />
@@ -705,7 +713,7 @@
        dialogmode="0" />
     <group
        id="layerProp"
-       addLayerPosition="0" />
+       addLayerPosition="1" />
   </group>
   <group
      id="printing">
@@ -870,7 +878,7 @@
     <group
        id="transform"
        stroke="1"
-       rectcorners="1"
+       rectcorners="0"
        pattern="1"
        gradient="1" />
     <group
@@ -995,7 +1003,8 @@
          id="shown"
          ver1.2.2="1"
          ver1.3="1"
-         ver1.3.1="1" />
+         ver1.3.1="1"
+         ver1.3.2="1" />
     </group>
     <group
        id="rendering" />
@@ -1003,6 +1012,9 @@
        id="threading" />
     <group
        id="ruler" />
+    <group
+       id="snapping"
+       snap-global-toggle="1" />
   </group>
   <group
      id="extensions"
@@ -1018,16 +1030,17 @@
      org.inkscape.render.grid_cartesian.dy_unit="mm"
      org.inkscape.render.grid_cartesian.y_div_unit="px"
      org.inkscape.filter.add_nodes.method="bymax"
-     org.inkscape.filter.add_nodes.unit="px" />
+     org.inkscape.filter.add_nodes.unit="px"
+     org.inkscape.input.svg.scale="auto" />
   <group
      id="desktop"
-     style="fill:none;font-size:10.66666667px;-inkscape-font-specification:sans-serif;font-family:sans-serif;stroke-width:1.13385827;stroke-linejoin:round;stroke:#000000">
+     style="fill:none;font-size:0.46666667px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-width:2.66456693;stroke-linejoin:round;text-anchor:middle;text-align:center;stroke:#000000">
     <group
-       width="1876"
-       height="1127"
+       width="1894"
+       height="1037"
        x="0"
        y="0"
-       maximized="0"
+       maximized="1"
        fullscreen="0"
        id="geometry" />
     <group
@@ -1174,4 +1187,7 @@
   <group
      id="color_scales"
      wheel_vis_hsl="1" />
+  <group
+     id="pattern-edit"
+     currentSet="0" />
 </inkscape>

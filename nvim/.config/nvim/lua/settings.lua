@@ -144,8 +144,8 @@ function M.setup()
 		"spellfile_plugin",
 		"vimball",
 		"vimballPlugin",
-		"zip",
-		"zipPlugin",
+		-- "zip",
+		-- "zipPlugin",
 	}
 	for _, plugin in pairs(disabled_plugins) do
 		vim.g["loaded_" .. plugin] = 1
