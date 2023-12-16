@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+todo="/home/dawei/Documents/todo.txt"
+
+echo $(jq -Rn '[inputs | {task: (.[3:] | sub("^ +"; "") | sub(" +$"; "")), done: test("\\[x\\]")}] | sort_by(.done)' $todo) 
+while true; do
+  inotifywait -e modify $todo > /dev/null 2>&1 
+  echo $(jq -Rn '[inputs | {task: (.[3:] | sub("^ +"; "") | sub(" +$"; "")), done: test("\\[x\\]")}] | sort_by(.done)' $todo) 
+done

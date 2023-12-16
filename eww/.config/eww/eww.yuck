@@ -1,0 +1,142 @@
+;; ** Variables ***********************************************************************
+
+(deflisten workspaces :initial "[]" "scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "scripts/get-active-workspace")
+
+;; (defpoll volume :interval "1s" "scripts/volumecontrol")
+
+(defpoll volume :interval "2s" "scripts/get-volume")
+(defpoll micro :interval "2s" "scripts/get-micro")
+(defpoll brightness :interval "2s" "light -G")
+
+(defpoll quote :interval "3600s" "fortune -n 90 -s")
+
+(deflisten todolist :initial "[]" "scripts/get-todo")
+
+;; ** Widgets *************************************************************************
+
+;; hyprland workspaces
+(defwidget workspaces []
+  (eventbox :onscroll "scripts/change-active-workspace {} ${current_workspace}"
+    (box :class "workspaces" :space-evenly false
+      (label :text "${workspaces} ${current_workspace}" :visible false) ;; debug
+        (for workspace in workspaces
+          (button :class "ws-btn ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                  :onclick "hyprctl dispatch workspace ${workspace.id}"
+            "${workspace.id}")))))
+
+;; volume
+(defwidget volume []
+  (box :class "volume"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button :onclick "pavucontrol &" volume)))
+
+;; quote of the day
+(defwidget quote [] (label :class "quote" :text "${quote}"))
+
+(defvar show_todo false)
+(defwidget todolist []
+  (box :orientation "v" :space-evenly false :spacing 5
+    (box :spacing 10
+      (button :class "todo controls" :onclick "eww update show_todo=${!show_todo}" "  show todo")
+      (button :class "todo controls" :onclick "kitty -e nvim ~/Documents/todo.txt &" "  edit todo"))
+    (revealer :reveal show_todo :transition "slidedown"
+      (box :orientation "v" :spacing 5
+        (for todo in todolist
+          (eventbox :onclick "scripts/toggle-todo ${todo.task}"
+                    :onrightclick "notify-send 'Delete ${todo.task}'"
+            (label :class "todo ${todo.done ? "done": ""}"
+                   :xalign 0
+                   :justify "left"
+                   :text "${todo.done ? " " : " "} ${todo.task}")))))))
+
+;; controls for volume and brightness
+(defwidget controls []
+  (box :class "dashboard" :orientation "v" :space-evenly false :spacing -10
+    (box :class "volume" :orientation "h" :space-evenly false
+      (label :class "icon volume-icon" :text " ")
+      (scale :class "volbar"
+             :orientation "h"
+             :min 0 :max 101
+             :value volume
+             :tooltip "Volume: ${volume}%"
+             :onchange "amixer -D pulse sset Master {}%"))
+    (box :class "brightness" :orientation "h" :space-evenly false
+      (label :class "icon brightness-icon" :text " ")
+      (scale :class "bribar"
+             :orientation "h"
+             :min 0 :max 101 
+             :onchange "light -S {}%"
+             :value brightness
+             :tooltip "Brightness: ${brightness}%"))
+    (box :class "mic" :orientation "h" :space-evenly false
+      (label :class "icon mic-icon" :text " ")
+      (scale :class "micbar"
+             :orientation "h"
+             :min 0 :max 101
+             :onchange "amixer -D pulse sset Capture {}%"
+             :value micro
+             :tooltip "Microphone Volume: ${micro}%"))
+    (box :class "apps" :oretiation "h" :space-evenly true
+      (icon_btn :name "terminal" :icon " " :cmd "kitty")
+      (icon_btn :name "firefox" :icon " ")
+      (icon_btn :name "folder" :icon "󰝰 " :cmd "dolphin")
+      (icon_btn :name "inkscape" :icon " " :cmd "inkscape"))
+    (box :class "todolist" :orientation "h" (todolist))
+    )
+  )
+
+(defwidget icon_btn [name icon ?cmd]
+      (button :class "${name}-icon icon"
+              :tooltip "${cmd}"
+              :onclick "${cmd ?: name} &" "${icon}")
+)
+
+;; ** Windows *************************************************************************
+
+;; bar
+(defwindow bar :monitor 1
+           :geometry (geometry :x "0"
+                               :y "0"
+                               :width "100%"
+                               :height "5px"
+                               :anchor "top center")
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+  (box :class "bar" :space-evenly true
+    (box :class "left-bar"
+      (workspaces))
+    (box :class "right-bar" :spacing 10 :halign "end"
+      (volume)
+    ;; (updates)
+    ;; (scratchpad-indicator)
+    ;; (language)
+    ;; (idleinhibit)
+    ;; (bright)
+    ;; (net)
+    ;; (battery)
+      )))
+
+(defwindow quote :monitor 1
+                 :geometry (geometry :x "5%"
+                                     :y "10%"
+                                     :width "10%"
+                                     :height "5px"
+                                     :anchor "bottom right")
+                 :stacking "bg"
+                 :focusable false
+  (quote))
+
+(defwindow dashboard :monitor 1
+                     :geometry (geometry :x "2%"
+                                         :y "3%" 
+                                         :width "10%" 
+                                         :height "10%"
+                                         :anchor "top right")
+                     :stacking "bg"
+                     :focusable false
+  (controls))

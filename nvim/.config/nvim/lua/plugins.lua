@@ -355,4 +355,5 @@ return lazy.setup({
 			})
 		end,
 	},
+	{ "elkowar/yuck.vim" },
 })

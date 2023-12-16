@@ -1,0 +1,127 @@
+@import "./colors/gruvbox_dark";
+
+* {
+  all: unset;
+  font-family: Mononoki Nerd Font;
+}
+
+.bar {
+  font-size: 12px;
+  background-color: rgba($bg, 0.85);
+  color: $fg;
+}
+
+.workspaces button {
+  padding: 0 8px;
+  margin: 0 4px;
+  border-bottom: 3px solid rgba($gray, 0.4);
+  color: $fg;
+  &.occupied {
+    border-bottom: 3px solid $fg;
+  }
+  &.current {
+    color: $green;
+    border-bottom: 3px solid $green;
+  }
+}
+
+.workspaces button:hover {
+  background: $bg;
+  border-bottom: 3px solid $fg;
+}
+
+@mixin system-info() {
+  margin: 0.5em 0;
+
+  scale trough {
+    background-color: $bg;
+    border-radius: 10px;
+    min-height: 0.8em;
+    min-width: 15em;
+  }
+
+  highlight {
+    border-radius: 10px;
+  }
+}
+
+.dashboard {
+  padding: 0 2rem;
+
+  .icon {
+    font-size: 26px;
+  }
+
+  .volume {
+    @include system-info();
+    .volume-icon {
+      color: $green;
+      margin: 0 0.45rem 0 0.1rem;
+    }
+
+    .volbar trough highlight {
+      background-image: linear-gradient(to right, #87c7a1, $green);
+    }
+  }
+  .brightness {
+    @include system-info();
+
+    .brightness-icon {
+      color: $yellow;
+      margin: 0 0.5rem 0 0;
+    }
+
+    .bribar trough highlight {
+      background-image: linear-gradient(to right, #de8f78, $yellow);
+    }
+  }
+  .mic {
+    @include system-info();
+
+    .mic-icon {
+      color: $blue;
+      margin: 0 0.2rem 0 0.4rem;
+    }
+
+    .micbar trough highlight {
+      background-image: linear-gradient(to right, $blue, $bg_blue);
+    }
+  }
+
+  .apps {
+    margin: 1rem 1rem;
+    .firefox-icon {
+      font-size: 20px;
+      color: $yellow;
+    }
+    .terminal-icon {
+      color: $green;
+    }
+    .folder-icon {
+      color: $blue;
+    }
+    .inkscape-icon {
+      font-size: 20px;
+      color: $purple;
+    }
+  }
+
+  .todolist {
+    margin: 0.5rem 0;
+    .todo {
+      background: $bg;
+      color: $yellow;
+      padding: 4px 10px;
+      border-bottom: 3px solid $yellow;
+      border-radius: 5px;
+      &.done {
+        color: $green;
+        border-bottom: 3px solid $green;
+      }
+      &.controls {
+        color: $blue;
+        border-bottom: 3px solid $blue;
+      }
+    }
+  }
+}

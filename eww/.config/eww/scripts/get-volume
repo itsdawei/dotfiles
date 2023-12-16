@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo $(amixer get Master | awk '/%/{gsub(/[\[\]%]/, ""); print $5; exit}')

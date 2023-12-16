@@ -7,7 +7,7 @@
 - Terminal: [kitty](https://sw.kovidgoyal.net/kitty/) + [tmux](https://github.com/tmux/tmux/wiki)
 - Shell: [fish](https://fishshell.com/)
 - Editor: [neovim](https://neovim.io/)
-- Broswer: [firefox](https://www.mozilla.org/en-US/firefox/new/)
+- Browser: [firefox](https://www.mozilla.org/en-US/firefox/new/)
 - File Manager: [ranger](https://github.com/ranger/ranger)
 
 Other applications in the workflow is found at (TODO add files).

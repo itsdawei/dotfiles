@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+todo="/home/dawei/Documents/todo.txt"
+
+# Get the current state of the task
+current_state=$(grep "$1" $todo | grep -o '\[.\]')
+
+if [ "$current_state" = "[ ]" ]; then
+  # Toggle to "[x]"
+  # new_state="[x]"
+  sed -i "/$1/s/\[ \]/\[x\]/" $todo
+elif [ "$current_state" = "[x]" ]; then
+  # Toggle to "[ ]"
+  # new_state="[ ]"
+  sed -i "/$1/s/\[x\]/\[ \]/" $todo
+else
+  echo "Task not found"
+fi
+
+# line=$(grep "$1" $todo | sed 's/[][]/\\&/g')
+# echo $line
+
+# Remove old task
+# sed -i "/$1/d" $todo
+
+# Add new task
+# echo "$new_state $1" >> $todo

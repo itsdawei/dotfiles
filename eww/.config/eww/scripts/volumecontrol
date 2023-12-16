@@ -1,0 +1,10 @@
+#!/bin/bash
+
+volume=$(amixer get Master | awk '/%/{gsub(/[\[\]%]/, ""); print $5; exit}')
+# is_mute=$(amixer get Master | awk '/%/{gsub(/[\[\]]/, ""); print $6; exit}')
+icons=(  󰕾 󰕾 󰕾    )
+
+declare -i vol=$(volume)
+i=$((vol / (100 / 7)))
+
+echo "${icons[$i]} $(volume)%"
