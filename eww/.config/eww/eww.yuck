@@ -98,7 +98,7 @@
 ;; ** Windows *************************************************************************
 
 ;; bar
-(defwindow bar :monitor 1
+(defwindow bar :monitor 0
            :geometry (geometry :x "0"
                                :y "0"
                                :width "100%"
@@ -120,6 +120,26 @@
     ;; (net)
     ;; (battery)
       )))
+
+(defwindow quote :monitor 0
+                 :geometry (geometry :x "5%"
+                                     :y "10%"
+                                     :width "10%"
+                                     :height "5px"
+                                     :anchor "bottom right")
+                 :stacking "bg"
+                 :focusable false
+  (quote))
+
+(defwindow dashboard :monitor 0
+                     :geometry (geometry :x "2%"
+                                         :y "3%" 
+                                         :width "10%" 
+                                         :height "10%"
+                                         :anchor "top right")
+                     :stacking "bg"
+                     :focusable false
+  (controls))
 
 (defwindow quote :monitor 1
                  :geometry (geometry :x "5%"

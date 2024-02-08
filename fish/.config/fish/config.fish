@@ -1,4 +1,4 @@
-set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $HOME/.local/bin $HOME/Applications
+set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/local/avr/bin /usr/local/sbin $HOME/.local/bin $HOME/Applications $HOME/.dotnet/tools
 set TERM "screen-256color"             # Sets the terminal type
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
 set JAVA_HOME = /usr/bin/java

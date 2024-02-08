@@ -6,3 +6,6 @@
 	rebase = false
 [push]
 	autoSetupRemote = true
+[safe]
+	directory = /home/dawei/dev/momo/dpp_qd
+	directory = /home/dawei/dev/tengen/dpp_qd

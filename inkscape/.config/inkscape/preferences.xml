@@ -155,8 +155,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="0.188976380768723"
-         ry="0.188976380768723"
+         rx="2.31549455961869"
+         ry="2.30400000579788"
          arc_type="0" />
       <eventcontext
          id="star"
@@ -312,7 +312,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="mm"
+       unit="in"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -649,7 +649,7 @@
     <group
        id="open"
        enable_preview="1"
-       path="/home/dawei/Documents/talks/GNN_Talk_Assets/" />
+       path="/home/dawei/Downloads" />
     <group
        id="import"
        enable_preview="1"
@@ -1034,10 +1034,10 @@
      org.inkscape.input.svg.scale="auto" />
   <group
      id="desktop"
-     style="fill:none;font-size:0.46666667px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-width:2.66456693;stroke-linejoin:round;text-anchor:middle;text-align:center;stroke:#000000">
+     style="fill:#000000;font-size:0.46666667px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-width:0.96;stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers">
     <group
        width="1894"
-       height="1037"
+       height="1035"
        x="0"
        y="0"
        maximized="1"

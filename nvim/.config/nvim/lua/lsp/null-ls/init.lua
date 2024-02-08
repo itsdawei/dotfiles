@@ -7,11 +7,14 @@ function M.setup()
 	end
 
 	local sources = {
-    -- Prettier
-    null_ls.builtins.formatting.prettier,
+		-- Prettier
+		null_ls.builtins.formatting.prettier,
 
 		-- CMake
 		null_ls.builtins.formatting.cmake_format,
+
+		-- C#
+		null_ls.builtins.formatting.csharpier,
 
 		-- SQL
 		-- null_ls.builtins.formatting.sqlformat,
@@ -20,8 +23,8 @@ function M.setup()
 		null_ls.builtins.formatting.stylua,
 
 		-- Latex
-    -- null_ls.builtins.diagnostics.chktex,
-    -- null_ls.builtins.formatting.latexindent,
+		-- null_ls.builtins.diagnostics.chktex,
+		-- null_ls.builtins.formatting.latexindent,
 
 		-- Markdown
 		null_ls.builtins.diagnostics.markdownlint.with({
@@ -37,10 +40,10 @@ function M.setup()
 		null_ls.builtins.formatting.yapf,
 		null_ls.builtins.formatting.isort,
 
-    -- Refactoring
+		-- Refactoring
 		null_ls.builtins.code_actions.refactoring.with({
 			filetypes = { "typescript", "javascript", "lua", "c", "cpp", "go", "python", "java", "php" },
-		})
+		}),
 	}
 
 	null_ls.setup({
@@ -48,7 +51,7 @@ function M.setup()
 		debounce = 150,
 		save_after_format = false,
 		sources = sources,
-    debug=true,
+		debug = true,
 	})
 end
 
