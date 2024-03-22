@@ -102,7 +102,8 @@ local wk_settings = {
 	},
 	mappings = {
 		-- ["<CR>"] = { "<cmd>lua require('user.neovim').maximize_current_split()<CR>", "Maximize"},
-		["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
+		-- ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
+		["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
 		h = { "<cmd>nohlsearch<CR>", "No Highlight" },
 		e = { "<cmd>Neotree filesystem toggle right<cr>", " Explorer" },
 		I = { "<cmd>lua vim.lsp.inlay_hint(0)<cr>", " Toggle Inlay" },
@@ -204,14 +205,15 @@ local wk_settings = {
 			w = { "<cmd>Trouble workspace_diagnostics<cr>", "Diagnostics" },
 		},
 		-- Symbols (https://github.com/liuchengxu/vista.vim)
-		-- v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
+		v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
 		-- Harpoon (https://github.com/ThePrimeagen/harpoon)
-		a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
-		["<leader>"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", " Harpoon" },
-		["<leader>1"] = { "<CMD>lua require('harpoon.ui').nav_file(1)<CR>", " goto1" },
-		["<leader>2"] = { "<CMD>lua require('harpoon.ui').nav_file(2)<CR>", " goto2" },
-		["<leader>3"] = { "<CMD>lua require('harpoon.ui').nav_file(3)<CR>", " goto3" },
-		["<leader>4"] = { "<CMD>lua require('harpoon.ui').nav_file(4)<CR>", " goto4" },
+		-- a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
+		a = { "<cmd>lua require('harpoon'):list():append()<CR>", " Add Mark" },
+		["<leader>"] = { "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<CR>", " Harpoon" },
+		["1"] = { "<cmd>lua require('harpoon'):list():select(1)<CR>", " goto1" },
+		["2"] = { "<cmd>lua require('harpoon'):list():select(2)<CR>", " goto1" },
+		["3"] = { "<cmd>lua require('harpoon'):list():select(3)<CR>", " goto1" },
+		["4"] = { "<cmd>lua require('harpoon'):list():select(4)<CR>", " goto1" },
 		P = { "<cmd>Telescope project<CR>", " Projects" },
 	},
 }

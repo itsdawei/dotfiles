@@ -48,14 +48,6 @@ return lazy.setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
 	{ "nvimtools/none-ls.nvim" },
-	-- {
-	-- 				"kosayoda/nvim-lightbulb",
-	-- 				config = function()
-	-- 					require("plugins.lsp.nvim-lightbulb")
-	-- 				end,
-	-- 				event = { "InsertEnter", "CursorMoved" },
-	-- 			},
-	{ "onsails/lspkind-nvim" },
 	{
 		"ray-x/lsp_signature.nvim",
 		config = function()
@@ -124,10 +116,42 @@ return lazy.setup({
 	},
 
 	-- Autopairs
+	-- {
+	-- 	"windwp/nvim-autopairs",
+	-- 	config = function()
+	-- 		require("core.autopairs").setup()
+	-- 	end,
+	-- },
 	{
 		"windwp/nvim-autopairs",
-		config = function()
-			require("core.autopairs").setup()
+		event = "InsertEnter",
+		opts = {
+			check_ts = true,
+			ts_config = { java = false },
+			fast_wrap = {
+				map = "<M-e>",
+				chars = { "{", "[", "(", '"', "'" },
+				pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+				offset = 0,
+				end_key = "$",
+				keys = "qwertyuiopzxcvbnmasdfghjkl",
+				check_comma = true,
+				highlight = "PmenuSel",
+				highlight_grey = "LineNr",
+			},
+		},
+		config = function(_, opts)
+			local npairs = require("nvim-autopairs")
+			npairs.setup(opts)
+			local cmp_status_ok, cmp = pcall(require, "cmp")
+			if cmp_status_ok then
+				cmp.event:on(
+					"confirm_done",
+					require("nvim-autopairs.completion.cmp").on_confirm_done({
+						tex = false,
+					})
+				)
+			end
 		end,
 	},
 
@@ -154,7 +178,7 @@ return lazy.setup({
 	},
 	{
 		"pwntester/octo.nvim",
-		requires = {
+		dependencies = {
 			-- https://github.com/cli/cli/blob/trunk/docs/install_linux.md#arch-linux
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
@@ -195,6 +219,19 @@ return lazy.setup({
 		end,
 		branch = "main",
 		event = "BufWinEnter",
+	},
+
+	-- trim.nvim [auto trim spaces]
+	-- https://github.com/cappyzawa/trim.nvim
+	{
+		"cappyzawa/trim.nvim",
+		event = "BufWrite",
+		opts = {
+			trim_on_write = true,
+			trim_trailing = true,
+			trim_last_line = false,
+			trim_first_line = false,
+		},
 	},
 
 	-- Match-up
@@ -262,7 +299,14 @@ return lazy.setup({
 	-- 		require("user.tabout").config()
 	-- 	end,
 	-- })
-	{ "ThePrimeagen/harpoon" },
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("harpoon"):setup({})
+		end,
+	},
 	{ "stevearc/dressing.nvim", event = "VeryLazy" },
 	{
 		"ThePrimeagen/refactoring.nvim",
@@ -355,5 +399,32 @@ return lazy.setup({
 			})
 		end,
 	},
-	{ "elkowar/yuck.vim" },
+
+	{
+		"Zeioth/compiler.nvim",
+		cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+		dependencies = { "stevearc/overseer.nvim" },
+		opts = {},
+	},
+	{
+		"stevearc/overseer.nvim",
+		commit = "68a2d344cea4a2e11acfb5690dc8ecd1a1ec0ce0",
+		cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+		opts = {
+			task_list = {
+				direction = "bottom",
+				min_height = 25,
+				max_height = 25,
+				default_detail = 1,
+			},
+		},
+	},
+	{
+		"zeioth/garbage-day.nvim",
+		dependencies = "neovim/nvim-lspconfig",
+		event = "VeryLazy",
+		opts = {
+			-- your options here
+		},
+	},
 })
