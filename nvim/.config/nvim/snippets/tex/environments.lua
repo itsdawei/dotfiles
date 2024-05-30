@@ -23,15 +23,38 @@ return {
 		{ trig = "template" },
 		fmta(
 			[[
-        \documentclass[a4paper]{article}
+        \documentclass[12pt]{article}
 
-        \input{/home/dawei/.dotfiles/templates/preamble}
         \input{/home/dawei/.dotfiles/templates/math_commands}
+
+        \usepackage{setspace}
+        \usepackage{titlesec}
+        \usepackage{parskip}
+        \usepackage[font=footnotesize, labelfont=bf]{caption}
+
+        \usepackage{fancyhdr}
+        \usepackage[margin=1in]{geometry}
+
+        \usepackage[utf8]{inputenc} % allow utf-8 input
+        \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+        \usepackage{hyperref}       % hyperlinks
+        \usepackage{cleveref}
+        \usepackage{url}            % simple URL typesetting
+        \usepackage{nicefrac}       % compact symbols for 1/2, etc.
+        \usepackage{microtype}      % microtypography
+        \usepackage{soul}
+        \usepackage{float}
 
         \cfoot{\thepage}
         \lhead{Lee}
         \chead{}
         \rhead{}
+
+        \hypersetup{
+          colorlinks=true,
+          bookmarksnumbered=true,
+          bookmarksopen=true,
+        }
 
         \begin{document}
         <>

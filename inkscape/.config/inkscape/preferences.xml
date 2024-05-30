@@ -96,10 +96,10 @@
     <group
        id="base"
        pagecolor="#505050"
-       deskcolor="#d1d1d1"
+       deskcolor="#505050"
        pageopacity="0"
-       pagecheckerboard="0"
-       bordercolor="#eeeeee"
+       pagecheckerboard="1"
+       bordercolor="#ffffff"
        borderopacity="1"
        objecttolerance="10.0"
        gridtolerance="10.0"
@@ -118,12 +118,13 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="6.06771739449088"
-         height="4.57850628950465" />
+         width="37.4315379611455"
+         height="8.8205122821323" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
-         usecurrent="1">
+         usecurrent="1"
+         persp="perspective34">
         <side
            id="XYfront"
            style="fill:#8686bf;stroke:none;stroke-linejoin:round;"
@@ -189,7 +190,7 @@
          style="stroke-width:1px;"
          usecurrent="1"
          shape="0"
-         freehand-mode="0" />
+         freehand-mode="3" />
     </group>
     <eventcontext
        id="calligraphic"
@@ -202,7 +203,7 @@
        cap_rounding="0.1"
        usecurrent="1"
        tracebackground="0"
-       usepressure="1"
+       usepressure="0"
        usetilt="1"
        keep_selected="1"
        abs_width="1"
@@ -312,7 +313,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="in"
+       unit="cm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -339,8 +340,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="145.650132651444"
-       y="656.798133705549"
+       x="269.96701474827"
+       y="127.264286404364"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -581,7 +582,7 @@
        id="toolbox" />
     <group
        id="fillstroke"
-       page="2" />
+       page="1" />
     <group
        id="filtereffects" />
     <group
@@ -997,8 +998,8 @@
        scaleLineHeightFromFontSIze="1" />
     <group
        id="boot"
-       theme="colorful"
-       canvas="dark">
+       theme="compacted"
+       canvas="dark-check">
       <group
          id="shown"
          ver1.2.2="1"
@@ -1031,13 +1032,20 @@
      org.inkscape.render.grid_cartesian.y_div_unit="px"
      org.inkscape.filter.add_nodes.method="bymax"
      org.inkscape.filter.add_nodes.unit="px"
-     org.inkscape.input.svg.scale="auto" />
+     org.inkscape.input.svg.scale="auto"
+     org.inkscape.effect.grid.__live_effect__="0"
+     org.inkscape.effect.grid.xspacing="41.9"
+     org.inkscape.effect.grid.lineWidth="1"
+     org.inkscape.effect.grid.xoffset="2.77555756156289e-17"
+     org.inkscape.effect.grid.yspacing="15.2999999999999"
+     org.inkscape.effect.grid.yoffset="0"
+     org.inkscape.render.grid_cartesian.__live_effect__="0" />
   <group
      id="desktop"
-     style="fill:#000000;font-size:0.46666667px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-width:0.96;stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers">
+     style="fill:#000000;font-size:16px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers;stroke-width:3.77952756">
     <group
-       width="1894"
-       height="1035"
+       width="1054"
+       height="931"
        x="0"
        y="0"
        maximized="1"
@@ -1067,7 +1075,7 @@
     <group
        id="tools"
        icononly="1"
-       small="0"
+       small="1"
        iconsize="16"
        width="32">
       <group
@@ -1169,11 +1177,11 @@
      preferDarkTheme="1"
      darkTheme="1"
      symbolicIcons="1"
-     symbolicDefaultBaseColors="0"
-     symbolicDefaultHighColors="0"
+     symbolicDefaultBaseColors="1"
+     symbolicDefaultHighColors="1"
      syntax-color-theme="inkscape-dark"
-     gtkTheme="Adwaita"
-     iconTheme="multicolor">
+     gtkTheme="Minwaita-Inkscape"
+     iconTheme="hicolor">
     <group
        id="multicolor"
        symbolicBaseColor="3958107135"

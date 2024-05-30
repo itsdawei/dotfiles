@@ -185,7 +185,12 @@ return lazy.setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			require("octo").setup()
+			require("octo").setup({
+				suppress_missing_scope = {
+					projects_v2 = true,
+				},
+			}
+)
 		end,
 	},
 
@@ -218,6 +223,7 @@ return lazy.setup({
 			require("core.bufferline").setup()
 		end,
 		branch = "main",
+		commit = "f6f00d9ac1a51483ac78418f9e63126119a70709",
 		event = "BufWinEnter",
 	},
 
@@ -336,8 +342,11 @@ return lazy.setup({
 	-- filtypes
 	{
 		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
-		ft = "markdown",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
 	},
 	{
 		"lervag/vimtex",
@@ -374,9 +383,6 @@ return lazy.setup({
 	{
 		"nvim-orgmode/orgmode",
 		config = function()
-			-- Load custom treesitter grammar for org filetype
-			require("orgmode").setup_ts_grammar()
-
 			require("nvim-treesitter.configs").setup({
 				highlight = {
 					enable = true,
