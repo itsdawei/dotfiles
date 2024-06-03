@@ -313,7 +313,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="cm"
+       unit="in"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -632,7 +632,7 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="600" />
+         value="500" />
     </group>
     <group
        id="save_as"
@@ -1044,8 +1044,8 @@
      id="desktop"
      style="fill:#000000;font-size:16px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers;stroke-width:3.77952756">
     <group
-       width="1054"
-       height="931"
+       width="799"
+       height="755"
        x="0"
        y="0"
        maximized="1"

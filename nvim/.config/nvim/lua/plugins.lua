@@ -55,6 +55,14 @@ return lazy.setup({
 		end,
 		event = { "BufRead", "BufNew" },
 	},
+	{
+		"zeioth/garbage-day.nvim",
+		dependencies = "neovim/nvim-lspconfig",
+		event = "VeryLazy",
+		opts = {
+			-- your options here
+		},
+	},
 
 	--- Navigation ---
 	{
@@ -116,12 +124,6 @@ return lazy.setup({
 	},
 
 	-- Autopairs
-	-- {
-	-- 	"windwp/nvim-autopairs",
-	-- 	config = function()
-	-- 		require("core.autopairs").setup()
-	-- 	end,
-	-- },
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -330,15 +332,6 @@ return lazy.setup({
 		event = "BufRead",
 	},
 
-	-- Winbar
-	{
-		"fgheng/winbar.nvim",
-		config = function()
-			require("extra.winbar").setup()
-		end,
-		event = { "InsertEnter", "CursorMoved" },
-	},
-
 	-- filtypes
 	{
 		"iamcco/markdown-preview.nvim",
@@ -423,14 +416,6 @@ return lazy.setup({
 				max_height = 25,
 				default_detail = 1,
 			},
-		},
-	},
-	{
-		"zeioth/garbage-day.nvim",
-		dependencies = "neovim/nvim-lspconfig",
-		event = "VeryLazy",
-		opts = {
-			-- your options here
 		},
 	},
 })

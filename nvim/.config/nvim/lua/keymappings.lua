@@ -207,13 +207,42 @@ local wk_settings = {
 		-- Symbols (https://github.com/liuchengxu/vista.vim)
 		v = { "<cmd>Vista!!<cr>", "Symbol Outline" },
 		-- Harpoon (https://github.com/ThePrimeagen/harpoon)
-		-- a = { "<cmd>lua require('harpoon.mark').add_file()<CR>", " Add Mark" },
-		a = { "<cmd>lua require('harpoon'):list():append()<CR>", " Add Mark" },
-		["<leader>"] = { "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<CR>", " Harpoon" },
-		["1"] = { "<cmd>lua require('harpoon'):list():select(1)<CR>", " goto1" },
-		["2"] = { "<cmd>lua require('harpoon'):list():select(2)<CR>", " goto1" },
-		["3"] = { "<cmd>lua require('harpoon'):list():select(3)<CR>", " goto1" },
-		["4"] = { "<cmd>lua require('harpoon'):list():select(4)<CR>", " goto1" },
+		a = {
+			function()
+				require("harpoon"):list():add()
+			end,
+			" Add Mark",
+		},
+		["<leader>"] = {
+			function()
+				require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+			end,
+			" Harpoon",
+		},
+		["1"] = {
+			function()
+				require("harpoon"):list():select(1)
+			end,
+			" goto1",
+		},
+		["2"] = {
+			function()
+				require("harpoon"):list():select(2)
+			end,
+			" goto2",
+		},
+		["3"] = {
+			function()
+				require("harpoon"):list():select(3)
+			end,
+			" goto3",
+		},
+		["4"] = {
+			function()
+				require("harpoon"):list():select(4)
+			end,
+			" goto4",
+		},
 		P = { "<cmd>Telescope project<CR>", " Projects" },
 	},
 }
