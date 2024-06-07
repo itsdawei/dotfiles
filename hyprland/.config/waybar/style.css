@@ -1,9 +1,37 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: Mononoki Nerd Font;
-  font-size: 12px;
+  font-family: JetBrains Mono NerdFont;
+  font-size: 1.2rem;
   min-height: 0;
+}
+
+.modules-left {
+  background: linear-gradient(
+    315deg,
+    rgba(145, 0, 135, 0.4),
+    rgba(79, 0, 116, 0.6)
+  );
+  border-radius: 0.5rem;
+  padding: 3px;
+}
+.modules-center {
+  background: linear-gradient(
+    180deg,
+    rgba(145, 0, 135, 0.4),
+    rgba(79, 0, 116, 0.6)
+  );
+  border-radius: 0.5rem;
+  padding: 3px;
+}
+.modules-right {
+  background: linear-gradient(
+    45deg,
+    rgba(145, 0, 135, 0.4),
+    rgba(79, 0, 116, 0.6)
+  );
+  border-radius: 0.5rem;
+  padding: 3px;
 }
 
 window#waybar {
@@ -17,13 +45,25 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
-#workspaces button {
+#workspaces {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  margin-left: 3px;
+  margin-right: 3px;
   padding: 0 5px;
-  color: white;
+}
+
+#workspaces button {
+  font-size: 1.2rem;
+  padding: 0 0.3rem 0 0;
 }
 
 #workspaces button.active {
-  border-bottom: 3px solid green;
+  color: #a752df;
+}
+
+#workspaces button.urgent {
+  color: red;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -34,12 +74,8 @@ window#waybar.hidden {
 }
 
 #workspaces button.focused {
-  background-color: #64727d;
+  /* background-color: #64727d; */
   border-bottom: 3px solid white;
-}
-
-#workspaces button.urgent {
-  background-color: red;
 }
 
 #mode {
@@ -47,7 +83,6 @@ window#waybar.hidden {
   border-bottom: 3px solid white;
 }
 
-#workspaces button,
 #clock,
 #battery,
 #cpu,
@@ -64,7 +99,7 @@ window#waybar.hidden {
   margin: 0 4px;
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
-  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+  /* border-bottom: 3px solid rgba(255, 255, 255, 0.2); */
 }
 
 #custom-launcher {
@@ -78,17 +113,17 @@ window#waybar.hidden {
   margin-left: 0;
 }
 
-/* #clock { */
-/*   padding: 0 0; */
-/*   margin: 0 0; */
-/* } */
-/* #clock:not(.2) { */
-/*   border-bottom: none; */
-/* } */
-
-#tray {
-  margin-right: 0;
+#clock.time,
+#clock.date {
+  font-weight: 600;
+  padding: 0 0;
+  margin: 0 0;
 }
+
+/* #tray { */
+/*   margin-right: 0; */
+/*   background-color: rgba(255, 255, 255, 0.5); */
+/* } */
 
 #battery:not(.charging) {
   border-bottom: 3px solid green;

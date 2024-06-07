@@ -7,19 +7,28 @@
     "margin-right": 10,
     "margin-bottom": -5,
     "spacing": 4,
+    "height": 40,
 
-    "modules-left": ["custom/launcher", "hyprland/workspaces", "tray", "hyprland/submap"],
-    "modules-center": ["hyprland/window"],
+    "modules-left": [
+      "custom/launcher",
+      "hyprland/workspaces",
+      "hyprland/submap",
+      "clock#date",
+      "custom/space",
+      "clock#time",
+      "hyprland/window",
+    ],
+    // "modules-center": ["hyprland/window"],
+    "modules-center": [],
     "modules-right": [
+      "tray",
       "battery",
       "temperature",
       "cpu",
-      "memory",
+      // "memory",
       "pulseaudio",
       // "network",
       "backlight",
-      "clock",
-      "idle_inhibitor"
     ],
 
     "custom/launcher": {
@@ -30,9 +39,9 @@
     "hyprland/workspaces": {
       "format": "{icon}",
       "format-icons": {
-        "1": "󰲠",
-        "2": "󰲢",
-        "3": "󰲤",
+        "1": "",
+        "2": "",
+        "3": "",
         "4": "󰲦",
         "5": "󰲨",
         "6": "󰲪",
@@ -44,6 +53,9 @@
         // "active": "",
         "default": ""
       },
+      "persistent-workspaces": {
+        "*": [1, 2, 3, 4],
+      },
       "all-outputs": true,
       "on-scroll-up": "hyprctl dispatch workspace e+1",
       "on-scroll-down": "hyprctl dispatch workspace e-1"
@@ -51,9 +63,10 @@
     "hyprland/window": {
       "format": " {}",
       "rewrite": {
-        "(.*) — Mozilla Firefox": " $1", 
+        "(.*) — Mozilla Firefox": " $1",
         "(.*) - fish": "  [$1]",
         "(.*) - (nn|nvim)": "<span color=\"#5af78e\">  Neovim</span> ",
+        "(.*): (tmux.*) - (tmux)": "<span color=\"#5af78e\">  tmux</span> ",
         "ranger(.*)": "  $1"
       },
       "max-length": 200,
@@ -104,9 +117,39 @@
       "format": "{icon} {percent}%",
       "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
-    "clock": {
-      "format": " {:%I:%M %p}"
+    // "clock": {
+    //   "format": " {:%I:%M %p}"
+    // }
+"clock#date": {
+    "tooltip": true,
+    "format": "{:%a, %b %d}",
+    "tooltip-format": "{:%A, %B %d, %Y}"
+  },
+
+  "clock#time": {
+    "interval": 1,
+    "format": "{:%I:%M%p}",
+    "tooltip-format": "<small>{calendar}</small>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        // "weeks": "<span color='#99ffdd'><b>w{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-middle": "shift_reset",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     }
+  },
 },
 {
     "layer": "top",
@@ -150,7 +193,7 @@
     "hyprland/window": {
       "format": " {}",
       "rewrite": {
-        "(.*) — Mozilla Firefox": " $1", 
+        "(.*) — Mozilla Firefox": " $1",
         "(.*) - fish": "  [$1]",
         "(.*) - (nn|nvim)": "<span color=\"#5af78e\">  Neovim</span> ",
         "ranger(.*)": "  $1"
