@@ -2,11 +2,9 @@ set -U fish_user_paths /usr/local/opt/make/libexec/gnubin /usr/local/bin /usr/lo
 set TERM "screen-256color"             # Sets the terminal type
 set PYTHONPATH = /usr/local/bin $PYTHONPATH
 set JAVA_HOME = /usr/bin/java
+
 set EDITOR "nvim"                      # $EDITOR use nvim in terminal
 set VISUAL "nvim"                      # $VISUAL use nvim in GUI mode
-
-set -U FZF_TMUX 1
-set -U FZF_ENABLE_OPEN_PREVIEW 1
 
 function fish_greeting
     if test (random 1 128) = 1
@@ -15,36 +13,6 @@ function fish_greeting
         pokemon-colorscripts -r --no-title
     end
 end
-
-### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
-function fish_user_key_bindings
-  fish_vi_key_bindings
-end
-### END OF VI MODE ###
-
-### FUNCTIONS ###
-# Function for creating a backup file
-# ex: backup file.txt
-# result: copies file as file.txt.bak
-function backup --argument filename
-    cp $filename $filename.bak
-end
-
-# Function for copying files and directories, even recursively.
-# ex: copy DIRNAME LOCATIONS
-# result: copies the directory and all of its contents.
-function copy
-	set count (count $argv | tr -d \n)
-	if test "$count" = 2; and test -d "$argv[1]"
-		set from (echo $argv[1] | trim-right /)
-		set to (echo $argv[2])
-				command cp -r $from $to
-	else
-		command cp $argv
-	end
-end
-### END OF FUNCTIONS ###
-
 
 ### ALIASES ###
 # navigation
@@ -90,15 +58,15 @@ alias dcm='docker-compose -f minecraft.yml'
 # thefuck
 thefuck --alias | source
 
-### SETTING THE STARSHIP PROMPT ###
-starship init fish | source
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    set fish_greeting
+end
 
-### AUTOCOMPLETE AND HIGHLIGHT COLORS ###
-set fish_color_normal brcyan
-set fish_color_autosuggestion '#7d7d7d'
-set fish_color_command brcyan
-set fish_color_error '#ff6c6b'
-set fish_color_param brcyan
+starship init fish | source
+if test -f ~/.cache/ags/user/generated/terminal/sequences.txt
+    cat ~/.cache/ags/user/generated/terminal/sequences.txt
+end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -112,5 +80,3 @@ if string length -q -- $TMUX
   eval conda deactivate && conda activate base
 end
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/dawei/google-cloud-sdk/path.fish.inc' ]; . '/Users/dawei/google-cloud-sdk/path.fish.inc'; end
