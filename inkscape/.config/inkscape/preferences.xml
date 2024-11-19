@@ -118,8 +118,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="37.4315379611455"
-         height="8.8205122821323" />
+         width="180.467365895669"
+         height="5.03548103993332" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -156,8 +156,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="2.31549455961869"
-         ry="2.30400000579788"
+         rx="16.4315693772684"
+         ry="10.7335254338783"
          arc_type="0" />
       <eventcontext
          id="star"
@@ -190,7 +190,7 @@
          style="stroke-width:1px;"
          usecurrent="1"
          shape="0"
-         freehand-mode="3" />
+         freehand-mode="2" />
     </group>
     <eventcontext
        id="calligraphic"
@@ -313,7 +313,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="in"
+       unit="mm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -322,9 +322,12 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/()"
        show_sample_in_list="1"
        use_svg2="1"
-       style="line-height:1.25;font-family:sans-serif;font-size:2.66666667px"
+       style="line-height:1.25;font-family:sans-serif;font-size:2.66666667px;text-anchor:middle;text-align:center;text-orientation:auto"
        selcue="1"
-       align_mode="1" />
+       align_mode="1"
+       writing_mode="0"
+       orientation_mode="0"
+       direction_mode="0" />
     <eventcontext
        id="nodes"
        selcue="1"
@@ -340,10 +343,10 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="269.96701474827"
-       y="127.264286404364"
        edit_clipping_paths="0"
-       edit_masks="0" />
+       edit_masks="0"
+       x="484.400121388762"
+       y="215.244068636221" />
     <eventcontext
        id="marker"
        selcue="1"
@@ -362,7 +365,8 @@
        doh="1"
        dos="1"
        dol="1"
-       doo="1" />
+       doo="1"
+       mode="0" />
     <eventcontext
        id="spray"
        selcue="1"
@@ -377,7 +381,9 @@
        mean="0" />
     <eventcontext
        id="gradient"
-       selcue="1" />
+       selcue="1"
+       newgradient="1"
+       newfillorstroke="1" />
     <eventcontext
        id="mesh"
        selcue="1"
@@ -397,6 +403,8 @@
        id="select"
        selcue="1"
        gradientdrag="0"
+       changelayer="1"
+       changepage="1"
        touch_box="1" />
     <eventcontext
        id="connector"
@@ -593,7 +601,7 @@
        rotateCounterClockwise="1" />
     <group
        id="align"
-       objects-align-to="first" />
+       objects-align-to="page" />
     <group
        id="xml"
        h="500"
@@ -632,7 +640,10 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="500" />
+         value="600" />
+      <group
+         id="batch"
+         path="/home/dawei/Documents/talks/DP_Pre_Assets" />
     </group>
     <group
        id="save_as"
@@ -650,11 +661,11 @@
     <group
        id="open"
        enable_preview="1"
-       path="/home/dawei/Downloads" />
+       path="/home/dawei/Downloads/" />
     <group
        id="import"
        enable_preview="1"
-       path="/home/dawei/Downloads/"
+       path="/home/dawei/Pictures/Screenshots/"
        ask="1"
        ask_svg="1"
        link="embed"
@@ -669,7 +680,7 @@
        dotrace="0"
        fillrect="0"
        jmax="1"
-       imax="3" />
+       imax="6" />
     <group
        id="gridtiler"
        SpacingType="20" />
@@ -715,6 +726,15 @@
     <group
        id="layerProp"
        addLayerPosition="1" />
+    <group
+       id="object-properties">
+      <group
+         id="path-panel"
+         precision="2" />
+    </group>
+    <group
+       id="object-properties-widget"
+       expand-props="1" />
   </group>
   <group
      id="printing">
@@ -763,7 +783,7 @@
        value="12" />
     <group
        id="cursortolerance"
-       value="8.0" />
+       value="8" />
     <group
        id="dragtolerance"
        value="4.0" />
@@ -987,11 +1007,22 @@
          angle_x="30.0"
          angle_z="30.0"
          empspacing="5" />
+      <group
+         id="modular"
+         units="mm"
+         origin_x="0.0"
+         origin_y="0.0"
+         spacing_x="40.0"
+         spacing_y="40.0"
+         gapx="10"
+         gapy="10"
+         marginx="0"
+         marginy="0" />
     </group>
     <group
        id="workarounds"
-       colorsontop="0"
-       partialdynamic="0" />
+       partialdynamic="0"
+       colorsontop="0" />
     <group
        id="font"
        unitType="2"
@@ -1005,7 +1036,8 @@
          ver1.2.2="1"
          ver1.3="1"
          ver1.3.1="1"
-         ver1.3.2="1" />
+         ver1.3.2="1"
+         ver1.4="1" />
     </group>
     <group
        id="rendering" />
@@ -1023,7 +1055,7 @@
      org.inkscape.output.png.inkscape.png_compression="6"
      org.inkscape.output.png.inkscape.png_antialias="2"
      org.inkscape.generate.pdf_latex.page="basic"
-     org.inkscape.generate.pdf_latex.formule="$\sqrt{a^2 + x^2}$"
+     org.inkscape.generate.pdf_latex.formule="$\mathrm{OPT}(0) = 0 \ \ \  \mathrm{OPT}(i) = \max(\mathrm{OPT}(i-1), w_i+\mathrm{OPT}(p_i))$"
      org.inkscape.template.from-file.filename="/usr/share/inkscape/templates/LaTeX_Beamer.svg"
      org.inkscape.render.grid_cartesian.border_th_unit="px"
      org.inkscape.render.grid_cartesian.dx_unit="mm"
@@ -1039,16 +1071,18 @@
      org.inkscape.effect.grid.xoffset="2.77555756156289e-17"
      org.inkscape.effect.grid.yspacing="15.2999999999999"
      org.inkscape.effect.grid.yoffset="0"
-     org.inkscape.render.grid_cartesian.__live_effect__="0" />
+     org.inkscape.render.grid_cartesian.__live_effect__="0"
+     org.inkscape.input.gdkpixbuf.png.do_not_ask="0"
+     org.inkscape.input.gdkpixbuf.png.scale="optimizeQuality" />
   <group
      id="desktop"
-     style="fill:#000000;font-size:16px;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers;stroke-width:3.77952756">
+     style="fill:#000000;font-size:12px;-inkscape-font-specification:'Source Sans Pro, Normal';font-family:'Source Sans Pro';stroke-linejoin:round;text-anchor:middle;text-align:center;paint-order:stroke fill markers;stroke-width:1.81795276;text-orientation:auto">
     <group
-       width="799"
-       height="755"
+       width="1894"
+       height="1134"
        x="0"
        y="0"
-       maximized="1"
+       maximized="0"
        fullscreen="0"
        id="geometry" />
     <group
@@ -1172,7 +1206,7 @@
      id="theme"
      defaultPreferDarkTheme="0"
      defaultIconTheme="Adwaita"
-     defaultGtkTheme="Adwaita"
+     defaultGtkTheme="adw-gtk3-dark"
      narrowSpinButton="1"
      preferDarkTheme="1"
      darkTheme="1"

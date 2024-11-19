@@ -16,10 +16,8 @@
       "clock#date",
       "custom/space",
       "clock#time",
-      "hyprland/window",
     ],
-    // "modules-center": ["hyprland/window"],
-    "modules-center": [],
+    "modules-center": ["hyprland/window"],
     "modules-right": [
       "tray",
       "battery",
@@ -39,7 +37,7 @@
     "hyprland/workspaces": {
       "format": "{icon}",
       "format-icons": {
-        "1": "",
+        "1": " ",
         "2": "",
         "3": "",
         "4": "󰲦",
@@ -87,7 +85,7 @@
       "tooltip": false,
     },
     "cpu": {
-       "format": "{usage}% "
+       "format": "  {usage}%"
     },
     "memory": {
       "interval": 30,
@@ -108,10 +106,10 @@
       "interface": "wlp0s20f3",
       "interval": 2,
       "format": " {bandwidthDownBits}  {bandwidthUpBits}",
-   //   "format": "{ifname}",
-   //   "format-wifi": "  {essid}",
-   //   "format-ethernet": "{ipaddr}/{cidr} ",
-   //   "format-disconnected": "<span color='#b4befe'>󰖪 </span>No Network",
+    //  "format": "{ifname}",
+    //  "format-wifi": "  {essid}",
+    //  "format-ethernet": "{ipaddr}/{cidr} ",
+    //  "format-disconnected": "<span color='#b4befe'>󰖪 </span>No Network",
     },
     "backlight": {
       "format": "{icon} {percent}%",
@@ -120,36 +118,35 @@
     // "clock": {
     //   "format": " {:%I:%M %p}"
     // }
-"clock#date": {
-    "tooltip": true,
-    "format": "{:%a, %b %d}",
-    "tooltip-format": "{:%A, %B %d, %Y}"
-  },
-
-  "clock#time": {
-    "interval": 1,
-    "format": "{:%I:%M%p}",
-    "tooltip-format": "<small>{calendar}</small>",
-    "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        // "weeks": "<span color='#99ffdd'><b>w{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+    "clock#date": {
+      "tooltip": true,
+      "format": "{:%a, %b %d}",
+      "tooltip-format": "{:%A, %B %d, %Y}"
+    },
+    "clock#time": {
+      "interval": 1,
+      "format": "{:%I:%M%p}",
+      "tooltip-format": "<small>{calendar}</small>",
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          // "weeks": "<span color='#99ffdd'><b>w{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-click-middle": "shift_reset",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
       }
     },
-    "actions": {
-      "on-click-right": "mode",
-      "on-click-middle": "shift_reset",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
-  },
 },
 {
     "layer": "top",

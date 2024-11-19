@@ -81,6 +81,8 @@ M.setup = function()
 	require("lsp.texlab").setup()
 	-- require("lspconfig")["jsonls"].setup()
 
+	-- require("lsp.hydra_lsp").setup()
+
 	-- Check if there exists a provider for it
 	for server, config in pairs(servers) do
 		common.server_setup(server, config)

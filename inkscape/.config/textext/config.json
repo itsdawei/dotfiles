@@ -6,9 +6,10 @@
     "insert_spaces": true,
     "tab_width": 4,
     "word_wrap": true,
-    "white_preview_background": false
+    "white_preview_background": false,
+    "new_node_content": "InlineMath"
   },
-  "preamble": "/usr/share/inkscape/extensions/textext/default_packages.tex",
-  "scale": 0.07919935708007173,
+  "preamble": "/home/dawei/.dotfiles/templates/math_commands.tex",
+  "scale": 0.05379279520078241,
   "previous_tex_command": "pdflatex"
 }

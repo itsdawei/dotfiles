@@ -18,7 +18,19 @@ end
 
 return lazy.setup({
 	-- Core
-	{ "max397574/which-key.nvim" },
+	{
+		"max397574/which-key.nvim",
+		dependencies = {
+			{
+				"echasnovski/mini.nvim",
+				version = false,
+				config = function()
+					require("mini.icons").setup()
+				end,
+			},
+			{ "nvim-tree/nvim-web-devicons" },
+		},
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
@@ -191,8 +203,7 @@ return lazy.setup({
 				suppress_missing_scope = {
 					projects_v2 = true,
 				},
-			}
-)
+			})
 		end,
 	},
 
