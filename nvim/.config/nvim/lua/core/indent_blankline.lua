@@ -34,8 +34,6 @@ M.setup = function()
 				"TelescopePrompt",
 				"undotree",
 				"flutterToolsOutline",
-				"org",
-				"orgagenda",
 				"help",
 				"startify",
 				"dashboard",

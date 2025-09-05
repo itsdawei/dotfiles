@@ -190,22 +190,6 @@ return lazy.setup({
 		end,
 		event = "BufRead",
 	},
-	{
-		"pwntester/octo.nvim",
-		dependencies = {
-			-- https://github.com/cli/cli/blob/trunk/docs/install_linux.md#arch-linux
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("octo").setup({
-				suppress_missing_scope = {
-					projects_v2 = true,
-				},
-			})
-		end,
-	},
 
 	-- Comments
 	{
@@ -381,32 +365,6 @@ return lazy.setup({
 		"norcalli/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
-		end,
-	},
-
-	{
-		"nvim-orgmode/orgmode",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = { "org" },
-				},
-				ensure_installed = { "org" }, -- Or run :TSUpdate org
-			})
-
-			require("orgmode").setup({
-				org_highlight_latex_and_related = "entities",
-				org_agenda_files = { "~/Documents/org/**/*" },
-				org_default_notes_file = "~/Documents/org/refile.org",
-				org_agenda_templates = {
-					T = {
-						description = "Todo",
-						template = "* TODO %?\n  DEADLINE: %T",
-						target = "~/Documents/org/todo.org",
-					},
-				},
-			})
 		end,
 	},
 

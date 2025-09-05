@@ -47,7 +47,6 @@ function M.setup()
 			{ name = "treesitter" },
 			{ name = "tmux" },
 			{ name = "latex_symbols" },
-			{ name = "orgmode" },
 		},
 	})
 
