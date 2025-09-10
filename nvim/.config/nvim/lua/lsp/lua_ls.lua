@@ -7,7 +7,7 @@ function M.setup()
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim", "packer_plugins" },
+					globals = { "vim"},
 				},
 				workspace = {
 					library = vim.api.nvim_get_runtime_file("", true),

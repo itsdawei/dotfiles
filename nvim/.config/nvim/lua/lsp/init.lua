@@ -72,8 +72,10 @@ M.setup = function()
 		},
 	})
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "pylsp" },
+		ensure_installed = { "lua_ls", "pylsp", "texlab", "clangd" },
 		automatic_installation = true,
+    automatic_setup = false,
+    automatic_enable = false,
 	})
 
 	require("lsp.lua_ls").setup()
@@ -84,9 +86,9 @@ M.setup = function()
 	-- require("lsp.hydra_lsp").setup()
 
 	-- Check if there exists a provider for it
-	for server, config in pairs(servers) do
-		common.server_setup(server, config)
-	end
+	-- for server, config in pairs(servers) do
+	-- 	common.server_setup(server, config)
+	-- end
 	require("lspconfig")["clangd"].setup({
 		capabilities = require("cmp_nvim_lsp").default_capabilities(),
 	})
